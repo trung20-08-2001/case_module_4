@@ -13,7 +13,9 @@ public class Message {
     private Long id;
     private String message;
     private LocalDateTime timeSend;
-    private int sendingAccountId;
-    private int receivingAccountId;
+    @ManyToOne
+    private Account sendingAccountId;
+    @ManyToOne
+    private Account receivingAccountId;
 
 }

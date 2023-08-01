@@ -16,7 +16,7 @@ public class Product {
     private int quantity;
     private String status;
     private String manufacture;
-    private String describe;
+    private String description;
     @ManyToOne
     private Category category;
 }
