@@ -9,10 +9,9 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class Category {
+public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String name;
-    private String image;
 }
