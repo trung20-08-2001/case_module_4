@@ -24,4 +24,6 @@ public class Account {
     private String avatarShop;
     @ManyToOne
     private Role role;
+    @ManyToOne
+    private Status status;
 }

@@ -13,8 +13,9 @@ public class Invoice {
     private Long id;
     private Date dateCreate;
     private double total;
-    private String status;
     private String receivingAddress;
     @ManyToOne
     private Account account;
+    @ManyToOne
+    private Status status;
 }
