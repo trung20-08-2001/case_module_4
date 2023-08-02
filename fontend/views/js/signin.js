@@ -9,9 +9,9 @@ function login() {
         data: JSON.stringify(account),
         success: function (data) {
             localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem("account", JSON.stringify(data));
             if (data.role.name === "ROLE_USER") {
-                location.href = "user.html"
+                location.href = "view_usser/index.html"
             } else if (data.role.name === "ROLE_SHOP") {
                 location.href = "shop.html"
             } else if (data.role.name === "ROLE_ADMIN") {

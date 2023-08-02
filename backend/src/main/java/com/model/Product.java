@@ -17,4 +17,5 @@ public class Product {
     private Category category;
     @ManyToOne
     private Status status;
+    private String img;
 }
