@@ -21,7 +21,6 @@ public class LoginApi {
     AuthenticationManager authenticationManager;
     @Autowired
     JwtService jwtService;
-
     @Autowired
     IAccountService accountService;
 
@@ -33,7 +32,9 @@ public class LoginApi {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         account = accountService.login(account.getUsername(), account.getPassword());
         String token = jwtService.createToken(authentication);
-        return new AccountToken(account.getId(), account.getUsername(), token, account.getAvatar(), account.getRole());
-
+        return new AccountToken(account.getId(), account.getUsername(),token,account.getAvatar(),
+                account.getFullName(), account.getGender(),account.getRole(), account.getPhone(),
+                account.getEmail(), account.getBirthday(), account.getNameShop(), account.getAddress(),
+                account.getAvatarShop(),account.getStatus());
     }
 }
