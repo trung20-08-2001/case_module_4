@@ -32,11 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers("/login", "/register","/user**").permitAll()
-//                .and().authorizeRequests().antMatchers("/user**").hasRole("USER")
+        http.authorizeRequests().antMatchers("/login", "/register").permitAll()
+                .and().authorizeRequests().antMatchers("/user**").hasRole("USER")
                 .and().authorizeRequests().antMatchers("/admin**").hasRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/shop**").hasRole("SHOP")
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling();

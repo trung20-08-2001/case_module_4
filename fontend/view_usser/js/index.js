@@ -5,7 +5,7 @@ function showAllProduct() {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/products?page=" + page,
+        url: "http://localhost:8080/user/show?page=" + page,
         success: function (data) {
             showProduct(data);
         },
@@ -41,12 +41,25 @@ function showProduct(arr) {
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
-                        <small>(99)</small>
+                        <small onmousemove="reviewStar(${p.id})" id="pointReview"></small>
                     </div>
                 </div>
             </div>
         </div>`
-
-
     }
+}
+
+function reviewStar(number) {
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/user/reviewStar?idProduct=" + number,
+        success: function (data) {
+            document.getElementById("pointReview").innerHTML=data;
+        },
+        error: function (err) {
+        }
+    })
 }

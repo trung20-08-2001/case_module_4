@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 public class ProductService implements IProductService {
     @Autowired
     IProductRepository iProductRepository;
-
-
     @Override
     public Page<Product> getAllProduct(Pageable pageable) {
         return iProductRepository.findAll(pageable);

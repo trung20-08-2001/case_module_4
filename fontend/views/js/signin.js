@@ -10,13 +10,16 @@ function login() {
         success: function (data) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("account", JSON.stringify(data));
-            if (data.role.name === "ROLE_USER") {
-                location.href = "view_usser/index.html"
+            if (data.status.name !== "ACTIVE") {
+                location.href = "signin.html"
+            } else if (data.role.name === "ROLE_USER") {
+                location.href = "/view_usser/index.html"
             } else if (data.role.name === "ROLE_SHOP") {
                 location.href = "shop.html"
             } else if (data.role.name === "ROLE_ADMIN") {
                 location.href = "admin.html"
-            }
+            } else location.href = "views/signin.html"
+
         },
         error: function (err) {
             location.href = "register.html"
