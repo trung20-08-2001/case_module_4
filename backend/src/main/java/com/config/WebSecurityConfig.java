@@ -31,7 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.authorizeRequests().antMatchers("/login", "/register").permitAll()
                 .and().authorizeRequests().antMatchers("/user**").hasRole("USER")
                 .and().authorizeRequests().antMatchers("/admin**").hasRole("ADMIN")
@@ -43,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
