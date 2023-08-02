@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.model.CommentQuestion;
+import com.model.CommentReply;
 import com.service.ICommentQuestionService;
 import com.service.ICommentReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class UserController {
     }
 
     @GetMapping("/getCommentReply/{id}")
-    public Page<CommentQuestion> getCommentReply(@PathVariable int id,@RequestParam(defaultValue = "0")int page){
-        return commentQuestionService.getCommentQuestionByProduct(id, PageRequest.of(page,5));
+    public Page<CommentReply> getCommentReply(@PathVariable int id, @RequestParam(defaultValue = "0")int page){
+        return commentReplyService.getCommentReplyByCommentQuestion(id,PageRequest.of(page,5));
     }
 
 }

@@ -13,13 +13,12 @@ function login() {
             if (data.status.name !== "ACTIVE") {
                 location.href = "signin.html"
             } else if (data.role.name === "ROLE_USER") {
-                location.href = "/view_usser/index.html"
+                location.href = "../../user/index.html"
             } else if (data.role.name === "ROLE_SHOP") {
                 location.href = "shop.html"
             } else if (data.role.name === "ROLE_ADMIN") {
                 location.href = "admin.html"
             } else location.href = "views/signin.html"
-
         },
         error: function (err) {
             location.href = "register.html"

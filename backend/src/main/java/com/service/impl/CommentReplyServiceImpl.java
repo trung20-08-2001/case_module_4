@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 public class CommentReplyServiceImpl implements ICommentReplyService {
 
     @Autowired
-    ICommentReplyService commentReplyService;
+    ICommentReplyRepository commentReplyRepository;
     @Override
     public Page<CommentReply> getCommentReplyByCommentQuestion(int idCommentQuestion, Pageable pageable) {
-        return commentReplyService.getCommentReplyByCommentQuestion(idCommentQuestion,pageable);
+        return commentReplyRepository.getCommentReplyByCommentQuestion(idCommentQuestion,pageable);
     }
 
 }
