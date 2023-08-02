@@ -17,5 +17,7 @@ public class CommentReply {
     private Product product;
     @ManyToOne
     private CommentQuestion commentQuestion;
+    @ManyToOne
+    private Account account;
 
 }

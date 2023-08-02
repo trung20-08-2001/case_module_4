@@ -1,25 +1,34 @@
 package com.controller;
 
-import com.model.Category;
-import com.service.ICategoryService;
+import com.model.CommentQuestion;
+import com.service.ICommentQuestionService;
+import com.service.ICommentReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
-    ICategoryService categoryService;
+    ICommentQuestionService commentQuestionService;
+
+    @Autowired
+    ICommentReplyService commentReplyService;
 
 
-    @GetMapping("/getAllCategory")
-    public List<Category> getAllCategory(){
-        return categoryService.getAll();
+    @GetMapping("/getCommentQuestion/{id}")
+    public Page<CommentQuestion> getCommentQuestion(@PathVariable int id,@RequestParam(defaultValue = "0")int page){
+        return commentQuestionService.getCommentQuestionByProduct(id, PageRequest.of(page,5));
     }
+
+    @GetMapping("/getCommentReply/{id}")
+    public Page<CommentQuestion> getCommentReply(@PathVariable int id,@RequestParam(defaultValue = "0")int page){
+        return commentQuestionService.getCommentQuestionByProduct(id, PageRequest.of(page,5));
+    }
+
 }
