@@ -9710,3 +9710,11 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translateY(-15px);
   }
 }
+::-webkit-scrollbar{
+  background-color:lightgrey;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #6C757D;
+  border: 5px;
+}
