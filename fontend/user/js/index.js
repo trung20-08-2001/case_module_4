@@ -50,7 +50,6 @@ function showProduct(arr) {
         </div>`
     }
     $("#featured_product").html(str);
-
 }
 
 function reviewStar(number) {

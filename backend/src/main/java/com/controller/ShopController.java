@@ -24,65 +24,16 @@ public class ShopController {
     @Autowired
     IProductService iProductService;
 
-
-    @Value("${upload-path}")
-    private String upload;
-
     @GetMapping
-    public ResponseEntity<Page<Product>> getAllPage(@RequestParam(defaultValue = "0")int page) {
-        Page<Product> products = iProductService.getAllProduct(PageRequest.of(page,10));
+    public ResponseEntity<Page<Product>> getAllPage(@RequestParam(defaultValue = "0")int page,@RequestParam Long id) {
+        Page<Product> products =  iProductService.getProductByShopAccount(id, PageRequest.of(page, 10));
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Product product, @RequestPart MultipartFile image) {
-
-//        iProductService.saveImg(image);
-//        String imgFile;
-//        try {
-//            if (image != null && !image.isEmpty()) {
-//                imgFile = image.getOriginalFilename();
-//                File file = new File(upload + imgFile);
-//                image.transferTo(file);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
+    public ResponseEntity<?> create(@RequestBody Product product) {
         iProductService.save(product);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,
-                                    @RequestPart Product product,
-                                    @RequestPart MultipartFile image) {
-        Optional<Product> productOptional = iProductService.findById(id);
-        if (productOptional.isPresent()) {
-//            iProductService.saveImg(image);
-            String imgFile;
-            try {
-                if (image != null && !image.isEmpty()) {
-                    imgFile = image.getOriginalFilename();
-                    File file = new File(upload + imgFile);
-                    image.transferTo(file);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            product.setId(id);
-            iProductService.save(product);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Optional<Product>> delete(@PathVariable Long id) {
-        Optional<Product> productOptional = iProductService.findById(id);
-        if (productOptional.isPresent()) {
-            iProductService.delete(id);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-    }
 }
