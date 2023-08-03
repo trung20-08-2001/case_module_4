@@ -40,6 +40,26 @@ function register() {
     }
 }
 
+function showPlus() {
+    let int = document.getElementById("role").value;
+    if (int > 1) {
+        let plus = document.getElementById("shop");
+        let plus2 = document.getElementById("shop2");
+        let plus3 = document.getElementById("shop3");
+        plus.style.display = "block";
+        plus2.style.display = "block";
+        plus3.style.display = "block";
+    } else {
+        let plus = document.getElementById("shop");
+        let plus2 = document.getElementById("shop2");
+        let plus3 = document.getElementById("shop3");
+        plus.style.display = "none";
+        plus2.style.display = "none";
+        plus3.style.display = "none";
+
+    }
+}
+
 function printError(string) {
     // updating
 }
