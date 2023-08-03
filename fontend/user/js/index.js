@@ -1,9 +1,9 @@
 function showAllProduct(page) {
     $.ajax({
         type: "get",
+        Accept: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/user/show?page=" + page,
         success: function (data) {
@@ -12,9 +12,10 @@ function showAllProduct(page) {
         error: function (err) {
         }
     })
+
 }
 
-showAllProduct(0);
+showAllProduct(0)
 
 function showProduct(arr) {
     let str = "";
@@ -32,7 +33,7 @@ function showProduct(arr) {
                         </div>
                 </div>
                 <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href="">${p.name}</a>
+                    <a class="h6 text-decoration-none text-truncate" href="detail.html">${p.name}</a>
                     <div class="d-flex align-items-center justify-content-center mt-2">
                         <h5>${p.price}</h5><h6 class="text-muted ml-2"><del>${p.price}</del></h6>
                     </div>
@@ -42,31 +43,34 @@ function showProduct(arr) {
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
-                        <small onmousemove="reviewStar(${p.id})" id="pointReview"></small>
+                        <a onclick="reviewStar(${p.id})" id="pointReview+${p.id}">a</a>
                     </div>
                 </div>
             </div>
         </div>`
     }
     $("#featured_product").html(str);
+
 }
 
 function reviewStar(number) {
     $.ajax({
+        type: "get",
+        Accept: 'application/json',
         headers: {
-            'Accept': 'application/json',
+
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/user/reviewStar?idProduct=" + number,
         success: function (data) {
-            document.getElementById("pointReview").innerHTML = data;
+            document.getElementById("pointReview" + number).innerHTML = data;
         },
         error: function (err) {
         }
     })
 }
 
-function detail(id){
+function detail(id) {
     $.ajax({
         type: "GET",
         headers: {
@@ -74,7 +78,7 @@ function detail(id){
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
-        url: "http://localhost:8080/user/findProductById/"+id,
+        url: "http://localhost:8080/user/findProductById/" + id,
         success: function (data) {
             displayDetail(data);
         },
@@ -87,9 +91,9 @@ function detail(id){
 }
 
 
-function displayDetail(product){
+function displayDetail(product) {
     $('head').append('<link rel="stylesheet" href="/fontend/fontend/user/css/detail.css">')
-    let str=`
+    let str = `
     <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
@@ -342,10 +346,10 @@ function displayDetail(product){
     document.body.scrollIntoView(true)
 }
 
-function displaySlideProduct(data){
-    let str="";
+function displaySlideProduct(data) {
+    let str = "";
     for (const p of data) {
-        str+=`
+        str += `
         <div class="carousel-item">
             <img class="w-100" style="height: 470px"  src="${p.image}" alt="${p.product.name}">
         </div>
@@ -355,7 +359,7 @@ function displaySlideProduct(data){
 }
 
 
-function getListProductDetail(id){
+function getListProductDetail(id) {
     $.ajax({
         type: "GET",
         headers: {
@@ -363,7 +367,7 @@ function getListProductDetail(id){
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
-        url: "http://localhost:8080/user/getListProductDetail/"+id,
+        url: "http://localhost:8080/user/getListProductDetail/" + id,
         success: function (data) {
             displaySlideProduct(data);
         },

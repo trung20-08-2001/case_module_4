@@ -40,38 +40,43 @@ public class UserApi {
 
 
     @GetMapping("/findProductById/{id}")
-    public Product findProductById(@PathVariable Long id){
+    public Product findProductById(@PathVariable Long id) {
         return iProductService.findById(id);
     }
 
     @GetMapping("/getListProductDetail/{id}")
-    public List<ProductDetail> getListProductDetail(@PathVariable Long id){
+    public List<ProductDetail> getListProductDetail(@PathVariable Long id) {
         return productDetailService.getListProductDetailByIdProduct(id);
     }
 
     @GetMapping("/reviewStar")
     public String getReviewStar(@RequestParam int idProduct) {
-        return iFeedbackService.countAllByProduct(idProduct) + "";
+        String rv = iFeedbackService.countAllByProduct(idProduct) + "";
+        return rv;
     }
 
     @GetMapping("/getCommentQuestion")
-    public Page<CommentQA> getCommentQuestion(@RequestParam(defaultValue = "0")int page){
-        return commentQAService.getCommentQuestion(PageRequest.of(page,5));
+    public Page<CommentQA> getCommentQuestion(@RequestParam(defaultValue = "0") int page) {
+        return commentQAService.getCommentQuestion(PageRequest.of(page, 5));
     }
 
     @GetMapping("/getCommentAnswer/{parentId}")
-    public Page<CommentQA> getCommentAnswer(@PathVariable int parentId ,@RequestParam(defaultValue = "0")int page){
-        return commentQAService.getCommentAnswer(parentId,PageRequest.of(page,5));
+    public Page<CommentQA> getCommentAnswer(@PathVariable int parentId, @RequestParam(defaultValue = "0") int page) {
+        return commentQAService.getCommentAnswer(parentId, PageRequest.of(page, 5));
     }
 
     @PostMapping("/saveComment")
-    public void saveComment(CommentQA commentQA){
+    public void saveComment(CommentQA commentQA) {
         commentQAService.save(commentQA);
     }
 
     @GetMapping("/deleteComment/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         commentQAService.delete(id);
     }
 
+    @GetMapping("/detail")
+    public ResponseEntity<Product> detailProduct(@RequestParam long idProduct) {
+        return new ResponseEntity<>(iProductService.findById(idProduct), HttpStatus.OK);
+    }
 }
