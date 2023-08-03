@@ -25,13 +25,9 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/fontend/fontend/user/css/style.css" rel="stylesheet">
-    <<<<<<< HEAD
-    =======
-
     <!-- Api by JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="/fontend/fontend/user/js/index.js"></script>
-    >>>>>>> a179a1bee61b8e6e8ca1568b1f8b0e9adaf9b5ee
 
 
 </head>
@@ -1142,56 +1138,3 @@
 </div>
 </body>
 </html>
-<!--<script>-->
-<!--    getAllCategory();-->
-<!--    function getAllCategory(){-->
-<!--        $.ajax({-->
-<!--            type: "GET",-->
-<!--            headers: {-->
-<!--                'Accept': 'application/json',-->
-<!--                'Content-Type': 'application/json',-->
-<!--                'Authorization': 'Bearer ' + localStorage.getItem("token")-->
-<!--            },-->
-<!--            url: "http://localhost:8080/user/getAllCategory",-->
-<!--            success: function (data) {-->
-<!--                displayCategory(data)-->
-<!--            },-->
-<!--            error: function (err) {-->
-<!--                console.log(err);-->
-<!--            }-->
-<!--        })-->
-<!--    }-->
-
-<!--    function displayDropdownCategory(listCategory){-->
-<!--        let dropdown_category="";-->
-<!--        for (const c of listCategory) {-->
-<!--            dropdown_category+=`-->
-<!--         <a href="" class="nav-item nav-link">${c.name}</a>-->
-<!--        `-->
-<!--        }-->
-<!--        $("#dropdown_category").html(dropdown_category);-->
-<!--    }-->
-<!--    function displayCategory(listCategory){-->
-<!--        let category=""-->
-<!--        for (const c of listCategory) {-->
-<!--            category+=`-->
-<!--             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">-->
-<!--                <a class="text-decoration-none" href="">-->
-<!--                    <div class="cat-item d-flex align-items-center mb-4">-->
-<!--                        <div class="overflow-hidden" style="width: 100px; height: 100px;">-->
-<!--                            <img class="img-fluid" src="${c.image}" alt="Ảnh catergory">-->
-<!--                        </div>-->
-<!--                        <div class="flex-fill pl-3">-->
-<!--                            <h6>${c.name}</h6>-->
-<!--&lt;!&ndash;                            <small class="text-body">100 Products</small>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--            `-->
-<!--        }-->
-<!--        $("#category").html(category);-->
-<!--    }-->
-
-<!--    function displayProduct-->
-<!--</script>-->

@@ -7,6 +7,7 @@ function showAllProduct(page) {
         },
         url: "http://localhost:8080/user/show?page=" + page,
         success: function (data) {
+            console.log(data)
             showProduct(data.content);
         },
         error: function (err) {
