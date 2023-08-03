@@ -7,10 +7,10 @@ function showAllProduct(page) {
         },
         url: "http://localhost:8080/user/show?page=" + page,
         success: function (data) {
-            console.log(data)
             showProduct(data.content);
         },
         error: function (err) {
+            console.log(err)
         }
     })
 
@@ -51,7 +51,6 @@ function showProduct(arr) {
         </div>`
     }
     $("#featured_product").html(str);
-
 }
 
 function reviewStar(number) {

@@ -38,7 +38,6 @@ public class UserApi {
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
 
-
     @GetMapping("/findProductById/{id}")
     public Product findProductById(@PathVariable Long id) {
         return iProductService.findById(id);
