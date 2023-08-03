@@ -31,12 +31,12 @@ public class ProductServiceImpl implements IProductService  {
 
     @Override
     public Page<Product> getAllProduct(Pageable pageable) {
-        return null;
+        return iProductRepository.getAllProduct(pageable);
     }
 
     @Override
     public Product findById(Long id) {
-        return null;
+        return iProductRepository.findById(id).get();
     }
 
 }
