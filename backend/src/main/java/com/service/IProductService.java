@@ -9,6 +9,5 @@ import java.util.Optional;
 
 public interface IProductService {
     Page<Product> getAllProduct(Pageable pageable);
-
-
+    Product findById(Long id);
 }

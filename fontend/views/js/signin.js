@@ -13,7 +13,7 @@ function login() {
             if (data.status.name !== "ACTIVE") {
                 location.href = "signin.html"
             } else if (data.role.name === "ROLE_USER") {
-                location.href = "../../user/index.html"
+                location.href = "/fontend/fontend/user/index.html"
             } else if (data.role.name === "ROLE_SHOP") {
                 location.href = "shop.html"
             } else if (data.role.name === "ROLE_ADMIN") {
