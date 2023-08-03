@@ -8,18 +8,35 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
-public class ProductService implements IProductService {
+public class ProductServiceImpl implements IProductService  {
     @Autowired
     IProductRepository iProductRepository;
     @Override
+    public List<Product> getAllProductPending(int id) {
+        return iProductRepository.getAllProductPending(id);
+    }
+
+    @Override
+    public void confirmProduct(Product product) {
+
+    }
+
+    @Override
+    public void refuseProduct(int id) {
+    }
+
+    @Override
     public Page<Product> getAllProduct(Pageable pageable) {
-        return iProductRepository.findAll(pageable);
+        return null;
     }
 
     @Override
     public Product findById(Long id) {
-        return iProductRepository.findById(id).orElse(null);
+        return null;
     }
+
 }
