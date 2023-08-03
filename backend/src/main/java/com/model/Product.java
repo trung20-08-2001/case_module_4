@@ -1,9 +1,6 @@
 package com.model;
-
 import lombok.Data;
-
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 @Data
@@ -20,4 +17,5 @@ public class Product {
     private Category category;
     @ManyToOne
     private Status status;
+    private String img;
 }

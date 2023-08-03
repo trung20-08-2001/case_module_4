@@ -8,4 +8,5 @@ public interface IAccountService extends UserDetailsService {
    void save(Account account);
     Account login(String username,String password);
 
+
 }
