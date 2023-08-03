@@ -22,13 +22,10 @@ public class ProductServiceImpl implements IProductService  {
 
     @Override
     public void confirmProduct(Product product) {
-
     }
-
     @Override
     public void refuseProduct(int id) {
     }
-
     @Override
     public Page<Product> getAllProduct(Pageable pageable) {
         return iProductRepository.getAllProduct(pageable);
