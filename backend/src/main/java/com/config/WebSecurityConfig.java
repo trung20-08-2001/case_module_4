@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -30,18 +31,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.authorizeRequests().antMatchers("/login", "/register").permitAll()
-                .and().authorizeRequests().antMatchers("/user**").hasRole("USER")
-                .and().authorizeRequests().antMatchers("/admin**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and().csrf().disable();
+        http.authorizeRequests().antMatchers("/login", "/register","/user**").permitAll();
+//                .and().authorizeRequests().antMatchers("/admin**").hasRole("ADMIN")
+//                .and().authorizeRequests().antMatchers("/shop**").hasRole("SHOP")
+//                .anyRequest().authenticated()
+//                .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling();
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

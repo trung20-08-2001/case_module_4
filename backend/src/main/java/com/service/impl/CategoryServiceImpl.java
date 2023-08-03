@@ -2,6 +2,7 @@ package com.service.impl;
 
 import com.model.Category;
 import com.repository.ICategoryRepository;
+
 import com.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,6 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public void edit(Category category) {
         iCategoryRepository.save(category);
+    ICategoryRepository categoryRepository;
     }
 }
