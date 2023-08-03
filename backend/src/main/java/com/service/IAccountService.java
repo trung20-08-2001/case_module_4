@@ -20,9 +20,9 @@ public interface IAccountService extends UserDetailsService {
     List<Account> getAllShopByPending();
     List<Account> findShopBlock();
 
-    void activeShop(Account account);
+    void activeShop(long id);
 
-    Account block(Account account);
+    void block(long id);
 
 
 

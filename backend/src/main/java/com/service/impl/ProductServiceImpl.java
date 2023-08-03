@@ -1,7 +1,9 @@
 package com.service.impl;
 
 import com.model.Product;
+import com.model.Status;
 import com.repository.IProductRepository;
+import com.repository.IStatusRepository;
 import com.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,19 +16,25 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService  {
     @Autowired
     IProductRepository iProductRepository;
+    @Autowired
+    IStatusRepository iStatusRepository;
     @Override
-    public List<Product> getAllProductPending(int id) {
+    public List<Product> getAllProductPending(long id) {
         return iProductRepository.getAllProductPending(id);
     }
 
     @Override
-    public void confirmProduct(Product product) {
-
+    public void confirmProduct(long id) {
+        Status status = iStatusRepository.findById(1).get();
+        Product product = iProductRepository.findById(id).get();
+        product.setStatus(status);
+        iProductRepository.save(product);
     }
 
     @Override
-    public void refuseProduct(int id) {
-
+    public void refuseProduct(long id) {
+        Product product = iProductRepository.findById(id).get();
+        iProductRepository.delete(product);
     }
 
     @Override
