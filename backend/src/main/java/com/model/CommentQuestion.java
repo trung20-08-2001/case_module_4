@@ -15,4 +15,6 @@ public class CommentQuestion {
     private String comment;
     @ManyToOne
     private Product product;
+    @ManyToOne
+    private Account account;
 }

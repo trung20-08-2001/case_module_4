@@ -16,8 +16,11 @@ public class Product {
     private int quantity;
     private String manufacture;
     private String description;
+    private String img;
     @ManyToOne
     private Category category;
     @ManyToOne
     private Status status;
+    @ManyToOne
+    private Account account;
 }
