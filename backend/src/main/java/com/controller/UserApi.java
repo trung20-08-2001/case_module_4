@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.model.Product;
-import com.repository.IFeedbackRepository;
 import com.service.IFeedbackService;
 import com.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,18 @@ public class UserApi {
 
     @GetMapping("/show")
     public ResponseEntity<Page<Product>> showAllProduct(@RequestParam(defaultValue = "0") int page) {
-        Page<Product> productPage = iProductService.getAllProduct(PageRequest.of(page, 2));
+        Page<Product> productPage = iProductService.getAllProduct(PageRequest.of(page, 5));
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
 
     @GetMapping("/reviewStar")
     public String getReviewStar(@RequestParam int idProduct) {
-        return iFeedbackService.countAllByProduct(idProduct) + "";
+        String rv=iFeedbackService.countAllByProduct(idProduct) + "";
+        return rv;
     }
 
-
+    @GetMapping("/detail")
+    public ResponseEntity<Product> detailProduct(@RequestParam long idProduct) {
+return new ResponseEntity<>(iProductService.findById(idProduct),HttpStatus.OK);
+    }
 }

@@ -17,4 +17,9 @@ public class ProductService implements IProductService {
     public Page<Product> getAllProduct(Pageable pageable) {
         return iProductRepository.findAll(pageable);
     }
+
+    @Override
+    public Product findById(long id) {
+        return iProductRepository.findById(id).get();
+    }
 }
