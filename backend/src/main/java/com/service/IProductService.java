@@ -12,8 +12,6 @@ import java.util.Optional;
 
 public interface IProductService {
     List<Product> getAllProductPending(long id);
-    void confirmProduct(Product product);
-    void refuseProduct(int id);
     void confirmProduct(long id);
     void refuseProduct(long id);
 

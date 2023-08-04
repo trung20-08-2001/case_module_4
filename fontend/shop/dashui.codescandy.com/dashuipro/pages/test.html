@@ -13,6 +13,20 @@
 
 <input type="file" id="imageInput" accept="image/*">
 <div id="imagePreview"></div>
+
+<input type="file" id="file-input" multiple>
+<script>
+    const fileInput = document.getElementById('file-input');
+    const files = [];
+
+    fileInput.addEventListener('change', (event) => {
+        const fileList = event.target.files;
+        for (let i = 0; i < fileList.length; i++) {
+            files.push(fileList[i]);
+        }
+        console.log(files); // In ra mảng các file đã được lưu
+    });
+</script>
 </body>
 </html>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
