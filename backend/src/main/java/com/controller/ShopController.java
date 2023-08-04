@@ -35,5 +35,4 @@ public class ShopController {
         iProductService.save(product);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-
 }

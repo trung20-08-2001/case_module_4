@@ -22,7 +22,7 @@ function findAll() {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/shop",
+        url: "http://localhost:8080/shop?",
         success: function (data) {
             displayTable(data.content)
         },
@@ -33,7 +33,6 @@ function findAll() {
 }
 
 findAll();
-
 function displayTable(arr) {
     let str = ""
     for (const p of arr) {
@@ -212,11 +211,9 @@ function upload() {
 function create(data) {
     $.ajax({
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
         },
         url: "http://localhost:8080/shop/create",
-        // processData: false,
-        // contentType: false,
         type: "POST",
         data: JSON.stringify(data),
         success: function () {
