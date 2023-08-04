@@ -1,6 +1,7 @@
 package com.service;
 
 
+import com.model.Category;
 import com.model.Product;
 import com.model.Status;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,9 @@ import java.util.Optional;
 
 public interface IProductService {
 
-    List<Product> getAllProductPending(int id);
+    List<Product> getAllProductPending(long id);
+    void confirmProduct(long id);
+    void refuseProduct(long id);
 
     Page<Product> getAllProduct(Pageable pageable);
 
@@ -23,8 +26,7 @@ public interface IProductService {
 
     Page<Product> getProductByShopAccount(Long id, Pageable pageable);
 
-    Status findStatusByProductId(Long id);
-
     void updateStatusProduct(Long id);
 
+    List<Product> getAllProductByCategory(Long id);
 }

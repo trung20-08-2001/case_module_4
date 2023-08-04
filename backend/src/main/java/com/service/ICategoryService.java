@@ -11,8 +11,8 @@ public interface ICategoryService {
     List<Category> getAll();
     List<Category> findAll();
     void save(Category category);
-    void edit(Category category);
 
+    void edit(Category category);
     Page<Category> getAllCategory(Pageable pageable);
 
 

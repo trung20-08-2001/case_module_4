@@ -2,7 +2,6 @@ package com.service.impl;
 
 import com.model.Category;
 import com.repository.ICategoryRepository;
-
 import com.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements ICategoryService {
@@ -23,15 +21,13 @@ public class CategoryServiceImpl implements ICategoryService {
         return iCategoryRepository.findAll();
     }
 
+
     @Override
     public void save(Category category) {
         iCategoryRepository.save(category);
     }
 
 
-    public void delete(Long id) {
-        iCategoryRepository.findAllById(id);
-    }
 
     @Override
     public void edit(Category category) {

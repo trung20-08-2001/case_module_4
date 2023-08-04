@@ -35,6 +35,7 @@ public class UserApi {
         Page<Product> productPage = iProductService.getAllProduct(PageRequest.of(page, 10));
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
+
     @GetMapping("/findProductById/{id}")
     public Product findProductById(@PathVariable Long id) {
         return iProductService.findById(id);
@@ -51,9 +52,9 @@ public class UserApi {
         return rv;
     }
 
-    @GetMapping("/getCommentQuestion")
-    public Page<CommentQA> getCommentQuestion(@RequestParam(defaultValue = "0") int page) {
-        return commentQAService.getCommentQuestion(PageRequest.of(page, 5));
+    @GetMapping("/getCommentQuestion/{idProduct}/{page}")
+    public Page<CommentQA> getCommentQuestion(@PathVariable int page,@PathVariable Long idProduct) {
+        return commentQAService.getCommentQuestion(idProduct,PageRequest.of(page, 5));
     }
 
     @GetMapping("/getCommentAnswer/{parentId}")
@@ -81,5 +82,9 @@ public class UserApi {
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
-
+    @GetMapping("/listCategory")
+    public ResponseEntity<List<Product>> getProductByCategory(@RequestParam Long id){
+        List<Product> productList=iProductService.getAllProductByCategory(id);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
 }

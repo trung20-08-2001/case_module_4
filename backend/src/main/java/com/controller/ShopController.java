@@ -39,15 +39,6 @@ public class ShopController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/status/{id}")
-    public ResponseEntity<Status> getProductStatus(@PathVariable Long id) {
-        Status status = iProductService.findStatusByProductId(id);
-        if(status != null) {
-            return ResponseEntity.ok(status);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
     @PostMapping("/changeStatus/{id}")
     public ResponseEntity<String> changeProductStatus(@PathVariable Long id) {

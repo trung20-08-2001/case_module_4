@@ -35,9 +35,9 @@ public class AdminControllerAPI {
     }
 
     // block shop và block user
-    @PostMapping("/block")
-    public String block(@RequestBody Account account) {
-        iAccountService.block(account);
+    @PostMapping("/block/{id}")
+    public String block(@PathVariable long id) {
+        iAccountService.block(id);
         return "khóa tài koản thành công";
     }
 
@@ -51,9 +51,9 @@ public class AdminControllerAPI {
     }
 
 //    active shop và mở khóa lại các shop
-    @PostMapping("/activeShop")
-    public String confirmShop(@RequestBody Account account){
-        iAccountService.activeShop(account);
+    @PostMapping("/activeShop/{id}")
+    public String confirmShop(@PathVariable long id){
+        iAccountService.activeShop(id);
         return "Đã duyệt";
     }
 

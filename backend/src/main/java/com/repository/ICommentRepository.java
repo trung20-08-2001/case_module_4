@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ICommentRepository extends JpaRepository<CommentQA,Long> {
-    @Query(value = "select c from CommentQA c where c.parentId=0")
-    Page<CommentQA> getCommentQuestion(Pageable pageable);
+    @Query(value = "select c from CommentQA c where c.parentId=0 and c.product.id=:idProduct")
+    Page<CommentQA> getCommentQuestion(@Param("idProduct")Long idProduct, Pageable pageable);
 
     @Query(value = "select c from CommentQA c where c.parentId=:parentId")
     Page<CommentQA> getCommentAnswer(@Param("parentId")int parentId,Pageable pageable);
