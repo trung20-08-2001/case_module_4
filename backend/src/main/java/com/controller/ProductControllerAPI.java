@@ -17,9 +17,20 @@ public class ProductControllerAPI {
     IProductService iProductService;
 
     @PostMapping("/productPending/{id}")
-    public ResponseEntity<List<Product>> getAllProductPendingByIdShop(@PathVariable int id){
+    public ResponseEntity<List<Product>> getAllProductPendingByIdShop(@PathVariable long id){
      List<Product> producPendingtList = iProductService.getAllProductPending(id);
+        System.out.println(producPendingtList);
      return new ResponseEntity<>(producPendingtList, HttpStatus.OK);
     }
 
+    @PostMapping("/confirmProduct/{id}")
+    public String confirmProduct(@PathVariable long id){
+        iProductService.confirmProduct(id);
+        return "đã duyệt sản phẩm";
+    }
+    @PostMapping("/refuseProduct/{id}")
+    public String refuseProduct(@PathVariable long id){
+        iProductService.refuseProduct(id);
+        return "bạn đã từ chối sản phẩm được đăng bán";
+    }
 }

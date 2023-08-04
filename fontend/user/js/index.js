@@ -396,8 +396,68 @@ function getComment(id,page){
 }
 
 
-function displayCommentQuestion(arr){
-    let str=`
-    
-    `
+function showCategory(Page) {
+    $.ajax({
+        type: "GET",
+        Accept: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/category?page=" + Page,
+        success: function (data) {
+            getData(data)
+        },
+        error: function () {
+        }
+    })
+
+    function getData(data) {
+        let str = "";
+        for (const c of data.content) {
+            str += `<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="${c.image}" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>${c.name}</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>`
+        }
+        for (let i = 0; i < data.totalPages; i++) {
+            if (i === data.number) {
+                str += `<button class="btn btn-secondary" onclick="showCategory(${i})" > ${i + 1}  </button>`
+            } else
+                str += `<button class="btn btn-light" onclick="showCategory(${i})" > ${i + 1}  </button>`
+        }
+        $("#category").html(str);
+    }
 }
+showCategory(0);
+function categoryAtNavbar() {
+    $.ajax({
+        type: "GET",
+        Accept: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/categories",
+        success: function (data) {
+            getData(data)
+        },
+        error: function () {
+        }
+    })
+    function getData(data) {
+        let str = "";
+        for (const c of data) {
+            str += `<a href="" class="nav-item nav-link">${c.name}</a>`
+        }
+        $("#dropdown_category").html(str);
+    }
+}
+categoryAtNavbar();

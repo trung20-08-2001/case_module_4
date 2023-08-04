@@ -15,7 +15,6 @@ function getAllShopActive(){
         success: function (shopList){
             console.log(shopList)
             showShop(shopList)
-            showProductPending(shopList)
         },
         error: function (err){
             console.log(err)
@@ -26,10 +25,9 @@ function showShop(shopList){
     let str = ``;
 
     for (const s of shopList) {
-        let accShop=JSON.stringify(s);
         str += `<tr>
                    <td>${s.id}</td>
-                   <td>${s.avatarShop}</td>
+                   <td><img src="${s.avatarShop}" alt="${s.nameShop}" style="width: 25px; height: 25px"></td>
                    <td>${s.fullName}</td>
                    <td>${s.nameShop}</td>
                    <td>${s.phone}</td>
@@ -37,7 +35,7 @@ function showShop(shopList){
                    <td>${s.email}</td>
                    <td>${s.status.name}</td>
                    <td>               
-                       <button type="button" onclick="blockShop(${accShop})" class="action_btn mr_10"  style="width: 50px">block</button>                  
+                       <button type="button" onclick="blockShop(${s.id})"  style="width: 50px">block</button>                  
                      </td>
                 </tr>`
     }
@@ -45,13 +43,6 @@ function showShop(shopList){
 }
 
 // hiện thị select
-function showProductPending(shopActive){
-    let str =``;
-    for (const s of shopActive) {
-        str +=`<option value="${s.id}">${s.nameShop}</option>`
-    }
-    $("#idShop").html(str);
-}
 
 
 
@@ -81,10 +72,9 @@ function showShopBlock(shopBlock){
     let str = ``;
 
     for (const sb of shopBlock) {
-        let shopBlock=JSON.stringify(sb);
         str += `<tr>
                    <td>${sb.id}</td>
-                   <td>${sb.avatarShop}</td>
+                   <td><img src="${sb.avatarShop}" alt="${sb.nameShop}" style="width: 25px; height: 25px"></td>
                    <td>${sb.fullName}</td>
                    <td>${sb.nameShop}</td>
                    <td>${sb.phone}</td>
@@ -92,7 +82,7 @@ function showShopBlock(shopBlock){
                    <td>${sb.email}</td>
                    <td>${sb.status.name}</td>
                    <td>               
-                       <input type="button" onclick="activeShop(${shopBlock})" class="action_btn mr_10" value="Active" style="width: 50px">                  
+                       <input type="button" onclick="activeShop(${sb.id})" class="action_btn mr_10" value="Active" style="width: 50px">                  
                      </td>
                 </tr>`
     }
@@ -125,10 +115,9 @@ function showShopPending(shopPending){
     let str = ``;
 
     for (const sp of shopPending) {
-        let shopPending=JSON.stringify(sp);
         str += `<tr>
                    <td>${sp.id}</td>
-                   <td>${sp.avatarShop}</td>
+                   <td><img src="${sp.avatarShop}" alt="${sp.nameShop}" style="width: 25px; height: 25px"></td>
                    <td>${sp.fullName}</td>
                    <td>${sp.nameShop}</td>
                    <td>${sp.phone}</td>
@@ -136,7 +125,7 @@ function showShopPending(shopPending){
                    <td>${sp.email}</td>
                    <td>${sp.status.name}</td>
                    <td>               
-                       <input type="button" onclick="activeShop(${shopPending})" class="action_btn mr_10" value="Active" style="width: 50px">                  
+                       <input type="button" onclick="activeShop(${sp.id})" class="action_btn mr_10" value="Active" style="width: 50px">                  
                      </td>
                 </tr>`
     }
@@ -147,19 +136,17 @@ function showShopPending(shopPending){
 
 
 // khóa shop
-function blockShop(accShop){
-    let obj = JSON.parse(accShop)
-    console.log(obj);
+function blockShop(id){
+    let ids = id;
+    window.location.href="../viewsAdmin/admin_list.html";
     $.ajax({
         type: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: "http://localhost:8080/admin/block",
-        data: JSON.stringify(obj),
+        url: "http://localhost:8080/admin/block/" + ids,
         success: function (mess) {
-            getAllShopActive();
         },
         error: function (err) {
             console.log(err);
@@ -172,19 +159,18 @@ function blockShop(accShop){
 
 
 // duyệt shop
-function activeShop(shop) {
-  let  obj = JSON.parse(shop);
+function activeShop(id) {
+    let ids = id;
+    window.location.href="../viewsAdmin/admin_list.html";
     $.ajax({
         type: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: "http://localhost:8080/admin/block",
-        data: JSON.stringify(obj),
+        url: "http://localhost:8080/admin/activeShop/" + id,
         success: function (mess) {
-            getAllShopBlock();
-            getAllShopPending();
+            window.location.href="../viewsAdmin/admin_list.html";
         },
         error: function (err) {
             console.log(err);

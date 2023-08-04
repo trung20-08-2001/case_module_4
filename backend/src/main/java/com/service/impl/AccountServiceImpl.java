@@ -24,6 +24,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Autowired
     IStatusRepository iStatusRepository;
+
     @Override
     public void save(Account account) {
     }
@@ -64,20 +65,21 @@ public class AccountServiceImpl implements IAccountService {
     }
 
 
-
     @Override
-    public Account block(Account account) {
-        Status status = iStatusRepository.findById(2);
-        account.setStatus(status);
-        return iAccountRepository.save(account);
-    }
-    @Override
-    public void activeShop(Account account) {
-        Status status = iStatusRepository.findById(1);
+    public void block(long id) {
+        Status status = iStatusRepository.findById(2).get();
+        Account account = iAccountRepository.findById( id).get();
         account.setStatus(status);
         iAccountRepository.save(account);
     }
 
+    @Override
+    public void activeShop(long id) {
+        Status status = iStatusRepository.findById(1).get();
+        Account account = iAccountRepository.findById( id).get();
+        account.setStatus(status);
+        iAccountRepository.save(account);
+    }
 
 
 }
