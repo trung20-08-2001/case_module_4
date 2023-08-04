@@ -15,7 +15,7 @@ function register() {
             url: "http://localhost:8080/register/client",
             data: JSON.stringify(account),
             success: function () {
-                // location.href = "signin.html"
+                 // location.href = "signin.html"
                 alert("done")
             },
             error: function (err) {
