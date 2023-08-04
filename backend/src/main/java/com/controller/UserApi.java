@@ -1,12 +1,10 @@
 package com.controller;
 
+import com.model.Category;
 import com.model.CommentQA;
 import com.model.Product;
 import com.model.ProductDetail;
-import com.service.ICommentQAService;
-import com.service.IFeedbackService;
-import com.service.IProductDetailService;
-import com.service.IProductService;
+import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,20 +23,18 @@ public class UserApi {
     IProductService iProductService;
     @Autowired
     IFeedbackService iFeedbackService;
-
     @Autowired
     ICommentQAService commentQAService;
-
     @Autowired
     IProductDetailService productDetailService;
+    @Autowired
+    ICategoryService iCategoryService;
 
     @GetMapping("/show")
     public ResponseEntity<Page<Product>> showAllProduct(@RequestParam(defaultValue = "0") int page) {
         Page<Product> productPage = iProductService.getAllProduct(PageRequest.of(page, 10));
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
-
-
     @GetMapping("/findProductById/{id}")
     public Product findProductById(@PathVariable Long id) {
         return iProductService.findById(id);
@@ -79,4 +75,11 @@ public class UserApi {
     public ResponseEntity<Product> detailProduct(@RequestParam long idProduct) {
         return new ResponseEntity<>(iProductService.findById(idProduct), HttpStatus.OK);
     }
+    @GetMapping("/category")
+    public ResponseEntity<Page<Category>> getAllCategory(@RequestParam(defaultValue = "0") int page){
+        Page<Category> categoryList= iCategoryService.getAllCategory(PageRequest.of(page, 8));
+        return new ResponseEntity<>(categoryList, HttpStatus.OK);
+    }
+
+
 }

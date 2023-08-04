@@ -23,7 +23,10 @@ function register() {
         })
     } else if (role === 2) {
         {
-            let account = {username, password, fullName, avatar, phone, email, birthday};
+            let nameShop=$("#nameshop").val();
+            let address=$("#address").val();
+            let avatarShop=$("#avatarShop").val();
+            let account = {username, password, fullName, avatar, phone, email, birthday,nameShop,address,avatarShop};
             $.ajax({
                 type: "Post",
                 contentType: "application/json",
@@ -37,6 +40,26 @@ function register() {
                 }
             })
         }
+    }
+}
+
+function showPlus() {
+    let int = document.getElementById("role").value;
+    if (int > 1) {
+        let plus = document.getElementById("shop");
+        let plus2 = document.getElementById("shop2");
+        let plus3 = document.getElementById("shop3");
+        plus.style.display = "block";
+        plus2.style.display = "block";
+        plus3.style.display = "block";
+    } else {
+        let plus = document.getElementById("shop");
+        let plus2 = document.getElementById("shop2");
+        let plus3 = document.getElementById("shop3");
+        plus.style.display = "none";
+        plus2.style.display = "none";
+        plus3.style.display = "none";
+
     }
 }
 

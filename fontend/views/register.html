@@ -105,18 +105,41 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-4 pb-2">
-                                    <select class="select form-control-lg" id="role">
+                                    <select class="select form-control-lg" id="role" onchange="showPlus()" >
                                         <option value="0" disabled>Chọn kiểu tài khoản</option>
                                         <option value="1">User</option>
-                                        <option value="2">Shop</option>
+                                        <option value="2" >Shop</option>
                                     </select>
                                     <label class="form-label select-label">Choose option</label>
                                     <div class="col-md-6 mb-4 pb-2">
                                         <p id="print"></p>
                                     </div>
                                 </div>
+                                <div class="col-md-6 mb-4 pb-2" style="display: none" id="shop">
+                                    <div class="form-outline">
+                                        <input type="tel" id="nameshop" class="form-control form-control-lg" required/>
+                                        <label class="form-label" for="phone">Name Shop</label>
+                                    </div>
+
+                                </div>
                             </div>
 
+                            <div class="row" >
+                                <div class="col-md-6 mb-4 pb-2" style="display: none" id="shop2">
+                                    <div class="form-outline">
+                                        <input type="email" id="address" class="form-control form-control-lg" required/>
+                                        <label class="form-label" for="address">Address</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2" style="display: none" id="shop3">
+                                    <div class="form-outline">
+                                        <input type="tel" id="avatarShop" class="form-control form-control-lg" required/>
+                                        <label class="form-label" for="avatarShop">avatarShop</label>
+                                    </div>
+
+                                </div>
+                            </div>
                             <div class="mt-4 pt-2">
                                 <button class="btn btn-primary btn-lg" onclick="register" >Register</button>
                             </div>

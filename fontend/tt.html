@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script  type="module" src="https://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js"></script>
+    <script  type="module" src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"></script>
+</head>
+<body>
+<form>
+    <input type="file" id="fileImg"><button onclick="uploadFile()"></button>
+</form>
+</body>
+</html>
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyC1HN8OeYScrl6IWC3rk37FxncDgt3WNE4",
+        authDomain: "commerce-website-acf59.firebaseapp.com",
+        projectId: "commerce-website-acf59",
+        storageBucket: "commerce-website-acf59.appspot.com",
+        messagingSenderId: "709514506361",
+        appId: "1:709514506361:web:43c53da1978e3cad7764a8",
+        measurementId: "G-STT0P32LY3"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    firebase.initializeApp(firebaseConfig);
+</script>
+
+<!--<script>-->
+<!--    // Khởi tạo kết nối tới Firebase-->
+<!--    const firebaseConfig = {-->
+<!--        apiKey: "AIzaSyC1HN8OeYScrl6IWC3rk37FxncDgt3WNE4",-->
+<!--        authDomain: "commerce-website-acf59.firebaseapp.com",-->
+<!--        projectId: "commerce-website-acf59",-->
+<!--        storageBucket: "commerce-website-acf59.appspot.com",-->
+<!--        messagingSenderId: "709514506361",-->
+<!--        appId: "1:709514506361:web:43c53da1978e3cad7764a8",-->
+<!--        measurementId: "G-STT0P32LY3"-->
+<!--    };-->
+<!--    firebase.initializeApp(firebaseConfig);-->
+<!--    -->
+<!--    function uploadFile() {-->
+<!--        // Lấy tham chiếu đến thư mục chứa tệp-->
+<!--        var storageRef = firebase.storage().ref();-->
+<!--        var fileRef = storageRef.child('my-file.txt');-->
+
+<!--        // Tải lên tệp lên Firebase Storage-->
+<!--        var file = document.getElementById("fileImg"); // Lấy file từ input element hoặc truyền vào từ đầu vào khác-->
+<!--        console.log(file)-->
+<!--        // fileRef.put(file).then(function (snapshot) {-->
+<!--        //     console.log('Tải lên tệp thành công');-->
+<!--        // });-->
+<!--    }-->
+<!--</script>-->
