@@ -14,16 +14,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class ProductServiceImpl implements IProductService {
     @Autowired
     IProductRepository iProductRepository;
     @Autowired
+    IStatusRepository iStatusRepository;
     ICategoryRepository iCategoryRepository;
 
-    @Autowired
-    IStatusRepository iStatusRepository;
 
 
     @Override
@@ -31,7 +29,31 @@ public class ProductServiceImpl implements IProductService {
         return iProductRepository.getAllProductPending(id);
     }
 
+
     @Override
+    public Product findById(Long id) {
+        return iProductRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Product> getAllProduct(Pageable pageable) {
+        return iProductRepository.getAllProduct(pageable);
+    }
+
+
+    @Override
+    public void updateStatusProduct(Long id) {
+        Product product = iProductRepository.findById(id).get();
+        if (product.getStatus().getId() == 1) {
+            Status status = iStatusRepository.findById(4).get();
+            product.setStatus(status);
+            iProductRepository.save(product);
+        } else {
+            Status status = iStatusRepository.findById(1).get();
+            product.setStatus(status);
+            iProductRepository.save(product);
+        }
+    }
     public void confirmProduct(long id) {
         Status status = iStatusRepository.findById(1).get();
         Product product = iProductRepository.findById(id).get();
@@ -50,16 +72,6 @@ public class ProductServiceImpl implements IProductService {
         return iProductRepository.getProductsByCategory(iCategoryRepository.findAllById(id));
     }
 
-    @Override
-    public Product findById(Long id) {
-        return iProductRepository.findById(id).get();
-    }
-
-
-    @Override
-    public Page<Product> getAllProduct(Pageable pageable) {
-        return iProductRepository.getAllProduct(pageable);
-    }
 
     @Override
     public void save(Product product) {
@@ -71,8 +83,6 @@ public class ProductServiceImpl implements IProductService {
     public void refuseProduct(long id) {
         Product product = iProductRepository.findById(id).get();
         iProductRepository.delete(product);
-
-
     }
 
 
