@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ICommentQAService {
-    Page<CommentQA> getCommentQuestion(Pageable pageable);
+    Page<CommentQA> getCommentQuestion(Long idProduct,Pageable pageable);
     Page<CommentQA> getCommentAnswer(@Param("parentId")int parentId, Pageable pageable);
 
     void save(CommentQA commentQA);

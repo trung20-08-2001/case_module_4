@@ -16,7 +16,7 @@ public class ProductServiceImpl implements IProductService  {
     @Autowired
     IProductRepository iProductRepository;
     @Override
-    public List<Product> getAllProductPending(int id) {
+    public List<Product> getAllProductPending(long id) {
         return iProductRepository.getAllProductPending(id);
     }
 

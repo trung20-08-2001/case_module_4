@@ -54,9 +54,9 @@ public class UserApi {
         return rv;
     }
 
-    @GetMapping("/getCommentQuestion")
-    public Page<CommentQA> getCommentQuestion(@RequestParam(defaultValue = "0") int page) {
-        return commentQAService.getCommentQuestion(PageRequest.of(page, 5));
+    @GetMapping("/getCommentQuestion/{idProduct}/{page}")
+    public Page<CommentQA> getCommentQuestion(@PathVariable int page,@PathVariable Long idProduct) {
+        return commentQAService.getCommentQuestion(idProduct,PageRequest.of(page, 5));
     }
 
     @GetMapping("/getCommentAnswer/{parentId}")

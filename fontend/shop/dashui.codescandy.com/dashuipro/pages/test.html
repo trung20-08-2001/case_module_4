@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 </head>
 <body>
 <input type="file" id="img"  >
 <button onclick="upload()">Upload</button>
 <div id="test"></div>
+
+<input type="file" id="imageInput" accept="image/*">
+<div id="imagePreview"></div>
 </body>
 </html>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -55,4 +60,19 @@
       });
   }
 
+  $(document).ready(function() {
+      $('#imageInput').on('change', function() {
+          const file = this.files[0];
+          if (file) {
+              const reader = new FileReader();
+              reader.onload = function() {
+                  const image = new Image();
+                  image.src = reader.result;
+                  $('#imagePreview').append(image);
+              };
+
+              reader.readAsDataURL(file);
+          }
+      });
+  });
 </script>

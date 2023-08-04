@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface IProductService {
-    List<Product> getAllProductPending(int id);
+    List<Product> getAllProductPending(long id);
     void confirmProduct(Product product);
     void refuseProduct(int id);
     Page<Product> getAllProduct(Pageable pageable);
