@@ -21,7 +21,7 @@ function showUser(userList){
     for (const u of userList) {
         str += `<tr>
                     <td>${u.id}</td>
-                    <td>${u.avatar}</td>
+                    <td><img src="${u.avatar}" alt="${u.fullName}" style="width: 25px; height: 25px"></td>
                     <td>${u.fullName}</td>
                     <td>${u.birthday}</td>
                     <td>${u.phone}</td>

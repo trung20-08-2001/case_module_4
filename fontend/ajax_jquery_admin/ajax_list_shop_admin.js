@@ -27,7 +27,7 @@ function showShop(shopList){
     for (const s of shopList) {
         str += `<tr>
                    <td>${s.id}</td>
-                   <td>${s.avatarShop}</td>
+                   <td><img src="${s.avatarShop}" alt="${s.nameShop}" style="width: 25px; height: 25px"></td>
                    <td>${s.fullName}</td>
                    <td>${s.nameShop}</td>
                    <td>${s.phone}</td>
@@ -74,7 +74,7 @@ function showShopBlock(shopBlock){
     for (const sb of shopBlock) {
         str += `<tr>
                    <td>${sb.id}</td>
-                   <td>${sb.avatarShop}</td>
+                   <td><img src="${sb.avatarShop}" alt="${sb.nameShop}" style="width: 25px; height: 25px"></td>
                    <td>${sb.fullName}</td>
                    <td>${sb.nameShop}</td>
                    <td>${sb.phone}</td>
@@ -117,7 +117,7 @@ function showShopPending(shopPending){
     for (const sp of shopPending) {
         str += `<tr>
                    <td>${sp.id}</td>
-                   <td>${sp.avatarShop}</td>
+                   <td><img src="${sp.avatarShop}" alt="${sp.nameShop}" style="width: 25px; height: 25px"></td>
                    <td>${sp.fullName}</td>
                    <td>${sp.nameShop}</td>
                    <td>${sp.phone}</td>

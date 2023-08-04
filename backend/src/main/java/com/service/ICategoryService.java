@@ -7,7 +7,7 @@ import java.util.List;
 public interface ICategoryService {
     List<Category> getAll();
     void save(Category category);
-    void delete(int id);
+    void delete(long id);
     void edit(Category category);
 
 

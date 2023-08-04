@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
       Category category = iCategoryRepository.findAllById(id);
       iCategoryRepository.delete(category);
     }
