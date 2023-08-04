@@ -22,5 +22,8 @@ public interface IProductRepository extends JpaRepository<Product,Long> {
 
     @Query(value = "select p from Product p ")
     Page<Product> getAllProduct(Pageable pageable);
+
+    @Query(value = "select p from Product p where p.account.id=:id")
+    Page<Product> getProductByShopAccount(@Param("id") Long id, Pageable pageable);
 }
 
