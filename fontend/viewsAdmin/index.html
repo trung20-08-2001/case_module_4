@@ -41,7 +41,24 @@
 
     <link rel="stylesheet" href="../css_html_admin/css/style1.css"/>
     <link rel="stylesheet" href="../css_html_admin/css/colors/default.css" id="colorSkinCSS">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        #revenue{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #lineChart {
+            max-width: 617px;
+            max-height: 339px;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
 
 </head>
 <body class="crm_body_bg">
@@ -90,16 +107,20 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 text-end d-flex justify-content-end">
-                                    <select class="nice_Select2 max-width-220">
-                                        <option value="1">Doanh thu theo ngày</option>
-                                        <option value="2">Doanh thu theo tháng</option>
-                                        <option value="3">Doanh thu theo năm</option>
+                                    <select id="byYear" class="nice_Select2 max-width-220" i>
                                     </select>
+                                    <button onclick="getRevenueByYear($('#byYear').val())" style="width: 70px;height: 35px">Hiển thị</button>
                                 </div>
                             </div>
                         </div>
                         <div class="white_card_body">
-                            <div id="management_bar"></div>
+<!--                            hiển thị doanh thu-->
+                            <div id="revenue"  style="margin-top: -300px; margin-left: -150px">
+                                <canvas id="lineChart"></canvas>
+
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -301,7 +322,7 @@
                                 </div>
                                 <div class="header_more_tool">
                                     <div class="dropdown">
-<span class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown">
+<span class="dropdown-toggle" id="" data-bs-toggle="dropdown">
 <i class="ti-more-alt"></i>
 </span>
                                         <div class="dropdown-menu dropdown-menu-right"
@@ -1372,6 +1393,8 @@
 <script src="../ajax_jquery_admin/layout.js"></script>
 
 <script src="../css_html_admin/js/jquery1-3.4.1.min.js"></script>
+<script src="../ajax_jquery_admin/ajax_revenue_web.js"></script>
+
 
 <script src="../css_html_admin/js/popper1.min.js"></script>
 
