@@ -81,5 +81,9 @@ public class UserApi {
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
-
+    @GetMapping("/listCategory")
+    public ResponseEntity<List<Product>> getProductByCategory(@RequestParam Long id){
+        List<Product> productList=iProductService.getAllProductByCategory(id);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
 }

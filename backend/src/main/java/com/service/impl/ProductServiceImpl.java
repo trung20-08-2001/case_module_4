@@ -1,6 +1,8 @@
 package com.service.impl;
 
+import com.model.Category;
 import com.model.Product;
+import com.repository.ICategoryRepository;
 import com.repository.IProductRepository;
 import com.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class ProductServiceImpl implements IProductService {
     @Autowired
     IProductRepository iProductRepository;
+    @Autowired
+    ICategoryRepository iCategoryRepository;
 
     @Override
     public List<Product> getAllProductPending(int id) {
@@ -35,7 +39,12 @@ public class ProductServiceImpl implements IProductService {
             return iProductRepository.getProductByShopAccount(id, pageable);
         }
 
-        @Override
+    @Override
+    public List<Product> getAllProductByCategory(Long id) {
+        return iProductRepository.getProductsByCategory(iCategoryRepository.findAllById(id));
+    }
+
+    @Override
         public Product findById (Long id){
             return iProductRepository.findById(id).get();
         }

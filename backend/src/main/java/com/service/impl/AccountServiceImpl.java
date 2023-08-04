@@ -26,6 +26,7 @@ public class AccountServiceImpl implements IAccountService {
     IStatusRepository iStatusRepository;
     @Override
     public void save(Account account) {
+        iAccountRepository.save(account);
     }
 
     @Override
