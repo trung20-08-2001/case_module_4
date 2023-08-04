@@ -28,8 +28,6 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public void delete(Long id) {
-//      Category category = iCategoryRepository.findAllById(id).get();
-//      iCategoryRepository.delete(category);
         iCategoryRepository.findAllById(id);
     }
 

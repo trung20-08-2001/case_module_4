@@ -25,13 +25,21 @@ public class ShopController {
     IProductService iProductService;
 
     @GetMapping
-    public ResponseEntity<Page<Product>> getAllPage(@RequestParam(defaultValue = "0")int page,@RequestParam Long id) {
-        Page<Product> products =  iProductService.getProductByShopAccount(id, PageRequest.of(page, 10));
+    public ResponseEntity<Page<Product>> getAllPage(@RequestParam(defaultValue = "0") int page, @RequestParam Long id) {
+        Page<Product> products = iProductService.getProductByShopAccount(id, PageRequest.of(page, 10));
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Product product) {
+        iProductService.save(product);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,
+                                    @RequestBody Product product) {
+        product.setId(id);
         iProductService.save(product);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
