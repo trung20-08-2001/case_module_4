@@ -1,20 +1,15 @@
 package com.controller;
 
 import com.model.Product;
+import com.model.Status;
 import com.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -42,6 +37,22 @@ public class ShopController {
         product.setId(id);
         iProductService.save(product);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/status/{id}")
+    public ResponseEntity<Status> getProductStatus(@PathVariable Long id) {
+        Status status = iProductService.findStatusByProductId(id);
+        if(status != null) {
+            return ResponseEntity.ok(status);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/changeStatus/{id}")
+    public ResponseEntity<String> changeProductStatus(@PathVariable Long id) {
+        iProductService.updateStatusProduct(id);
+        return ResponseEntity.ok("Product status changed successfully.");
     }
 
 }

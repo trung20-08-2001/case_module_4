@@ -43,12 +43,6 @@ public class CategoryServiceImpl implements ICategoryService {
         return iCategoryRepository.getAllCategory(pageable);
     }
 
-
-    @Override
-    public Optional<Category> findById(Long id) {
-        return iCategoryRepository.findById(id);
-    }
-
     @Override
     public List<Category> findAll() {
         return iCategoryRepository.findAll();
