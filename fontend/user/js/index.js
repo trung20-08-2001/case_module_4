@@ -27,7 +27,7 @@ function showProduct(arr) {
                 <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" onclick="addProductToCart(${p.id})"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-dark btn-square" onclick="detail(${p.id})"><i class="fa fa-search"></i></a>
@@ -415,7 +415,7 @@ function showCategory(Page) {
         let str = "";
         for (const c of data.content) {
             str += `<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" onclick="selectorCategory(${c.id})">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
                             <img class="img-fluid" src="${c.image}" alt="">
@@ -455,9 +455,18 @@ function categoryAtNavbar() {
     function getData(data) {
         let str = "";
         for (const c of data) {
-            str += `<a href="" class="nav-item nav-link">${c.name}</a>`
+            str += `<a href="" class="nav-item nav-link" onclick="selectorCategory(${c.id}">${c.name}</a>`
         }
         $("#dropdown_category").html(str);
     }
 }
 categoryAtNavbar();
+
+function selectorCategory(id) {
+    localStorage.setItem("category",id);
+    location.href="/fontend/fontend/user/category.html"
+}
+function addProductToCart(id) {
+
+}
+git

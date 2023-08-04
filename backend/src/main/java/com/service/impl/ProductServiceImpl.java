@@ -1,6 +1,8 @@
 package com.service.impl;
 
+import com.model.Category;
 import com.model.Product;
+import com.repository.ICategoryRepository;
 import com.model.Status;
 import com.repository.IProductRepository;
 import com.repository.IStatusRepository;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 
@@ -16,6 +19,8 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService {
     @Autowired
     IProductRepository iProductRepository;
+    @Autowired
+    ICategoryRepository iCategoryRepository;
 
     @Autowired
     IStatusRepository iStatusRepository;
@@ -34,13 +39,6 @@ public class ProductServiceImpl implements IProductService {
         iProductRepository.save(product);
     }
 
-    @Override
-    public void refuseProduct(long id) {
-        Product product = iProductRepository.findById(id).get();
-        iProductRepository.delete(product);
-
-    }
-
 
     @Override
     public Page<Product> getProductByShopAccount(Long id, Pageable pageable) {
@@ -48,9 +46,15 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public List<Product> getAllProductByCategory(Long id) {
+        return iProductRepository.getProductsByCategory(iCategoryRepository.findAllById(id));
+    }
+
+    @Override
     public Product findById(Long id) {
         return iProductRepository.findById(id).get();
     }
+
 
     @Override
     public Page<Product> getAllProduct(Pageable pageable) {
@@ -62,6 +66,14 @@ public class ProductServiceImpl implements IProductService {
         iProductRepository.save(product);
     }
 
+
+    @Override
+    public void refuseProduct(long id) {
+        Product product = iProductRepository.findById(id).get();
+        iProductRepository.delete(product);
+
+
+    }
 
 
 }

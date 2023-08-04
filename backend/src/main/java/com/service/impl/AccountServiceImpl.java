@@ -27,6 +27,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public void save(Account account) {
+        iAccountRepository.save(account);
     }
 
     @Override

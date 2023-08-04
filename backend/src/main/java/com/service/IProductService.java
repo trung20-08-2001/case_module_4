@@ -1,6 +1,7 @@
 package com.service;
 
 
+import com.model.Category;
 import com.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,6 @@ public interface IProductService {
 
     Product findById(Long id);
     Page<Product> getProductByShopAccount(Long id, Pageable pageable);
+
+    List<Product> getAllProductByCategory(Long id);
 }
