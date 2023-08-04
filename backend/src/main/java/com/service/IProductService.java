@@ -12,23 +12,15 @@ import java.util.Optional;
 
 
 public interface IProductService {
-
-    List<Product> getAllProductPending(int id);
-
-    void confirmProduct(Product product);
-
-    void refuseProduct(int id);
+    List<Product> getAllProductPending(long id);
+    void confirmProduct(long id);
+    void refuseProduct(long id);
 
     Page<Product> getAllProduct(Pageable pageable);
 
     void save(Product product);
 
-    void delete(Long id);
-
     Product findById(Long id);
-
-    List<Product> findAll();
-
     Page<Product> getProductByShopAccount(Long id, Pageable pageable);
 
     List<Product> getAllProductByCategory(Long id);

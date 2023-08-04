@@ -14,8 +14,8 @@ public class CommentQAServiceImpl implements ICommentQAService {
     ICommentRepository commentRepository;
 
     @Override
-    public Page<CommentQA> getCommentQuestion(Pageable pageable) {
-        return commentRepository.getCommentQuestion(pageable);
+    public Page<CommentQA> getCommentQuestion(Long idProduct,Pageable pageable) {
+        return commentRepository.getCommentQuestion(idProduct,pageable);
     }
 
     @Override

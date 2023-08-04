@@ -1,3 +1,5 @@
+let account=JSON.parse(localStorage.getItem("account"));
+
 function showAllProduct(page) {
     $.ajax({
         type: "get",
@@ -10,13 +12,12 @@ function showAllProduct(page) {
             showProduct(data.content);
         },
         error: function (err) {
+            console.log(err)
         }
     })
 
 }
-
 showAllProduct(0)
-
 function showProduct(arr) {
     let str = "";
     for (const p of arr) {
@@ -51,7 +52,6 @@ function showProduct(arr) {
     }
     $("#featured_product").html(str);
 }
-
 function reviewStar(number) {
     $.ajax({
         type: "get",
@@ -68,7 +68,6 @@ function reviewStar(number) {
         }
     })
 }
-
 function detail(id) {
     $.ajax({
         type: "GET",
@@ -88,8 +87,6 @@ function detail(id) {
     })
 
 }
-
-
 function displayDetail(product) {
     $('head').append('<link rel="stylesheet" href="/fontend/fontend/user/css/detail.css">')
     let str = `
@@ -241,7 +238,7 @@ function displayDetail(product) {
                                 </div>
                             </div>
                             <div class="panel">
-                                <div class="panel-body">
+                                <div class="panel-body" id="comments">
                                     <!-- Newsfeed Content -->
                                     <!--===================================================-->
                                     <div class="media-block">
@@ -271,8 +268,11 @@ function displayDetail(product) {
                                                 <a class="btn btn-sm btn-default btn-hover-primary" href="#tab-pane-2">Trả lời</a>
                                                 <a class="btn btn-sm btn-default btn-hover-primary" >Xem câu trả lời</a>
                                             </div>
+                                          
+                                            <div id="commentAnswer" class="d-none">
                                             <hr>
-                                            <div id="commentAnswer"></div>
+                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -357,7 +357,6 @@ function displaySlideProduct(data) {
     $("#slide_image").append(str)
 }
 
-
 function getListProductDetail(id) {
     $.ajax({
         type: "GET",
@@ -376,6 +375,26 @@ function getListProductDetail(id) {
         }
     })
 }
+
+function getComment(id,page){
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/getCommentQuestion/" + id+"/"+page,
+        success: function (data) {
+            displayCommentQuestion(data.content);
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
 
 function showCategory(Page) {
     $.ajax({
@@ -442,6 +461,7 @@ function categoryAtNavbar() {
     }
 }
 categoryAtNavbar();
+
 function selectorCategory(id) {
     localStorage.setItem("category",id);
     location.href="/fontend/fontend/user/category.html"
@@ -449,3 +469,4 @@ function selectorCategory(id) {
 function addProductToCart(id) {
 
 }
+git
