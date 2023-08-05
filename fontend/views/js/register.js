@@ -8,15 +8,15 @@ function register() {
     let birthday = $("#birthday").val();
     let role = parseInt($("#role").val());
     if (role === 1) {
-        let account = {username, password, fullName, avatar, phone, email, birthday};
+
+        let account = {username, password, fullName, avatar, phone, email, birthday,status: {id:1}};
         $.ajax({
             type: "Post",
             contentType: "application/json",
             url: "http://localhost:8080/register/client",
             data: JSON.stringify(account),
             success: function () {
-                // location.href = "signin.html"
-                alert("done")
+                location.href = "signin.html"
             },
             error: function (err) {
                 console.log(err);
@@ -25,19 +25,17 @@ function register() {
         })
     } else if (role === 2) {
         {
-            let nameShop=$("#nameshop").value;
-            let address=$("#address").value;
-            let avatarShop=$("#avatarShop").value;
-            let account = {username, password, fullName, avatar, phone, email, birthday,nameShop,address,avatarShop};
+            let nameShop=$("#nameshop").val();
+            let address=$("#address").val();
+            let avatarShop=$("#avatarShop").val();
+            let account = {username, password, fullName, avatar, phone, email, birthday,nameShop,address,avatarShop,status: {id:2}};
             $.ajax({
                 type: "Post",
                 contentType: "application/json",
                 url: "http://localhost:8080/register/shop",
                 data: JSON.stringify(account),
                 success: function () {
-                    // location.href = "signin.html"
-                    alert("done1")
-
+                    location.href = "signin.html"
                 },
                 error: function (err) {
                     console.log(err)

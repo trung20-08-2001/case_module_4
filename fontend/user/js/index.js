@@ -191,7 +191,7 @@ function displayDetail(product) {
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                    <button class="btn btn-primary px-3" onclick="addProductToCart(${product.id})"><i class="fa fa-shopping-cart mr-1"></i> Add To
                         Cart
                     </button>
                 </div>
@@ -399,7 +399,7 @@ function showCategory(Page) {
                 <a class="text-decoration-none" onclick="selectorCategory(${c.id})">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="${c.image}" alt="">
+                            <img class="img-fluid" src="${c.image}" alt="${c.name}">
                         </div>
                         <div class="flex-fill pl-3">
                             <h6>${c.name}</h6>
@@ -418,7 +418,9 @@ function showCategory(Page) {
         $("#category").html(str);
     }
 }
+
 showCategory(0);
+
 function categoryAtNavbar() {
     $.ajax({
         type: "GET",
@@ -433,19 +435,42 @@ function categoryAtNavbar() {
         error: function () {
         }
     })
+
     function getData(data) {
         let str = "";
         for (const c of data) {
-            str += `<a href="" class="nav-item nav-link" onclick="selectorCategory(${c.id}">${c.name}</a>`
+            str += `<a class="nav-item nav-link" onclick="selectorCategory(${c.id})">${c.name}</a>`
         }
         $("#dropdown_category").html(str);
     }
 }
+
 categoryAtNavbar();
+
 function selectorCategory(id) {
-    localStorage.setItem("category",id);
-    location.href="/fontend/fontend/user/category.html"
+    localStorage.setItem("category", id);
+    location.href = "/fontend/fontend/user/category.html"
 }
-function addProductToCart(id) {
+
+function addProductToCart(idProduct) {
+    let arr = localStorage.getItem("cart").;
+    if (arr === null) {
+         arr = [];
+        localStorage.setItem("cart", arr)
+    }
+    alert(product.id);
+    $.ajax({
+        type: "GET",
+        Accept: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/detail?idProduct=" + idProduct,
+        success: function (data) {
+            arr.push(data);
+        },
+        error: function () {
+        }
+    })
 
 }

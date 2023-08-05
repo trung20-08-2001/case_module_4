@@ -55,6 +55,7 @@ public class LoginApi {
             return new ResponseEntity<>(account, HttpStatus.OK);
         }else  return new ResponseEntity<>(null, HttpStatus.METHOD_NOT_ALLOWED);
     }
+
     @PostMapping("/register/shop")
     public ResponseEntity<Account> registerShop(@RequestBody Account account) {
         Account accountCheck = accountService.login(account.getUsername(), account.getPassword());

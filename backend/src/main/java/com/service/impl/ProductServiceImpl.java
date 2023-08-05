@@ -34,10 +34,10 @@ public class ProductServiceImpl implements IProductService {
         return iProductRepository.findAll();
     }
 
-        @Override
-        public Page<Product> getProductByShopAccount (Long id, Pageable pageable){
-            return iProductRepository.getProductByShopAccount(id, pageable);
-        }
+    @Override
+    public Page<Product> getProductByShopAccount(Long id, Pageable pageable) {
+        return iProductRepository.getProductByShopAccount(id, pageable);
+    }
 
     @Override
     public List<Product> getAllProductByCategory(Long id) {
@@ -45,32 +45,32 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-        public Product findById (Long id){
-            return iProductRepository.findById(id).get();
-        }
+    public Product findById(Long id) {
+        return iProductRepository.findById(id).get();
+    }
 
-        @Override
-        public void confirmProduct (Product product){
-
-        }
-
-        @Override
-        public void refuseProduct ( int id){
-        }
-
-        @Override
-        public Page<Product> getAllProduct (Pageable pageable){
-            return iProductRepository.getAllProduct(pageable);
-        }
-
-        @Override
-        public void save (Product product){
-            iProductRepository.save(product);
-        }
-
-        @Override
-        public void delete (Long aLong){
-            iProductRepository.deleteById(aLong);
-        }
+    @Override
+    public void confirmProduct(Product product) {
 
     }
+
+    @Override
+    public void refuseProduct(int id) {
+    }
+
+    @Override
+    public Page<Product> getAllProduct(Pageable pageable) {
+        return iProductRepository.getAllProduct(pageable);
+    }
+
+    @Override
+    public void save(Product product) {
+        iProductRepository.save(product);
+    }
+
+    @Override
+    public void delete(Long aLong) {
+        iProductRepository.deleteById(aLong);
+    }
+
+}
