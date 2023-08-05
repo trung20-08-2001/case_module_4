@@ -111,22 +111,10 @@
                                     <select id="idShop" style="height: 40px;width: 150px">
 
                                     </select>
-                                        <button type="button" onclick="showProductPending(document.getElementById('idShop'))" style="height: 39px; font-size: 20px">Hiển thị</button>
+                                        <button type="button" onclick="showProductPending($('#idShop').val())" style="height: 39px; font-size: 20px">Hiển thị</button>
                                     </div>
-                                    <div class="box_right d-flex lms_block">
-                                        <div class="serach_field_2">
-                                            <div class="search_inner">
-                                                <form Active="#">
-                                                    <div class="search_field">
-                                                        <input type="text" placeholder="Search content here...">
-                                                    </div>
-                                                    <button type="button"><i class="ti-search"></i></button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="add_button ms-2">
-                                            <a href="#" data-toggle="modal" data-target="#addcategory" class="btn_1">Add
-                                                New</a>
+                                    <div class="box_right d-flex lms_block" id="nameShop">
+
                                         </div>
                                     </div>
                                 </div>
@@ -138,11 +126,10 @@
                                             <th scope="col">id</th>
                                             <th scope="col">Category</th>
                                             <th scope="col">name product</th>
+                                            <th scope="col">image product</th>
                                             <th scope="col">price</th>
                                             <th scope="col">quantity</th>
-                                            <th scope="col">tên shop</th>
                                             <th scope="col">action</th>
-
 
                                         </tr>
                                         </thead>
@@ -151,10 +138,12 @@
                                             <td>id</td>
                                             <td>tên thể loại</td>
                                             <td>tên sản phẩm</td>
+                                            <td>ảnh sản phẩm</td>
                                             <td>giá</td>
                                             <td>số lượng đăng bán</td>
-                                            <td>giá 1 sản phẩm</td>
-                                            <td><input type="button"  class="status_btn" value="xác nhận"></input></td>
+                                            <td><button type="button"  class="status_btn" >Từ chối</button>
+                                                <button type="button"  class="status_btn" >Xác nhận</button>
+                                            </td>
                                         </tr>
 
                                         </tbody>
@@ -197,14 +186,14 @@
                 <li>
                     <a href="#">
                         <div class="member_thumb">
-                            <img src="img/staf/1.png" alt="">
+                            <img src="../css_html_admin/img/staf/1.png" alt="">
                         </div>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <div class="member_thumb">
-                            <img src="../css_html_adminimg/staf/2.png" alt="">
+                            <img src="../css_html_admin/img/staf/2.png" alt="">
                         </div>
                     </a>
                 </li>
@@ -297,11 +286,14 @@
         <i class="ti-angle-up"></i>
     </a>
 </div>
-<script src="../ajax_jquery_admin/data_product.js"></script>
 
 <script src="../ajax_jquery_admin/layout.js"></script>
 
+
+<script src="../ajax_jquery_admin/data_product.js"></script>
+
 <script src="../ajax_jquery_admin/ajax_list_shop_admin.js"></script>
+
 
 
 <script src="../css_html_admin/js/jquery1-3.4.1.min.js"></script>

@@ -15,6 +15,8 @@ public class CommentQA {
     private String comment;
     @Column(columnDefinition = "int default 0")
     private int parentId;
+    @Column(columnDefinition = "int default 0")
+    private int numberCommentAnswer;
     @ManyToOne
     private Product product;
     @ManyToOne

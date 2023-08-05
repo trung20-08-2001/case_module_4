@@ -23,14 +23,16 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
+    public void delete(Long id) {
+        iCategoryRepository.deleteById(id);
+    }
+
+    @Override
     public void save(Category category) {
         iCategoryRepository.save(category);
     }
 
 
-    public void delete(Long id) {
-        iCategoryRepository.findAllById(id);
-    }
 
     @Override
     public void edit(Category category) {
