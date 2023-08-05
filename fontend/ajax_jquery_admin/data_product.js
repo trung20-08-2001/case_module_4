@@ -50,7 +50,7 @@ function showAllCategory(categories){
     for (const c of categories) {
         str +=`  <tr>
                    <td>${c.id}</td>
-                   <td>${c.image} </td>
+                   <td><img src="${c.image}" alt="${c.name}"></img> </td>
                    <td>${c.name}</td>
                  </tr>`
     }
@@ -86,7 +86,7 @@ function showProductPendingByShop(productPending){
                     <td>${p.id}</td>
                     <td>${p.category.name}</td>
                     <td>${p.name}</td>
-                    <td>${p.img}</td>
+                    <td><img src="${p.img}" alt="${p.name}" ></img></td>
                     <td>${p.account.nameShop}</td>
                      <td>${p.price}</td>
                     <td>${p.quantity}</td>
@@ -95,7 +95,7 @@ function showProductPendingByShop(productPending){
                     <button type="button" onclick="confirmProduct(${p.id})" class="status_btn" >xác nhận</button>
                     </td>
                </tr>`;
-        nameShop=`<h3>${p.account.nameShop}</h3>`;
+        nameShop=`<h3>Shop: ${p.account.nameShop}</h3>`;
     }
     $("#nameShop").html(nameShop);
     $("#productPendingByIdShop").html(str);
