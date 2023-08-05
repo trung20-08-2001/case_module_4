@@ -20,9 +20,8 @@ public class ProductServiceImpl implements IProductService {
     IProductRepository iProductRepository;
     @Autowired
     IStatusRepository iStatusRepository;
+    @Autowired
     ICategoryRepository iCategoryRepository;
-
-
 
     @Override
     public List<Product> getAllProductPending(long id) {

@@ -4,12 +4,14 @@ import com.model.Category;
 import com.model.CommentQA;
 import com.model.Product;
 import com.model.ProductDetail;
+import com.model.dto.CommentDTO;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,19 +54,19 @@ public class UserApi {
         return rv;
     }
 
-    @GetMapping("/getCommentQuestion/{idProduct}/{page}")
-    public Page<CommentQA> getCommentQuestion(@PathVariable int page,@PathVariable Long idProduct) {
-        return commentQAService.getCommentQuestion(idProduct,PageRequest.of(page, 5));
+    @GetMapping("/getCommentQuestion/{idProduct}")
+    public List<CommentQA> getCommentQuestion(@PathVariable Long idProduct) {
+        return commentQAService.getCommentQuestion(idProduct);
     }
 
-    @GetMapping("/getCommentAnswer/{parentId}")
-    public Page<CommentQA> getCommentAnswer(@PathVariable int parentId, @RequestParam(defaultValue = "0") int page) {
+    @GetMapping("/getCommentAnswer/{parentId}/{page}")
+    public List<CommentDTO> getCommentAnswer(@PathVariable long parentId, @PathVariable int page) {
         return commentQAService.getCommentAnswer(parentId, PageRequest.of(page, 5));
     }
 
     @PostMapping("/saveComment")
-    public void saveComment(CommentQA commentQA) {
-        commentQAService.save(commentQA);
+    public CommentQA saveComment(@RequestBody CommentQA commentQA) {
+        return commentQAService.save(commentQA);
     }
 
     @GetMapping("/deleteComment/{id}")
@@ -72,19 +74,25 @@ public class UserApi {
         commentQAService.delete(id);
     }
 
+    @GetMapping("/findComment/{id}")
+    public CommentQA findComment(@PathVariable Long id) {
+        return commentQAService.findById(id);
+    }
+
     @GetMapping("/detail")
     public ResponseEntity<Product> detailProduct(@RequestParam long idProduct) {
         return new ResponseEntity<>(iProductService.findById(idProduct), HttpStatus.OK);
     }
+
     @GetMapping("/category")
-    public ResponseEntity<Page<Category>> getAllCategory(@RequestParam(defaultValue = "0") int page){
-        Page<Category> categoryList= iCategoryService.getAllCategory(PageRequest.of(page, 8));
+    public ResponseEntity<Page<Category>> getAllCategory(@RequestParam(defaultValue = "0") int page) {
+        Page<Category> categoryList = iCategoryService.getAllCategory(PageRequest.of(page, 8));
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
     @GetMapping("/listCategory")
-    public ResponseEntity<List<Product>> getProductByCategory(@RequestParam Long id){
-        List<Product> productList=iProductService.getAllProductByCategory(id);
+    public ResponseEntity<List<Product>> getProductByCategory(@RequestParam Long id) {
+        List<Product> productList = iProductService.getAllProductByCategory(id);
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 }
