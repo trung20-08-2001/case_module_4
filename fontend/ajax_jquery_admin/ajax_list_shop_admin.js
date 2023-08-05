@@ -178,3 +178,80 @@ function activeShop(id) {
     })
 }
 
+function shopActiveById(){
+    let shopId = $("#idShopActive").val();
+
+    $.ajax({
+        type:"POST",
+        header:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+
+        },
+        url: "http://localhost:8080/admin/findShopActive/" + shopId,
+        success: function (shopPending){
+            console.log(shopPending)
+            showShopActiveById(shopPending)
+
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+function showShopActiveById(s){
+   let str = `<tr>
+                   <td>${s.id}</td>
+                   <td><img src="${s.avatarShop}" alt="${s.nameShop}" style="width: 25px; height: 25px"></td>
+                   <td>${s.fullName}</td>
+                   <td>${s.nameShop}</td>
+                   <td>${s.phone}</td>
+                   <td>${s.address}</td>
+                   <td>${s.email}</td>
+                   <td>${s.status.name}</td>
+                   <td>               
+                       <button type="button" onclick="blockShop(${s.id})"  style="width: 50px">block</button>                  
+                     </td>
+                </tr>`
+
+    $("#showShop").html(str);
+}
+function shopBlockById(){
+    let shopId = $("#idShopBlock").val();
+
+    $.ajax({
+        type:"POST",
+        header:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+
+        },
+        url: "http://localhost:8080/admin/findShopBlock/" + shopId,
+        success: function (shopBlock){
+            console.log(shopBlock);
+            showShopBlockById(shopBlock);
+
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+
+function showShopBlockById(sp){
+   let str = `<tr>
+                   <td>${sp.id}</td>
+                   <td><img src="${sp.avatarShop}" alt="${sp.nameShop}" style="width: 25px; height: 25px"></td>
+                   <td>${sp.fullName}</td>
+                   <td>${sp.nameShop}</td>
+                   <td>${sp.phone}</td>
+                   <td>${sp.address}</td>
+                   <td>${sp.email}</td>
+                   <td>${sp.status.name}</td>
+                   <td>               
+                       <input type="button" onclick="activeShop(${sp.id})" class="action_btn mr_10" value="Active" style="width: 50px">                  
+                     </td>
+                </tr>`
+    $("#showShopBlock").html(str);
+
+}

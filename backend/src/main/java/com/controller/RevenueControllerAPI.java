@@ -26,4 +26,9 @@ public class RevenueControllerAPI {
         List<Revenue> revenuesByYear = iRevenueService.getAllRevenueByYear(year);
         return new ResponseEntity<>(revenuesByYear,HttpStatus.OK);
     }
+    @PostMapping("/revenueMonthMax/{year}")
+    public ResponseEntity<Revenue> getRevenueByMonthMax(@PathVariable int year){
+        Revenue revenue = iRevenueService.getRevenueByMonthMax(year);
+        return new ResponseEntity<>(revenue,HttpStatus.OK);
+    }
 }

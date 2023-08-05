@@ -11,7 +11,8 @@ function updateChart(year) {
     $.ajax({
         type: "POST",
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         url: "http://localhost:8080/admin/revenues/revenueByYear/" + year,
         success: function (revenueByYear) {
@@ -60,12 +61,39 @@ function updateLineChart(byYear) {
         }
     });
 }
+function getRevenueByMonthMax(year){
+    $.ajax({
+        type:"POST",
+        header:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: "http://localhost:8080/admin/revenues/revenueMonthMax/" + year,
+        success: function (revenueMonthMax){
+            console.log(revenueMonthMax)
+            showRevenueByMonthMax(revenueMonthMax)
+
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+function showRevenueByMonthMax(revenueMonthMax){
+    let revenueMonth =``;
+    revenueMonth =`<h4>Tháng ${revenueMonthMax.month} </h4>
+                    <h4>Doanh thu ${revenueMonthMax.revenue} $</h4>
+                    <p>Doanh thu tháng cao nhất trong năm</p>` ;
+    $("#revenueMonthMax").html(revenueMonth);
+}
 
 // Gọi hàm cập nhật biểu đồ khi trang được tải lần đầu
-const currentYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear(); // tìm năm hiện tại
 updateChart(currentYear);
+getRevenueByMonthMax(currentYear);
 function getRevenueByYear(year){
     updateChart(year);
+    getRevenueByMonthMax(year);
 }
 function selectYear(){
     let str =``;
@@ -75,68 +103,94 @@ function selectYear(){
     $("#byYear").html(str);
 }
 selectYear();
-// const salesData = {
-//     labels: [], // Mảng lưu trữ tên các tháng (vd: ['Tháng 1', 'Tháng 2', ...])
-//     data: [],   // Mảng lưu trữ doanh số tương ứng với từng tháng (vd: [100, 150, ...])
-// };
-//
-// // Hàm để cập nhật biểu đồ khi có dữ liệu mới từ database
-// function updateChart() {
-//     // Giả sử dữ liệu được nhận từ database là một mảng các đối tượng, mỗi đối tượng là một bản ghi doanh số
-//     const newDataFromDatabase = [
-//         { month: 'Tháng 1', sales: 100 },
-//         { month: 'Tháng 2', sales: 150 },
-//         { month: 'Tháng 3', sales: 50 },
-//         { month: 'Tháng 4', sales: 250 },
-//         { month: 'Tháng 5', sales: 150 },
-//         { month: 'Tháng 6', sales: 300 },
-//         { month: 'Tháng 7', sales: 350 },
-//         { month: 'Tháng 9', sales: 220 },
-//         { month: 'Tháng 10', sales: 335 },
-//         { month: 'Tháng 11', sales: 289 },
-//         { month: 'Tháng 12', sales: 275 },
-//         // Thêm các bản ghi còn lại từ database vào đây
-//     ];
-//
-//     // Xóa dữ liệu cũ trong biến salesData
-//     salesData.labels = [];
-//     salesData.data = [];
-//
-//     // Duyệt qua dữ liệu mới từ database và thêm vào biến salesData
-//     newDataFromDatabase.forEach((record) => {
-//         salesData.labels.push(record.month);
-//         salesData.data.push(record.sales);
-//     });
-//
-//     // Cập nhật biểu đồ
-//     updateLineChart();
-// }
-//
-// // Hàm để cập nhật biểu đồ đường
-// function updateLineChart() {
-//     const ctx = document.getElementById('lineChart').getContext('2d');
-//     const lineChart = new Chart(ctx, {
-//         type: 'line',
-//         data: {
-//             labels: salesData.labels,
-//             datasets: [{
-//                 label: 'Doanh số',
-//                 data: salesData.data,
-//                 borderColor: 'rgb(75, 192, 192)',
-//                 borderWidth: 2,
-//                 fill: false,
-//             }],
-//         },
-//         options: {
-//             responsive: true,
-//             scales: {
-//                 y: {
-//                     beginAtZero: true
-//                 }
-//             }
-//         }
-//     });
-// }
-//
-// // Gọi hàm cập nhật biểu đồ khi trang được tải lần đầu
-// updateChart();
+
+function getAccByUser(){
+    $.ajax({
+        type:"GET",
+        header:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: "http://localhost:8080/admin/accountByUser/" ,
+        success: function (listUser){
+            showAccUser(listUser)
+
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+function showAccUser(listUser){
+    let str =``;
+    str =`<h4>${listUser.length} </h4>
+        <p>Các tài khoản đã đăng ký</p>` ;
+    $("#sizeUser").html(str);
+}
+
+getAccByUser();
+
+function getSizeShop(){
+    $.ajax({
+        type:"GET",
+        header:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: "http://localhost:8080/admin/shopActive/" ,
+        success: function (listShop){
+            showSizeShop(listShop)
+
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+function showSizeShop(listShop){
+    let str =``;
+    str =`<h4>${listShop.length} </h4>
+        <p>Các shop đang hoặt động</p>` ;
+    $("#sizeShop").html(str);
+}
+getSizeShop();
+
+function getNewUser(){
+    $.ajax({
+        type:"GET",
+        header:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: "http://localhost:8080/admin/getNewUser" ,
+        success: function (newUser){
+            showNewUser(newUser)
+
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+function showNewUser(newUser){
+    let str=``;
+    for (const nu of newUser) {
+        str +=`<div class="single_user_pil d-flex align-items-center justify-content-between">
+    <div class="user_pils_thumb d-flex align-items-center">
+        <div class="thumb_34 mr_15 mt-0"><img class="img-fluid radius_50"
+                                              src="${nu.avatar}"
+                                              alt="${nu.fullName}"></div>
+        <span class="f_s_14 f_w_400 text_color_11">${nu.fullName}</span>
+    </div>
+    <div class="user_info">
+        ${nu.role.name}
+    </div>
+    <div class="action_btns d-flex">
+        <a href="#" class="action_btn mr_10">${nu.id}</a>
+        <a href="#" class="action_btn"> <i class="fas fa-trash"></i> </a>
+    </div>
+</div>`
+    }
+$("#newUser").html(str);
+}
+getNewUser();
