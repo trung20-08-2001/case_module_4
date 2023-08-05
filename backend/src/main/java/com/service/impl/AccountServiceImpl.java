@@ -75,7 +75,6 @@ public class AccountServiceImpl implements IAccountService {
         account.setStatus(status);
         iAccountRepository.save(account);
     }
-
     @Override
     public List<Account> getAllAccountByUser() {
         return iAccountRepository.getAllAccountByUser();

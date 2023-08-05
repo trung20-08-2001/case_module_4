@@ -93,6 +93,56 @@ function detail(id) {
     })
 
 }
+function displaySlideProduct(data) {
+    let str = "";
+    for (const p of data) {
+        str += `
+        <div class="carousel-item">
+            <img class="w-100" style="height: 470px"  src="${p.image}" alt="${p.product.name}">
+        </div>
+        `
+    }
+    $("#slide_image").append(str)
+}
+
+function getListProductDetail(id) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/getListProductDetail/" + id,
+        success: function (data) {
+            displaySlideProduct(data);
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
+function getComment(id,page){
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/getCommentQuestion/" + id+"/"+page,
+        success: function (data) {
+            displayCommentQuestion(data.content);
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
 
 function showCategory(Page) {
     $.ajax({
@@ -117,7 +167,7 @@ function getData(data) {
                 <a class="text-decoration-none" onclick="selectorCategory(${c.id})">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="${c.image}" alt="">
+                            <img class="img-fluid" src="${c.image}" alt="${c.name}">
                         </div>
                         <div class="flex-fill pl-3">
                             <h6>${c.name}</h6>
@@ -157,7 +207,7 @@ function categoryAtNavbar() {
     function getData(data) {
         let str = "";
         for (const c of data) {
-            str += `<a href="" class="nav-item nav-link" onclick="selectorCategory(${c.id}">${c.name}</a>`
+            str += `<a class="nav-item nav-link" onclick="selectorCategory(${c.id})">${c.name}</a>`
         }
         $("#dropdown_category").html(str);
     }
@@ -170,7 +220,26 @@ function selectorCategory(id) {
     location.href = "/fontend/fontend/user/category.html"
 }
 
-function addProductToCart(id) {
+function addProductToCart(idProduct) {
+    let arr = localStorage.getItem("cart");
+    if (arr === null) {
+         arr = [];
+        localStorage.setItem("cart", arr)
+    }
+    alert(product.id);
+    $.ajax({
+        type: "GET",
+        Accept: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/detail?idProduct=" + idProduct,
+        success: function (data) {
+            arr.push(data);
+        },
+        error: function () {
+        }
+    })
 
 }
 

@@ -20,14 +20,12 @@ public class ProductServiceImpl implements IProductService {
     IProductRepository iProductRepository;
     @Autowired
     IStatusRepository iStatusRepository;
-    @Autowired
     ICategoryRepository iCategoryRepository;
 
     @Override
     public List<Product> getAllProductPending(long id) {
         return iProductRepository.getAllProductPending(id);
     }
-
 
     @Override
     public Product findById(Long id) {
@@ -59,8 +57,6 @@ public class ProductServiceImpl implements IProductService {
         product.setStatus(status);
         iProductRepository.save(product);
     }
-
-
     @Override
     public Page<Product> getProductByShopAccount(Long id, Pageable pageable) {
         return iProductRepository.getProductByShopAccount(id, pageable);
@@ -71,12 +67,14 @@ public class ProductServiceImpl implements IProductService {
         return iProductRepository.getProductsByCategory(iCategoryRepository.findAllById(id));
     }
 
-
     @Override
     public void save(Product product) {
         iProductRepository.save(product);
     }
 
+    public void delete(Long aLong) {
+        iProductRepository.deleteById(aLong);
+    }
 
     @Override
     public void refuseProduct(long id) {

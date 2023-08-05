@@ -95,4 +95,5 @@ public class UserApi {
         List<Product> productList = iProductService.getAllProductByCategory(id);
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
+
 }
