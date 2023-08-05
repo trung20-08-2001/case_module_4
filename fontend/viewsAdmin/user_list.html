@@ -91,15 +91,15 @@
                                         <div class="serach_field_2">
                                             <div class="search_inner">
                                                 <form Active="#">
-                                                    <div class="search_field">
-                                                        <input type="text" placeholder="Search content here...">
+                                                    <div class="search_field" >
+                                                        <input type="text" placeholder="Search user by ID" id="idUserActive">
                                                     </div>
-                                                    <button type="submit"><i class="ti-search"></i></button>
+                                                    <button onclick="findUserActiveById($('#idUserActive').val())" type="button"><i class="ti-search"></i></button>
                                                 </form>
                                             </div>
                                         </div>
                                         <div class="add_button ms-2">
-                                            <a href="#" data-toggle="modal" data-target="#addcategory" class="btn_1">search</a>
+                                            <button onclick="findUserActiveById()" data-target="#addcategory" class="btn_1">search</button>
                                         </div>
                                     </div>
                                 </div>
@@ -127,6 +127,54 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="white_card card_height_100 mb_30 pt-4">
+                        <div class="white_card_body">
+                            <div class="QA_section">
+                                <div class="white_box_tittle list_header">
+                                    <h4>Danh sách người dùng vi phạm </h4>
+                                    <div class="box_right d-flex lms_block">
+                                        <div class="serach_field_2">
+                                            <div class="search_inner">
+                                                <form Active="#">
+                                                    <div class="search_field">
+                                                        <input type="text" placeholder="Search content here..." id="idUserBlock">
+                                                    </div>
+                                                    <button type="submit"><i class="ti-search"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="add_button ms-2">
+                                            <button onclick="findUserBlockById()" data-target="#addcategory" class="btn_1">search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="QA_table mb_30">
+
+                                    <table class="table lms_table_active ">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">id</th>
+                                            <th scope="col">avatar</th>
+                                            <th scope="col">fullName</th>
+                                            <th scope="col">birthday</th>
+                                            <th scope="col">phone</th>
+                                            <th scope="col">email</th>
+                                            <th scope="col">role</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="showUserBlock">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

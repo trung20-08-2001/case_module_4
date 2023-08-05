@@ -7,7 +7,9 @@ import com.repository.IStatusRepository;
 import com.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,6 +73,42 @@ public class AccountServiceImpl implements IAccountService {
         Account account = iAccountRepository.findById( id).get();
         account.setStatus(status);
         iAccountRepository.save(account);
+    }
+
+    @Override
+    public List<Account> getAllAccountByUser() {
+        return iAccountRepository.getAllAccountByUser();
+    }
+
+    @Override
+    public Account findAccountActiveUserById(long id) {
+        return iAccountRepository.findAccountActiveUserById(id);
+    }
+
+    @Override
+    public Account findAccountUserBlockById(long id) {
+        return iAccountRepository.findAccountUserBlockById(id);
+    }
+
+    @Override
+    public List<Account> getAllUserBlock() {
+        return iAccountRepository.getAllUserBlock();
+    }
+
+    @Override
+    public Account findShopActiveById(long id) {
+        return iAccountRepository.findShopActiveById(id);
+    }
+
+    @Override
+    public Account findShopBlockById(long id) {
+        return iAccountRepository.findShopBlockById(id);
+    }
+
+    @Override
+    public List<Account> getNewUser() {
+        Pageable pageable = PageRequest.of(0, 5, Sort.by("id").descending());
+        return iAccountRepository.findNewAccountUser(pageable);
     }
 
     @Override

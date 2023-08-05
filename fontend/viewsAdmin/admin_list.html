@@ -92,14 +92,14 @@
                                             <div class="search_inner">
                                                 <form Active="#">
                                                     <div class="search_field">
-                                                        <input type="text" placeholder="Search content here...">
+                                                        <input type="text" placeholder="Search shop active by ID" id="idShopActive">
                                                     </div>
                                                     <button type="submit"><i class="ti-search"></i></button>
                                                 </form>
                                             </div>
                                         </div>
                                         <div class="add_button ms-2">
-                                            <input type="button" href="#" data-toggle="modal" data-target="#addcategory" class="btn_1" value="search"></input>
+                                            <input onclick="shopActiveById()" type="button"  data-target="#addcategory" class="btn_1" value="search"></input>
                                         </div>
                                     </div>
                                 </div>
@@ -142,14 +142,14 @@
                                             <div class="search_inner">
                                                 <form Active="#">
                                                     <div class="search_field">
-                                                        <input type="text" placeholder="Search content here...">
+                                                        <input type="text" placeholder="Search shop active by ID" id="idShopBlock">
                                                     </div>
                                                     <button type="submit"><i class="ti-search"></i></button>
                                                 </form>
                                             </div>
                                         </div>
                                         <div class="add_button ms-2">
-                                            <input type="button" href="#" data-toggle="modal" data-target="#addcategory" class="btn_1" value="search"></input>
+                                            <input onclick="shopBlockById()" type="button"  data-target="#addcategory" class="btn_1" value="search"></input>
                                         </div>
                                     </div>
                                 </div>
@@ -171,22 +171,6 @@
                                         </tr>
                                         </thead>
                                         <tbody id="showShopBlock">
-                                        <tr>
-                                            <td>id</td>
-                                            <td>Ảnh shop</td>
-                                            <td>Tên chủ shop</td>
-                                            <td>Tên  shop</td>
-                                            <td>SĐT shop</td>
-                                            <td>Địa chỉ shop</td>
-                                            <td>Email shop</td>
-                                            <td>Trạng thái</td>
-                                            <td>
-                                                <div class="action_btns d-flex">
-                                                    <input type="button" onclick="" class="action_btn mr_10" value="active" style="width: 50px"> </i>
-                                                    </input>
-                                                </div>
-                                            </td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

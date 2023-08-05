@@ -13,4 +13,7 @@ public interface IRevenueRepository extends JpaRepository<Revenue,Long> {
 
     @Query(value ="SELECT r FROM Revenue r WHERE r.year = :year " )
     List<Revenue> getAllRevenueByYear(@Param("year") int year);
+
+    @Query(value = "SELECT r FROM Revenue r WHERE r.year = :year AND r.revenue =(SELECT max(rm.revenue) FROM Revenue rm WHERE rm.year = :year)")
+    Revenue getRevenueByMonthMax(@Param("year") int year);
 }

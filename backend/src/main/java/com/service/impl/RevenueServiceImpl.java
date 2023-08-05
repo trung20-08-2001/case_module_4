@@ -20,4 +20,9 @@ public class RevenueServiceImpl implements IRevenueService {
     public List<Revenue> getAllRevenueByYear(int year) {
         return iRevenueRepository.getAllRevenueByYear(year);
     }
+
+    @Override
+    public Revenue getRevenueByMonthMax(int year) {
+        return iRevenueRepository.getRevenueByMonthMax(year);
+    }
 }
