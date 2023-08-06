@@ -110,7 +110,6 @@ function save() {
         });
     });
 }
-
 function create(data) {
     $.ajax({
         headers: {

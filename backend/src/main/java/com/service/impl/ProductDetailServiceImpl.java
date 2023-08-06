@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import com.model.Product;
 import com.model.ProductDetail;
 import com.repository.IProductDetailRepository;
 import com.service.IProductDetailService;
@@ -15,5 +16,15 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     @Override
     public List<ProductDetail> getListProductDetailByIdProduct(Long id) {
         return productDetailRepository.findProductDetailsByProductId( id);
+    }
+
+    @Override
+    public void saveAll(List<ProductDetail> productDetails) {
+        productDetailRepository.saveAll(productDetails);
+    }
+
+    @Override
+    public void deleteByProduct(Product product) {
+        productDetailRepository.deleteByProduct(product);
     }
 }

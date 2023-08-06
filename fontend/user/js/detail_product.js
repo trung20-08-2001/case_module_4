@@ -368,6 +368,7 @@ function getCommentAnswer(parentId, page) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
             },
             url: "http://localhost:8080/user/getCommentAnswer/" + parentId + "/" + page,
             success: function (data) {
@@ -473,6 +474,7 @@ function confirmComment() {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
             },
             url: "http://localhost:8080/user/saveComment",
             data: JSON.stringify(newComment),
@@ -505,6 +507,7 @@ function deleteComment(idComment) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
         url: "http://localhost:8080/user/deleteComment/" + idComment,
         success: function () {
@@ -536,6 +539,7 @@ function editComment(id) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
         url: "http://localhost:8080/user/findComment/" + id,
         success: function (data) {

@@ -29,7 +29,7 @@ function register() {
             let nameShop=$("#nameshop").val();
             let address=$("#address").val();
             let avatarShop=$("#avatarShop").val();
-            let account = {username, password, fullName, avatar, phone, email, birthday,nameShop,address,avatarShop,status: {id:2}};
+            let account = {username, password, fullName, avatar, phone, email, birthday,nameShop,address,avatarShop,status: {id:3}};
             $.ajax({
                 type: "Post",
                 contentType: "application/json",

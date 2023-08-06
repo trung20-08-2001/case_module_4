@@ -94,8 +94,26 @@ function edit(id) {
         type: "GET",
         success: function (data) {
             localStorage.setItem("product", JSON.stringify(data))
+            findProductDetail(data.id)
             location.href= "product-edit.html";
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+}
 
+function findProductDetail(id){
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: "http://localhost:8080/shop/getListProductDetail/" + id,
+        type: "GET",
+        success: function (data) {
+            localStorage.setItem("list_product_detail", JSON.stringify(data))
         },
         error: function (err) {
             console.log(err)
@@ -112,8 +130,7 @@ function changeStatus(id){
             'Content-Type': 'application/json'
         },
         url: "http://localhost:8080/shop/changeStatus/" + id,
-        success: function (data) {
-            console.log("complete")
+        success: function () {
             findAll();
         },
         error: function (err) {

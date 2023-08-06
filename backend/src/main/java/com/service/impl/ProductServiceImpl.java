@@ -1,9 +1,8 @@
 package com.service.impl;
 
-import com.model.Category;
 import com.model.Product;
-import com.repository.ICategoryRepository;
 import com.model.Status;
+import com.repository.ICategoryRepository;
 import com.repository.IProductRepository;
 import com.repository.IStatusRepository;
 import com.service.IProductService;
@@ -68,12 +67,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void save(Product product) {
-        iProductRepository.save(product);
-    }
-
-    public void delete(Long aLong) {
-        iProductRepository.deleteById(aLong);
+    public Product save(Product product) {
+        return iProductRepository.save(product);
     }
 
     @Override
@@ -81,6 +76,5 @@ public class ProductServiceImpl implements IProductService {
         Product product = iProductRepository.findById(id).get();
         iProductRepository.delete(product);
     }
-
 
 }
