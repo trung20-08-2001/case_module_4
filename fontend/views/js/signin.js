@@ -17,7 +17,7 @@ function login() {
             } else if (data.role.name === "ROLE_SHOP") {
                 location.href = "/fontend/shop/dashui.codescandy.com/dashuipro/pages/index.html"
             } else if (data.role.name === "ROLE_ADMIN") {
-                location.href = "/fontend/viewsAdmin/index.html"
+                location.href = "/fontend/fontend/viewsAdmin/index.html"
             } else location.href = "/views/signin.html"
         },
         error: function (err) {

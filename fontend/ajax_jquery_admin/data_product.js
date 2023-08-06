@@ -89,8 +89,7 @@ function showProductPendingByShop(productPending){
                     <td>${p.category.name}</td>
                     <td>${p.name}</td>
                     <td><img src="${p.img}" alt="${p.name}" ></img></td>
-                    <td>${p.account.nameShop}</td>
-                     <td>${p.price}</td>
+                    <td>${p.price}</td>
                     <td>${p.quantity}</td>
                     <td>
                     <button type="button" onclick="refuseProduct(${p.id})"  class="status_btn" >Từ chối</button>
