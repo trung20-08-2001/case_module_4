@@ -91,22 +91,23 @@ function detail(id) {
         }
     })
 
+}
 
-    function showCategory(Page) {
-        $.ajax({
-            type: "GET",
-            Accept: 'application/json',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("token")
-            },
-            url: "http://localhost:8080/user/category?page=" + Page,
-            success: function (data) {
-                getData(data)
-            },
-            error: function () {
-            }
-        })
-    }
+function showCategory(Page) {
+    $.ajax({
+        type: "GET",
+        Accept: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/category?page=" + Page,
+        success: function (data) {
+            getData(data)
+        },
+        error: function () {
+        }
+    })
+
 
     function getData(data) {
         let str = "";
@@ -134,24 +135,25 @@ function detail(id) {
         $("#category").html(str);
     }
 
+}
 
-    showCategory(0);
+showCategory(0);
 
-    function categoryAtNavbar() {
-        $.ajax({
-            type: "GET",
-            Accept: 'application/json',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("token")
-            },
-            url: "http://localhost:8080/categories",
-            success: function (data) {
-                getData(data)
-            },
-            error: function () {
-            }
-        })
-    }
+function categoryAtNavbar() {
+    $.ajax({
+        type: "GET",
+        Accept: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/categories",
+        success: function (data) {
+            getData(data)
+        },
+        error: function () {
+        }
+    })
+
 
     function getData(data) {
         let str = "";
@@ -185,7 +187,7 @@ function addProductToCart(idProduct) {
         url: "http://localhost:8080/user/detail?idProduct=" + idProduct,
         success: function (data) {
             array.push(data);
-            localStorage.setItem("cart",JSON.stringify( array));
+            localStorage.setItem("cart", JSON.stringify(array));
         },
         error: function () {
         }
