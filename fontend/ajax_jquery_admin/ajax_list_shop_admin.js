@@ -5,13 +5,13 @@ getAllShopPending();
 //hiển thị tất cả các shop đang chạy
 function getAllShopActive(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/admin/findShopAccount",
+            url: "http://localhost:8080/admin/findShopAccount",
         success: function (shopList){
             console.log(shopList)
             showShop(shopList)
@@ -50,11 +50,11 @@ function showShop(shopList){
 // hiển thị các shop bị khóa
 function getAllShopBlock(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findShopBlock",
         success: function (shopBlock){
@@ -93,11 +93,11 @@ function showShopBlock(shopBlock){
 // hiển thị các shop chờ duyệt
 function getAllShopPending(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/shopPending",
         success: function (shopPending){
@@ -140,10 +140,11 @@ function blockShop(id){
     let ids = id;
     window.location.href="../viewsAdmin/admin_list.html";
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/block/" + ids,
         success: function (mess) {
@@ -163,10 +164,11 @@ function activeShop(id) {
     let ids = id;
     window.location.href="../viewsAdmin/admin_list.html";
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/activeShop/" + id,
         success: function (mess) {
@@ -182,11 +184,11 @@ function shopActiveById(){
     let shopId = $("#idShopActive").val();
 
     $.ajax({
-        type:"POST",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findShopActive/" + shopId,
         success: function (shopPending){
@@ -220,11 +222,11 @@ function shopBlockById(){
     let shopId = $("#idShopBlock").val();
 
     $.ajax({
-        type:"POST",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findShopBlock/" + shopId,
         success: function (shopBlock){

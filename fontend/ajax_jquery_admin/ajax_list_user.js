@@ -1,10 +1,11 @@
 getAlluser();
 function getAlluser(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findUserAccount",
         success: function (userList){
@@ -39,10 +40,11 @@ function showUser(userList){
 function blockUser(id){
     window.location.href="../viewsAdmin/user_list.html"
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/block/" + id,
         success: function (mess) {
@@ -55,10 +57,11 @@ function blockUser(id){
 }
 function getAllUserBlock(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/allUserBlock",
         success: function (listUserBlock){
@@ -93,10 +96,11 @@ getAllUserBlock();
 function unlockUser(id){
     window.location.href="../viewsAdmin/user_list.html"
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/activeShop/" + id,
         success: function (mess) {
@@ -111,10 +115,11 @@ function unlockUser(id){
 function findUserActiveById(){
     let userId = $("#idUserActive").val();
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findUserActive/" + userId,
         success: function (userActive) {
@@ -145,10 +150,11 @@ function showUserActiveById(u){
 function findUserBlockById(){
     let userId = $("#idShopBlock").val();
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findUserBlock/" + userId,
         success: function (userActive) {

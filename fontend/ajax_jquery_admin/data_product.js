@@ -3,11 +3,11 @@ getAllShopActive();
 
 function getAllShopActive(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findShopAccount",
         success: function (shopList){
@@ -31,10 +31,11 @@ function showShopSelect(shopActive){
 
 function getAllCategory(){
     $.ajax({
-        type: "GET",
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/categories",
         success: function (categoryList) {
@@ -59,10 +60,11 @@ function showAllCategory(categories){
 
 function showProductPending(id){
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/products/productPending/" +  id,
         success: function (productPendingByIdShop) {
@@ -102,10 +104,11 @@ function showProductPendingByShop(productPending){
 }
 function refuseProduct(id){
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/products/refuseProduct/" +  id,
         success: function (mess) {
@@ -121,10 +124,11 @@ function refuseProduct(id){
 
 function confirmProduct(id){
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/products/confirmProduct/" +  id,
         success: function (mess) {

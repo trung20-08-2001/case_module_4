@@ -9,10 +9,11 @@ const salesData = {
 function updateChart(year) {
     let byYear= "";
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/revenues/revenueByYear/" + year,
         success: function (revenueByYear) {
@@ -63,10 +64,11 @@ function updateLineChart(byYear) {
 }
 function getRevenueByMonthMax(year){
     $.ajax({
-        type:"POST",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/revenues/revenueMonthMax/" + year,
         success: function (revenueMonthMax){
@@ -106,10 +108,11 @@ selectYear();
 
 function getAccByUser(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/accountByUser/" ,
         success: function (listUser){
@@ -132,10 +135,11 @@ getAccByUser();
 
 function getSizeShop(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/shopActive/" ,
         success: function (listShop){
@@ -157,10 +161,11 @@ getSizeShop();
 
 function getNewUser(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/getNewUser" ,
         success: function (newUser){
