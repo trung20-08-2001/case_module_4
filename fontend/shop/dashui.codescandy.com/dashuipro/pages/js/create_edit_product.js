@@ -26,7 +26,7 @@ function getAllCategory() {
     $.ajax({
         Accept: "application/json",
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
         },
         url: "http://localhost:8080/categories",
         type: "GET",
@@ -184,7 +184,7 @@ function saveProduct() {
     if (validate === true) {
         $.ajax({
             headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+                'Authorization': 'Bearer ' + localStorage.getItem("token"),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
@@ -215,7 +215,7 @@ function saveProductDetail(product) {
     }
     $.ajax({
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
@@ -240,7 +240,7 @@ function saveProductDetail(product) {
 function deleteProductDetail(product) {
     $.ajax({
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
