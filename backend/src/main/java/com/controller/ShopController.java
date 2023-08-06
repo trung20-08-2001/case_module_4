@@ -25,7 +25,7 @@ public class ShopController {
 
     @GetMapping
     public ResponseEntity<Page<Product>> getAllPage(@RequestParam(defaultValue = "0") int page, @RequestParam Long id) {
-        Page<Product> products = iProductService.getProductByShopAccount(id, PageRequest.of(page, 10));
+        Page<Product> products = iProductService.getProductByShopAccount(id, PageRequest.of(page, 5));
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 

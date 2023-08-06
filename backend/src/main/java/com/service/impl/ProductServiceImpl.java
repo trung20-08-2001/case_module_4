@@ -19,6 +19,7 @@ public class ProductServiceImpl implements IProductService {
     IProductRepository iProductRepository;
     @Autowired
     IStatusRepository iStatusRepository;
+    @Autowired
     ICategoryRepository iCategoryRepository;
 
     @Override

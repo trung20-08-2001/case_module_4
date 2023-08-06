@@ -92,57 +92,6 @@ function detail(id) {
         }
     })
 
-}
-function displaySlideProduct(data) {
-    let str = "";
-    for (const p of data) {
-        str += `
-        <div class="carousel-item">
-            <img class="w-100" style="height: 470px"  src="${p.image}" alt="${p.product.name}">
-        </div>
-        `
-    }
-    $("#slide_image").append(str)
-}
-
-function getListProductDetail(id) {
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-        url: "http://localhost:8080/user/getListProductDetail/" + id,
-        success: function (data) {
-            displaySlideProduct(data);
-        },
-        error: function (err) {
-            console.log(err);
-            alert("Error")
-        }
-    })
-}
-
-function getComment(id,page){
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-        url: "http://localhost:8080/user/getCommentQuestion/" + id+"/"+page,
-        success: function (data) {
-            displayCommentQuestion(data.content);
-        },
-        error: function (err) {
-            console.log(err);
-            alert("Error")
-        }
-    })
-}
-
 
 function showCategory(Page) {
     $.ajax({
@@ -203,6 +152,7 @@ function categoryAtNavbar() {
         error: function () {
         }
     })
+}
 
     function getData(data) {
         let str = "";
