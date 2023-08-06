@@ -59,4 +59,5 @@ public class AccountController {
         List<Account> newUser = iAccountService.getNewUser();
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
+
 }

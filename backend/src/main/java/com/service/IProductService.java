@@ -15,7 +15,7 @@ public interface IProductService {
     void confirmProduct(long id);
     void refuseProduct(long id);
     Page<Product> getAllProduct(Pageable pageable);
-    void save(Product product);
+    Product save(Product product);
     Product findById(Long id);
 
     Page<Product> getProductByShopAccount(Long id, Pageable pageable);
