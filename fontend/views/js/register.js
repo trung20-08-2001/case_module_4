@@ -103,11 +103,11 @@ function check() {
         // document.querySelector('#username').placeholder="từ 3-16 ký tự";
         $("#regexUsername").html("từ 3-16 ký tự")
     } else if (!passwordRegex.test(password)) {
-        $("#dropdown_category").html("có chữ và số và có 8 ký tự");
+        alert("có chữ và số và có 8 ký tự");
     } else if (!fullNameRegex.test(fullName)) {
-        $("#dropdown_category").html("từ 3-16 ký tự chữ");
+        alert("từ 3-16 ký tự chữ");
     } else if (!phoneRegex.test(phone)) {
-        $("#dropdown_category").html("gồm 10 ký tự số ");
+        alert("gồm 10 ký tự số ");
     } else {
         register(username, password, fullName, avatar, phone, email, birthday, role)
     }

@@ -17,9 +17,7 @@ function showAllProduct(page) {
     })
 
 }
-
 showAllProduct(0)
-
 function showProduct(arr) {
     let str = "";
     for (const p of arr) {
@@ -51,6 +49,12 @@ function showProduct(arr) {
                 </div>
             </div>
         </div>`
+    }
+    for (let i = 0; i < arr.totalPages; i++) {
+        if (i === arr.number) {
+            str += `<button class="btn btn-secondary" onclick="showAllProduct(${i})" > ${i + 1}  </button>`
+        } else
+            str += `<button class="btn btn-light" onclick="showAllProduct(${i})" > ${i + 1}  </button>`
     }
     $("#featured_product").html(str);
 }
@@ -192,6 +196,5 @@ function addProductToCart(idProduct) {
         error: function () {
         }
     })
-
 }
 
