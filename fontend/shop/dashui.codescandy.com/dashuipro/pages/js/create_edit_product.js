@@ -14,7 +14,6 @@ firebase.initializeApp(firebaseConfig);
 
 let product;
 let account = JSON.parse(localStorage.getItem("account"))
-let changeImage = false;
 let list_url_image = [];
 let isCreate = true;
 let validate = false;
@@ -153,8 +152,6 @@ function getFormData() {
                 },
                 img: img
             }
-            localStorage.removeItem("product");
-            localStorage.removeItem("list_product_detail")
         } else {
             product = {
                 name: name,
@@ -178,7 +175,16 @@ function getFormData() {
     }
 }
 
-
+// function reset(){
+//     $("#name").val("")
+//     $("#price").val("")
+//     $("#quantity").val("")
+//     $("#manufacture").val("")
+//     $("#editor").val("")
+//     $("#category").val(1)
+//     $("#img_edit_main").text("")
+//     $("#img_edit_sub").text("")
+// }
 function saveProduct() {
     getFormData()
     if (validate === true) {
@@ -193,8 +199,12 @@ function saveProduct() {
             data: JSON.stringify(product),
             success: function (data) {
                 saveProductDetail(data)
+                localStorage.removeItem("product");
+                localStorage.removeItem("list_product_detail")
+
             },
             error: function (err) {
+                alert("err")
                 console.log(err);
             }
         })
@@ -230,6 +240,7 @@ function saveProductDetail(product) {
                 $("#content_notification").text("Thay đổi thông tin thành công, sản phẩm của bạn đang chờ được duyệt")
                 isCreate = false;
             }
+
         },
         error: function (err) {
             console.log(err);
@@ -251,6 +262,7 @@ function deleteProductDetail(product) {
             console.log("okkkkk")
         },
         error: function (err) {
+            alert("err")
             console.log(err);
         }
     })

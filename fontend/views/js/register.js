@@ -8,7 +8,6 @@ function register() {
     let birthday = $("#birthday").val();
     let role = parseInt($("#role").val());
     if (role === 1) {
-
         let account = {username, password, fullName, avatar, phone, email, birthday,status: {id:1}};
         $.ajax({
             type: "Post",
@@ -16,12 +15,11 @@ function register() {
             url: "http://localhost:8080/register/client",
             data: JSON.stringify(account),
             success: function () {
-                alert("done")
-                location.href = "signin.html"
+                location.href = "/fontend/fontend/views/signin.htmll"
             },
             error: function (err) {
                 console.log(err);
-                alert("Done2")
+                alert("err")
             }
         })
     } else if (role === 2) {
@@ -36,11 +34,11 @@ function register() {
                 url: "http://localhost:8080/register/shop",
                 data: JSON.stringify(account),
                 success: function () {
-                    location.href = "signin.html"
+                    location.href = "/fontend/fontend/views/signin.htmll"
                 },
                 error: function (err) {
                     console.log(err)
-                    alert("done3")
+                    alert("err")
 
                 }
             })

@@ -2,10 +2,21 @@ let product_detail = JSON.parse(localStorage.getItem("product_detail"))
 let account = JSON.parse(localStorage.getItem("account"));
 let isAnswer = false;
 let isEdit = false;
-let lengthTagName=0;
+let lengthTagName = 0;
 
 displayDetail();
+getFeedback(product_detail.id)
+let orderDetails = localStorage.getItem("orderDetails");
+if (orderDetails === null) {
+    let orderDetails = [];
+    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+}
 
+let invoice = localStorage.getItem("invoice");
+if (invoice === null) {
+    let invoice={dateCreate:new Date,total:0}
+    localStorage.setItem("invoice", JSON.stringify(invoice));
+}
 function displayDetail() {
     let str = `
     <!-- Shop Detail Start -->
@@ -15,7 +26,7 @@ function displayDetail() {
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner bg-light" id="slide_image">
                     <div class="carousel-item active" id="img_active">
-                        <img class="w-100" style="height: 470px" src="${product_detail.img}" alt="${product_detail.name}">
+                        <img class="w-100" style="height: 400px" src="${product_detail.img}" alt="${product_detail.name}">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
@@ -29,43 +40,34 @@ function displayDetail() {
         <div class="col-lg-7 h-auto mb-30">
             <div class="h-100 bg-light p-30">
                 <h3>${product_detail.name}</h3>
-                <div class="d-flex mb-3">
-                    <div class="text-primary mr-2">
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star-half-alt"></small>
-                        <small class="far fa-star"></small>
-                    </div>
-                </div>
                 <h3 class="font-weight-semi-bold mb-4">${product_detail.price}</h3>
-                <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit
-                    clita ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea
-                    Nonumy</p>
-                <div class="d-flex mb-3">
-                    <strong class="text-dark mr-3">Sizes:</strong>
-                    <form>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-1" name="size">
-                            <label class="custom-control-label" for="size-1">XS</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-2" name="size">
-                            <label class="custom-control-label" for="size-2">S</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-3" name="size">
-                            <label class="custom-control-label" for="size-3">M</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-4" name="size">
-                            <label class="custom-control-label" for="size-4">L</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-5" name="size">
-                            <label class="custom-control-label" for="size-5">XL</label>
-                        </div>
-                    </form>
+<!--                    <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit-->
+<!--                        clita ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea-->
+<!--                        Nonumy</p>-->
+                    <div class="d-flex mb-3">
+                        <strong class="text-dark mr-3">Sizes:</strong>
+                        <form>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="size-1" name="size">
+                                <label class="custom-control-label" for="size-1">XS</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="size-2" name="size">
+                                <label class="custom-control-label" for="size-2">S</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="size-3" name="size">
+                                <label class="custom-control-label" for="size-3">M</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="size-4" name="size">
+                                <label class="custom-control-label" for="size-4">L</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="size-5" name="size">
+                                <label class="custom-control-label" for="size-5">XL</label>
+                            </div>
+                        </form>
                 </div>
                 <div class="d-flex mb-4">
                     <strong class="text-dark mr-3">Colors:</strong>
@@ -94,19 +96,19 @@ function displayDetail() {
                 </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus">
+                        <div class="input-group-btn ">
+                            <button class="btn btn-primary btn-minus choose_quantity">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
+                        <input type="text" id="quantityProductOrder" class="form-control bg-secondary border-0 text-center" value="1">
+                        <div class="input-group-btn ">
+                            <button class="btn btn-primary btn-plus choose_quantity">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                    <button class="btn btn-primary px-3" onclick="addToCart()"><i class="fa fa-shopping-cart mr-1"></i> Add To
                         Cart
                     </button>
                 </div>
@@ -134,10 +136,10 @@ function displayDetail() {
         <div class="col">
             <div class="bg-light p-30">
                 <div class="nav nav-tabs mb-4">
-                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-1">Chi tiết sản
+                    <a class="nav-item nav-link text-dark " data-toggle="tab" href="#tab-pane-1">Chi tiết sản
                         phẩm</a>
                     <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-2">Bình luận</a>
-                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                    <a class="nav-item nav-link text-dark " data-toggle="tab" href="#tab-pane-3" id="countFeedback">Reviews (0)</a>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show " id="tab-pane-1">
@@ -194,9 +196,9 @@ function displayDetail() {
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="tab-pane-3">
+                    <div class="tab-pane fade " id="tab-pane-3">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="feedbacks"  style="height: 350px;overflow: auto">
                                 <h4 class="mb-4">1 review for "Product Name"</h4>
                                 <div class="media mb-4">
                                     <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1"
@@ -216,35 +218,39 @@ function displayDetail() {
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
-                                <small>Your email address will not be published. Required fields are marked *</small>
-                                <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
-                                    <div class="text-primary">
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
+                                 <h4 class="mb-4">Leave a review</h4>
+                                <div class="d-flex my-3 row">
+                                    <div class="col-12">
+                                        <p>Choose star</p>
+                                        <input type="radio" name="rating" id="star1" value="1">
+                                        <label for="star1" class="star"></label>
+
+                                        <input type="radio" name="rating" id="star2" value="2">
+                                        <label for="star2" class="star"></label>
+
+                                        <input type="radio" name="rating" id="star3" value="3">
+                                        <label for="star3" class="star"></label>
+
+
+                                        <input type="radio" name="rating" id="star4" value="4">
+                                        <label for="star4" class="star"></label>
+                                        
+                                        <input type="radio" name="rating" id="star5" value="5" checked>
+                                        <label for="star5" class="star"></label>
+                                        
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Your Review *</label>
+                                            <textarea cols="30" rows="5"
+                                                      class="form-control" id="feedback" placeholder="Nhập đánh giá của bạn" ></textarea>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <input type="button" value="Leave Your Review"
+                                                   class="btn btn-primary px-3" onclick="checkAccountFeedback()">
+                                        </div>
                                     </div>
                                 </div>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="message">Your Review *</label>
-                                        <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Your Name *</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Your Email *</label>
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
-                                    <div class="form-group mb-0">
-                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -291,7 +297,7 @@ function displaySlideProduct(data) {
     for (const p of data) {
         str += `
         <div class="carousel-item">
-            <img class="w-100" style="height: 470px"  src="${p.image}" alt="${p.product.name}">
+            <img class="w-100" style="height: 400px"  src="${p.image}" alt="${p.product.name}">
         </div>
         `
     }
@@ -448,7 +454,8 @@ function hideCommentAnswer(parentId) {
 
 function confirmComment() {
     if (account === null) {
-        location.href = "/fontend/fontend/views/signin.html"
+        $("#notification").modal("show");
+        $("#content_notification").val("Bạn chưa đăng nhập")
     } else {
         let newComment;
         let comment=$("#newComment").val();
@@ -522,7 +529,7 @@ function deleteComment(idComment) {
 }
 
 function answerComment(nameAccountQuestion, parentId) {
-    $("#newComment").val("@" + nameAccountQuestion);
+    $("#newComment").val("@" + nameAccountQuestion + " ");
     $("#parentId").val(parentId);
     lengthTagName=nameAccountQuestion.length;
     isAnswer = true;
@@ -560,3 +567,146 @@ function editComment(id) {
     })
 }
 
+// Product Quantity
+$('.choose_quantity').on('click', function () {
+    var button = $(this);
+    var oldValue = button.parent().parent().find('input').val();
+    if (button.hasClass('btn-plus')) {
+        var newVal = parseFloat(oldValue) + 1;
+    } else {
+        if (oldValue > 0) {
+            var newVal = parseFloat(oldValue) - 1;
+        } else {
+            newVal = 0;
+        }
+    }
+    button.parent().parent().find('input').val(newVal);
+});
+
+function getFeedback(idProduct) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/getFeedbackByProduct/" + idProduct,
+        success: function (data) {
+            displayFeedback(data)
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
+
+function displayFeedback(data) {
+    let str = "";
+    $("#countFeedback").text(`${'Reviews (' + data.length})`)
+    for (let i = 0; i < data.length; i++) {
+        str += `
+                                <div class="media mb-4" id="${'feedback' + i}">
+                                    <img src="${data[i].account.avatar}" alt="Image" class="rounded-circle mr-3 mt-1"
+                                         style="width: 45px;">
+                                    <div class="media-body">
+                                        <h6>${data[i].account.fullName}<small> - <i>${data[i].dateFeedback}</i></small></h6>
+                                        <div class="text-primary mb-2">
+                                        `
+        for (let j = 1; j <= 5; j++) {
+            if (j <= data[i].point) {
+                str += `<i class="fas fa-star"></i>`
+            } else {
+                str += `<i class="far fa-star"></i>`
+            }
+        }
+        str += `                   </div>
+                                        <p>${data[i].feedback}</p>
+                                    </div>
+                                </div>
+        `
+    }
+    $("#feedbacks").html(str)
+}
+
+function saveFeedback() {
+    let feedback = $("#feedback").val();
+    let point = $("input[name=rating]:checked").val();
+    if (account === null) {
+        $("#notification").modal("show");
+        $("#content_notification").text("Bạn chưa đăng nhập")
+    } else if (feedback === "") {
+        $("#notification").modal("show");
+    } else {
+        let object = {feedback, point, dateFeedback: new Date, product: product_detail, account: account,responded:true}
+        $.ajax({
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            url: "http://localhost:8080/user/saveFeedback/",
+            data: JSON.stringify(object),
+            success: function () {
+                getFeedback(product_detail.id)
+            },
+            error: function (err) {
+                console.log(err);
+                alert("Error")
+            }
+        })
+    }
+}
+
+function checkAccountFeedback(){
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/checkAccountFeedback/"+product_detail.id+"/"+account.id,
+        success: function (data) {
+            if(data===""){
+                alert("Bạn chưa mua sản phẩm này")
+            }else{
+                saveFeedback();
+            }
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
+function addToCart() {
+    let check=false;
+    let orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
+    let invoice=JSON.parse(localStorage.getItem("invoice"))
+    let total=invoice.total;
+    let quantity = $("#quantityProductOrder").val();
+    let orderDetail = {quantity, product: product_detail}
+    for(let i=0;i<orderDetails.length;i++){
+        let productOld=JSON.stringify(orderDetails[i].product);
+        let productNew=JSON.stringify(product_detail);
+        if(productOld===productNew){
+            check=true;
+            let quantityCurrent=parseInt(orderDetails[i].quantity);
+            orderDetails[i].quantity=parseInt(quantity)+quantityCurrent;
+
+        }
+    }
+    if(check===false) {
+        orderDetails.push(orderDetail);
+    }
+    total+=product_detail.price*quantity;
+    invoice={dateCreate:new Date,total};
+    localStorage.setItem("orderDetails",JSON.stringify(orderDetails));
+    localStorage.setItem("invoice",JSON.stringify(invoice));
+    location.href = "/fontend/fontend/user/cart.html"
+}

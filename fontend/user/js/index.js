@@ -1,4 +1,3 @@
-
 let account = JSON.parse(localStorage.getItem("account"));
 
 function showAllProduct(page) {
@@ -28,16 +27,10 @@ function showProduct(arr) {
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" onclick="addProductToCart(${p.id})"><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" onclick="detail(${p.id})"><i class="fa fa-search"></i></a>
-                        </div>
+                        <img class="img-fluid" onclick="detail(${p.id})" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
                 </div>
                 <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href="detail.html">${p.name}</a>
+                    <a class="h6 text-decoration-none text-truncate" onclick="detail(${p.id})">${p.name}</a>
                     <div class="d-flex align-items-center justify-content-center mt-2">
                         <h5>${p.price}</h5><h6 class="text-muted ml-2"><del>${p.price}</del></h6>
                     </div>
@@ -73,6 +66,7 @@ function reviewStar(number) {
     })
 }
 
+
 function detail(id) {
     $.ajax({
         type: "GET",
@@ -83,8 +77,8 @@ function detail(id) {
         },
         url: "http://localhost:8080/user/findProductById/" + id,
         success: function (data) {
-            localStorage.setItem("product_detail",JSON.stringify(data))
-            location.href="detail.html"
+            localStorage.setItem("product_detail", JSON.stringify(data))
+            location.href = "detail.html"
         },
         error: function (err) {
             console.log(err);
@@ -92,6 +86,7 @@ function detail(id) {
         }
     })
 
+}
 
 function showCategory(Page) {
     $.ajax({
@@ -145,14 +140,13 @@ function categoryAtNavbar() {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
-        url: "http://localhost:8080/categories",
+        url: "http://localhost:8080/user/categories",
         success: function (data) {
             getData(data)
         },
         error: function () {
         }
     })
-}
 
     function getData(data) {
         let str = "";
@@ -170,13 +164,14 @@ function selectorCategory(id) {
     location.href = "/fontend/fontend/user/category.html"
 }
 
+
 function addProductToCart(idProduct) {
-    let arr = localStorage.getItem("cart");
-    if (arr === null) {
-         arr = [];
-        localStorage.setItem("cart", arr)
+    let cart = localStorage.getItem("cart");
+    let array = JSON.parse(cart);
+    if (array === null) {
+        array = [];
+        localStorage.setItem("cart", JSON.stringify(array))
     }
-    alert(product.id);
     $.ajax({
         type: "GET",
         Accept: 'application/json',
@@ -185,11 +180,30 @@ function addProductToCart(idProduct) {
         },
         url: "http://localhost:8080/user/detail?idProduct=" + idProduct,
         success: function (data) {
-            arr.push(data);
+            array.push(data);
+            localStorage.setItem("cart", JSON.stringify(array));
         },
         error: function () {
         }
     })
-
 }
 
+function detail(id) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/findProductById/" + id,
+        success: function (data) {
+            localStorage.setItem("product_detail", JSON.stringify(data))
+            location.href = "/fontend/fontend/user/detail.html"
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
