@@ -51,7 +51,7 @@ function getAllCategory() {
     $.ajax({
         Accept: "application/json",
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
         },
         url: "http://localhost:8080/categories",
         type: "GET",
@@ -114,7 +114,7 @@ function save() {
 function create(data) {
     $.ajax({
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
@@ -122,7 +122,26 @@ function create(data) {
         type: "POST",
         data: JSON.stringify(data),
         success: function () {
-            alert("Complete")
+            alert("Create Complete")
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    })
+}
+
+function update(data) {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        url: "http://localhost:8080/shop/update/{id}",
+        type: "POST",
+        data: JSON.stringify(data),
+        success: function () {
+            alert("Update Complete")
         },
         error: function (err) {
             console.log(err);

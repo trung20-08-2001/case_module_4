@@ -1,6 +1,6 @@
 let account = JSON.parse(localStorage.getItem("account"))
 
-function findAll() {
+function findAll(page) {
 
     $.ajax({
         type: "GET",
@@ -8,7 +8,7 @@ function findAll() {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/shop?page=0&id=" + account.id,
+        url: "http://localhost:8080/shop?page="+page+"&id=" + account.id,
         success: function (data) {
             displayTable(data.content)
         },
@@ -18,13 +18,12 @@ function findAll() {
     })
 }
 
-findAll();
+findAll(0);
 
 function displayTable(arr) {
     let str = ""
     for (const p of arr) {
-        str += `<tr>
-                                                
+        str += `<tr>                   
                                                 <td class="ps-0">
                                                     <div class="d-flex align-items-center">
                                                         <img src="${p.img}" alt="Image product"
@@ -41,7 +40,9 @@ function displayTable(arr) {
                                                 <td>${p.price}</td>
                                                 <td>${p.quantity}</td>
                                                 <td>
+                                                
                                                     <span class="badge badge-success-soft">${p.status.name}</span>
+                                                    
                                                 </td>
                                                <td>
                                                     <a href="#!"
@@ -63,30 +64,33 @@ function displayTable(arr) {
                                                     <a 
                                                        class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
                                                        data-template="trashOne">`
-            if(p.status.id===1){
-               str +=`
+        if (p.status.id === 1) {
+            str += `
                <i onclick="changeStatus(${p.id})"  class="fa fa-lock"></i>
                `
-            }else if(p.status.id===4){
-                str +=`
+        } else if (p.status.id === 4) {
+            str += `
                <i onclick="changeStatus(${p.id})"  class="fa fa-unlock"></i>
                `
-            }
-                                                        str+=`
+        }
+        str += `
                                                         <div id="trashOne" class="d-none">
                                                             <span>Block</span>
                                                         </div>
                                                     </a>
                                                 </td>
                                             </tr>`
+
     }
+
     $("#products").html(str);
 }
+
 
 function edit(id) {
     $.ajax({
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -94,7 +98,7 @@ function edit(id) {
         type: "GET",
         success: function (data) {
             localStorage.setItem("product", JSON.stringify(data))
-            location.href= "product-edit.html";
+            location.href = "product-edit.html";
 
         },
         error: function (err) {
@@ -103,11 +107,11 @@ function edit(id) {
     })
 }
 
-function changeStatus(id){
+function changeStatus(id) {
     $.ajax({
         type: "POST",
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Accept': 'text/plain',
             'Content-Type': 'application/json'
         },
