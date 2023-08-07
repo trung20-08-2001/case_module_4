@@ -1,13 +1,6 @@
-function register() {
-    let username = $("#username").val();
-    let password = $("#password").val();
-    let fullName = $("#fullName").val();
-    let avatar = $("#avatar").val();
-    let phone = $("#phone").val();
-    let email = $("#email").val();
-    let birthday = $("#birthday").val();
-    let role = parseInt($("#role").val());
+function register(username, password, fullName, avatar, phone, email, birthday, role) {
     if (role === 1) {
+
         let account = {username, password, fullName, avatar, phone, email, birthday,status: {id:1}};
         $.ajax({
             type: "Post",
@@ -15,11 +8,12 @@ function register() {
             url: "http://localhost:8080/register/client",
             data: JSON.stringify(account),
             success: function () {
-                location.href = "/fontend/fontend/views/signin.htmll"
+                alert("done")
+                location.href = "signin.html"
             },
             error: function (err) {
                 console.log(err);
-                alert("err")
+                alert("Done2")
             }
         })
     } else if (role === 2) {
@@ -34,12 +28,10 @@ function register() {
                 url: "http://localhost:8080/register/shop",
                 data: JSON.stringify(account),
                 success: function () {
-                    location.href = "/fontend/fontend/views/signin.htmll"
+                    location.href = "signin.html"
                 },
                 error: function (err) {
-                    console.log(err)
-                    alert("err")
-
+                    alert("tài khoản trùng id hoặc password")
                 }
             })
         }
@@ -55,6 +47,12 @@ function showPlus() {
         plus.style.display = "block";
         plus2.style.display = "block";
         plus3.style.display = "block";
+        let a = document.querySelector('#shop');
+        let b = document.querySelector('#shop2');
+        let c = document.querySelector('#shop3');
+        a.requires = false;
+        b.requires = false;
+        c.requires = false;
     } else {
         let plus = document.getElementById("shop");
         let plus2 = document.getElementById("shop2");
@@ -62,7 +60,12 @@ function showPlus() {
         plus.style.display = "none";
         plus2.style.display = "none";
         plus3.style.display = "none";
-
+        let a = document.querySelector('#shop');
+        let b = document.querySelector('#shop2');
+        let c = document.querySelector('#shop3');
+        a.requires = true;
+        b.requires = true;
+        c.requires = true;
     }
 }
 
@@ -70,16 +73,30 @@ function printError(string) {
     // updating
 }
 
-// function check() {
-//     var phoneInput = document.getElementById("phone");
-//
-//     phoneInput.addEventListener("input", function() {
-//         var phoneNumber = phoneInput.value;
-//         var regex = /^\d{3}-\d{3}-\d{4}$/;
-//         if (regex.test(phoneNumber)) {
-//             console.log("Số điện thoại hợp lệ");
-//         } else {
-//             console.log("Số điện thoại không hợp lệ");
-//         }
-//     });
-// }
+function check() {
+    let username = $("#username").val();
+    let password = $("#password").val();
+    let fullName = $("#fullName").val();
+    let avatar = $("#avatar").val();
+    let phone = $("#phone").val();
+    let email = $("#email").val();
+    let birthday = $("#birthday").val();
+    let role = parseInt($("#role").val());
+    let usernameRegex = /^[a-zA-Z0-9]{3,16}$/;
+    let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    let fullNameRegex = /^[a-zA-Z0-9]{3,16}$/;
+    let phoneRegex = /^[0-9]{10}$/;
+    if (!usernameRegex.test(username)) {
+        // $("#dropdown_category").html("từ 3-16 ký tự");
+        // document.querySelector('#username').placeholder="từ 3-16 ký tự";
+        $("#regexUsername").html("từ 3-16 ký tự")
+    } else if (!passwordRegex.test(password)) {
+        alert("có chữ và số và có 8 ký tự");
+    } else if (!fullNameRegex.test(fullName)) {
+        alert("từ 3-16 ký tự chữ");
+    } else if (!phoneRegex.test(phone)) {
+        alert("gồm 10 ký tự số ");
+    } else {
+        register(username, password, fullName, avatar, phone, email, birthday, role)
+    }
+}

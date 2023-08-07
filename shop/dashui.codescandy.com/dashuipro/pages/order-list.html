@@ -25,10 +25,8 @@
 
 
     <!-- Favicon icon-->
-<!--    <link rel="shortcut icon" type="image/x-icon"-->
-<!--          href="https://dashui.codescandy.com/dashuipro/assets/images/favicon/favicon.ico">-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="shortcut icon" type="image/x-icon"
+          href="https://dashui.codescandy.com/dashuipro/assets/images/favicon/favicon.ico">
 
 
     <!-- Libs CSS -->
@@ -40,8 +38,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../assets/css/theme.min.css">
     <title>Order List | Dash UI - Bootstrap 5 Admin Dashboard Template</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -328,6 +325,7 @@
                         <!-- Page header -->
                         <div class="mb-5">
                             <h3 class="mb-0 ">Orders</h3>
+
                         </div>
                     </div>
                 </div>
@@ -338,13 +336,24 @@
                             <!-- card -->
                             <div class="card mb-4">
                                 <div class="card-header  ">
+                                    <div class="row">
 
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive table-card">
                                         <table class="table text-nowrap mb-0 table-centered table-hover">
                                             <thead class="table-light">
                                             <tr>
+<!--                                                <th class=" pe-0  ">-->
+<!--                                                    <div class="form-check">-->
+<!--                                                        <input class="form-check-input" type="checkbox" value=""-->
+<!--                                                               id="checkAll">-->
+<!--                                                        <label class="form-check-label" for="checkAll">-->
+
+<!--                                                        </label>-->
+<!--                                                    </div>-->
+<!--                                                </th>-->
                                                 <th class="ps-1">Order ID</th>
                                                 <th>Name</th>
                                                 <th>Date</th>
@@ -354,32 +363,44 @@
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
-
                                             <tbody id="invoices">
-                                            <tr>
 
+                                            <tr>
+                                                <td class=" pe-0">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                               id="contactCheckbox2">
+                                                        <label class="form-check-label" for="contactCheckbox2">
+
+                                                        </label>
+                                                    </div>
+                                                </td>
                                                 <td class="ps-1">
                                                     <a href="#!">#DU00017</a>
                                                 </td>
                                                 <td>Harold Gonzalez</td>
-                                                <td>7 Aug, 2023 10:02 PM</td>
-                                                <td>Lô TT01 HD Mon City</td>
+                                                <td>3 Oct, 2023 10:02 PM</td>
+                                                <td>HA NOI</td>
                                                 <td>$120.00</td>
-                                                <td><span class="badge badge-info-soft">PENDING</span></td>
+                                                <td><span class="badge badge-success-soft text-success">Delivery</span></td>
                                                 <td>
-                                                    <a class="btn btn-icon btn-sm btn-ghost rounded-circle"
-                                                       href="#!" role="button"
-                                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i data-feather="more-vertical"></i>
-                                                    Accept
-                                                    </a>
 
-                                                    <a class="btn btn-icon btn-sm btn-ghost rounded-circle"
-                                                       href="#!" role="button"
-                                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i data-feather="more-vertical"></i>
-                                                       Refuse
-                                                    </a>
+
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-icon btn-sm btn-ghost rounded-circle"
+                                                           href="#!" role="button"
+                                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i data-feather="more-vertical" class="icon-xs"></i>
+                                                        </a>
+
+                                                        <a class="btn btn-icon btn-sm btn-ghost rounded-circle"
+                                                           href="#!" role="button"
+                                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i data-feather="more-vertical" class="icon-xs"></i>
+                                                        </a>
+
+                                                    </div>
+
                                                 </td>
                                             </tr>
 
@@ -392,11 +413,11 @@
                                     <span>Showing 1 to 8 of 12 entries</span>
                                     <nav class="mt-2 mt-md-0">
                                         <ul class="pagination mb-0">
-                                            <li class="page-item"><a class="page-link active" href="#!">Previous</a></li>
-                                            <li class="page-item"><a class="page-link" href="#!" onclick="findAllInvoice(0)">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#!" onclick="findAllInvoice(1)">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#!" onclick="findAllInvoice(2)">3</a></li>
-                                            <li class="page-item"><a class="page-link active" href="#!">Next</a></li>
+                                            <li class="page-item"><a class="page-link" href="#!">Previous</a></li>
+                                            <li class="page-item"><a class="page-link active" href="#!">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#!">Next</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -426,7 +447,5 @@
 
 </body>
 <script src="js/invoices.js"></script>
-
-
 <!-- Mirrored from dashui.codescandy.com/dashuipro/pages/order-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 02 Aug 2023 04:00:20 GMT -->
 </html>

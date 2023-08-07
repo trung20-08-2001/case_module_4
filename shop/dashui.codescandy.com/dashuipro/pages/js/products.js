@@ -65,16 +65,16 @@ function displayTable(arr) {
                                                     <a 
                                                        class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
                                                        data-template="trashOne">`
-        if(p.status.id===1){
-            str +=`
+            if(p.status.id===1){
+               str +=`
                <i onclick="changeStatus(${p.id})"  class="fa fa-lock"></i>
                `
-        }else if(p.status.id===4){
-            str +=`
+            }else if(p.status.id===4){
+                str +=`
                <i onclick="changeStatus(${p.id})"  class="fa fa-unlock"></i>
                `
-        }
-        str+=`
+            }
+                                                        str+=`
                                                         <div id="trashOne" class="d-none">
                                                             <span>Block</span>
                                                         </div>
@@ -181,3 +181,4 @@ function movePage(data){
     }
     $("#page").html(str);
 }
+

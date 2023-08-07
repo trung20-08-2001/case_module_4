@@ -36,7 +36,7 @@ function displayInvoiceTable(arr) {
                                                         <a class="btn btn-icon btn-sm btn-ghost rounded-circle"
                                                            href="#!" role="button"aria-expanded="false">
                                                             <i onclick="confirmStatusInvoice(${i.id})" class="fa fa-check" style="color:green"></i>
-                                                        </a>
+                                                        </a>    
                                                         
                                                         <a class="btn btn-icon btn-sm btn-ghost rounded-circle"
                                                            href="#!" role="button" >
