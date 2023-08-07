@@ -1,3 +1,5 @@
+let name = JSON.parse(localStorage.getItem("account")).fullName;
+let images = JSON.parse(localStorage.getItem("account")).avatar;
 function layout(){
     let acc =JSON.parse(localStorage.getItem('account'));
   let  strLayout=`<div class="logo d-flex justify-content-between">
@@ -242,11 +244,11 @@ let strHeader=`<div class="row">
                             </li>
                         </div>
                         <div class="profile_info">
-                            <img src="../css_html_admin/img/client_img.png" alt="#">
+                            <img src="${images}" alt="#">
                             <div class="profile_info_iner">
                                 <div class="profile_author_name">
                                     <p>Neurologist </p>
-                                    <h5>Dr. Robar Smith</h5>
+                                    <h5>${name}</h5>
                                 </div>
                                 <div class="profile_info_details">
                                     <a href="#">My Profile </a>

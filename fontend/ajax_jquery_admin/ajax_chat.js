@@ -110,59 +110,120 @@ function chat() {
 
 chat();
 
+let ids = JSON.parse(localStorage.getItem("account")).id;
 
-function lisShopChat() {
+listChat(ids);
 
+function listChat(id) {
+    $.ajax({
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/chat/getAllAccountByRending/" + id,
+        success: function (listChat) {
+            showListChat(listChat)
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
 }
 
-function showLisShopChat() {
-    let listShopChat = `   <li>
-                                        <a href="#">
+function showListChat(list) {
+    let listChat = ``;
+    for (const c of list) {
+        listChat +=`<li>
+                                        <a onclick="showChat(${c.id},ids)">
                                             <div class="message_pre_left">
                                                 <div class="message_preview_thumb">
-                                                    <img src="../css_html_admin/img/messages/1.jpg" alt="">
+                                                    <img src="${c.avatar}" alt="" style="width: 30px; height: 30px">
                                                     <span class="round-10 bg-danger"></span>
                                                 </div>
                                                 <div class="messges_info">
-                                                    <h4>Travor James</h4>
-                                                    <p>i know you are doing great</p>
+                                                    <h4>${c.fullName}</h4>
+                                                    <p id="lastMess"></p>
                                                 </div>
                                             </div>
                                             <div class="messge_time">
-                                                <span>28th Nov</span>
+                                                <span id="lastTime"></span>
                                             </div>
                                         </a>
                                     </li>`
-    $("#listShopChat").html(listShopChat);
+        findMessage(c.id,ids)
+    }
+    $("#listShopChat").html(listChat);
+
 }
 
-showLisShopChat();
+function findMessage(idReceiving,idSending){
+    $.ajax({
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/chat/getAllMessageReceivingSending/" + idReceiving +"/"+ idSending,
+        success: function (listChat) {
+            showMessageReceiving(listChat)
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+}
 
-function messageChat() {
-    let mes = `<div class="white_box">
+function showMessageReceiving(listChat){
+    console.log(listChat);
+    let chat=listChat[listChat.length-1];
+    console.log(chat.message);
+    $("#lastMess").html(chat.message);
+    $("#lastTime").html(chat.timeSend);
+}
+
+function showChat(idReceiving,idSending){
+    console.log(idReceiving,idSending);
+    $.ajax({
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/chat/getAllMessageReceivingSending/" + idReceiving +"/"+ idSending,
+        success: function (listMess) {
+            messageChat(listMess)
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+}
+
+function messageChat(listMess) {
+    let idReceiving = listMess[listMess.length-1].sendingAccountId.id;
+    let mes=``;
+    for (const m of listMess) {
+         mes += `
                     <!-- Hiển thị các tin nhắn đã có -->
-                    <div class="message_list">
-                        <!-- Tin nhắn 1 -->
-                        <div class="single_message_chat">
+                  
                             <!-- Thông tin người gửi -->
                             <div class="message_pre_left">
                                 <div class="message_preview_thumb">
-                                    <img src="../css_html_admin/img/messages/4.jpg" alt="">
+                                    <img src="${m.receivingAccountId.avatar}" alt="" style="height: 25px; width: 25px">
                                 </div>
                                 <div class="messges_info">
-                                    <h4>Travor James</h4>
+                                    <h4>${m.receivingAccountId.fullName}</h4>
                                     <p>Yesterday at 6.33 pm</p>
                                 </div>
                             </div>
-                            <!-- Nội dung tin nhắn -->
+<!--                             Nội dung tin nhắn -->
                             <div class="message_content_view red_border">
-                                <p>
-                                    Dear KK,
-                                    <br>
-                                    Thank you for your update.
-                                    <br>
-                                    <span>We do not sell or share your details without your permission. Find out more in our Privacy Policy. Your username, email and password can be updated via your Codepixar Account settings.<br></span>
-                                    Regards,
+                                <p id="messageReceiving">
+                                    
                                 </p>
                             </div>
                         </div>
@@ -171,33 +232,82 @@ function messageChat() {
                             <!-- Thông tin người gửi -->
                             <div class="message_pre_left">
                                 <div class="messges_info">
-                                    <h4>Agatha Kristy</h4>
-                                    <p>Yesterday at 6.33 pm</p>
+                                    <h4>${m.sendingAccountId.fullName}</h4>
+                                    <p>${m.timeSend}</p>
                                 </div>
                                 <div class="message_preview_thumb">
-                                    <img src="../css_html_admin/img/messages/2.jpg" alt="">
+                                    <img src="m.sendingAccountId.avatar" alt="${m.sendingAccountId.fullName}">
                                 </div>
                             </div>
                             <!-- Nội dung tin nhắn -->
                             <div class="message_content_view">
                                 <p>
-                                    Dear KK,
-                                    <br>
-                                    Thank you for your update.
-                                    <br>
-                                    <span>We do not sell or share your details without your permission. Find out more in our Privacy Policy. Your username, email and password can be updated via your Codepixar Account settings.<br></span>
-                                    Regards,
+                                    ${m.message}
                                 </p>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <!-- Trường nhập tin nhắn -->
+                            </div>`
+
+    }
+    mes +=` <!-- Trường nhập tin nhắn -->
                     <div class="message_send_field">
                         <input type="text" id="messageInput" placeholder="Write your message" value="">
-                        <button class="btn_1" id="sendMessageBtn">Send</button>
-                    </div>
-                </div>`
+                        <button onclick="saveMessage(${idReceiving},ids)" class="btn_1" id="sendMessageBtn">Send</button>
+                    </div>`;
     $("#messageChat").html(mes);
 }
-messageChat();
+
+
+
+function saveMessage(idReceiving,idSending){
+    console.log(idReceiving,idSending);
+    let mess = $("#messageInput").val();
+    let receivingAccountId = idReceiving;
+    let sendingAccountId = idSending;
+    console.log("hee" +receivingAccountId);
+    let message={
+        message: mess,
+        sendingAccountId:{
+            id: sendingAccountId
+        },
+        receivingAccountId:{
+            id: receivingAccountId
+        }
+    }
+    console.log(message);
+    $.ajax({
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/chat",
+        data: JSON.stringify(message),
+        success: function () {
+
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+
+}
+function getAllMessageReceiving(idReceiving,idSending) {
+    $.ajax({
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/chat/getAllMessage/" + idReceiving +"/"+ idSending,
+        success: function (listMess) {
+            messageReceiving(listMess)
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+}
+function messageReceiving(listMess){
+
+}

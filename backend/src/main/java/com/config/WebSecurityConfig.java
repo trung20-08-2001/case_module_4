@@ -35,10 +35,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/admin","/admin/findShopAccount","admin/findUserAccount"
                         ,"/admin/findShopBlock","/admin/block/{id}","/admin/shopPending","/admin/activeShop/{id}"
                         ,"/products","/products/productPending/{id}","/products/confirmProduct/{id}","/products/refuseProduct/{id}"
-                        ,"/categories","/categories/","/admin/revenues","/admin/revenues/revenueByMonthYear/{month}/{year}"
+                        ,"/categories","/categories/","/categories/addCategory","/admin/revenues","/admin/revenues/revenueByMonthYear/{month}/{year}"
                         ,"/admin/revenues/revenueByYear/{year}","/admin/revenues/revenueMonthMax/{year}","/admin/accountByUser"
                         ,"/admin/shopActive","/admin/allUserBlock","/admin/findUserActive/{id}","/admin/findUserBlock/{id}"
-                        ,"/admin/findShopActive/{id}","/admin/findShopBlock/{id}","/admin/getNewUser").hasRole("ADMIN")
+                        ,"/admin/findShopActive/{id}","/admin/findShopBlock/{id}","/admin/getNewUser","/vouchers","/vouchers/getAllVoucher"
+                        ,"/vouchers/addVoucher","/vouchers/deleteVoucher/{id}","/chat","/chat/getAllAccountByRending/{id}","/chat/getAllMessage/{idReceiving}/{idSending}").hasRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/shop**").hasRole("SHOP")
                 .anyRequest().authenticated()
                 .and().csrf().disable();
