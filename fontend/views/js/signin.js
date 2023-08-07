@@ -1,10 +1,3 @@
-let orderDetails = localStorage.getItem("orderDetails");
-if (orderDetails === null) {
-    let orderDetails = [];
-    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
-}
-
-
 function login() {
     let username = $("#username").val();
     let password = $("#password").val();
@@ -33,4 +26,18 @@ function login() {
         }
 
     })
+}
+
+function regex() {
+    let username = $("#username").val();
+    let password = $("#password").val();
+    var usernameRegex = /^[a-zA-Z0-9]{3,16}$/;
+    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (usernameRegex.test(username) && passwordRegex.test(password)) {
+        login(username,password)
+    } else if (usernameRegex.test(username)) {
+        $("#regexPass").html(" Phải có 1 chữ và 1 số   độ dài 8 ký tự ");
+    } else {
+        $("#regexId").html(" Độ dài từ 3-16 ");
+    }
 }

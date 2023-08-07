@@ -91,6 +91,12 @@ public class UserApi {
         List<Product> productList = iProductService.getAllProductByCategory(id);
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>> getAllCategory(){
+        List<Category> categoryList= iCategoryService.getAll();
+        return new ResponseEntity<>(categoryList, HttpStatus.OK);
+    }
+
 
     @GetMapping("/getFeedbackByProduct/{idProduct}")
     public List<Feedback> getFeedbackByProduct(@PathVariable Long idProduct){
@@ -106,11 +112,7 @@ public class UserApi {
     public Feedback checkAccountFeedback(@PathVariable Long idProduct,@PathVariable Long idAccount ){
         return iFeedbackService.checkAccountFeedback(idProduct,idAccount);
     }
-    @GetMapping("/categories")
-    public ResponseEntity<List<Category>> getAllCategory(){
-        List<Category> categoryList= iCategoryService.getAll();
-        return new ResponseEntity<>(categoryList, HttpStatus.OK);
-    }
+
 
 
 }
