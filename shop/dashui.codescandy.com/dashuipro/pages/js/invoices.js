@@ -9,6 +9,7 @@ function findAllInvoice(page) {
         },
         url: "http://localhost:8080/shop/shop-invoice?page="+page+"&id=" + account.id,
         success: function (data) {
+            console.log(data.content)
             displayInvoiceTable(data.content)
         },
         error: function (err) {
@@ -35,13 +36,11 @@ function displayInvoiceTable(arr) {
                                                         <a class="btn btn-icon btn-sm btn-ghost rounded-circle"
                                                            href="#!" role="button"aria-expanded="false">
                                                             <i onclick="confirmStatusInvoice(${i.id})" class="fa fa-check" style="color:green"></i>
-<!--                                                            Accept-->
                                                         </a>
                                                         
                                                         <a class="btn btn-icon btn-sm btn-ghost rounded-circle"
                                                            href="#!" role="button" >
                                                             <i class="fa fa-close" style="color:red"></i>
-<!--                                                            Refuse-->
                                                         </a>
                                                 </td>
                                             </tr>
@@ -61,7 +60,7 @@ function confirmStatusInvoice(id) {
         url: "http://localhost:8080/shop/confirm-status/" + id,
         success: function (data) {
             console.log("complete")
-            findAllInvoice();
+            findAllInvoice(0);
         },
         error: function (err) {
             console.log(err)

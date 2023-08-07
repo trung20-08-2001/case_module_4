@@ -1,3 +1,10 @@
+let orderDetails = localStorage.getItem("orderDetails");
+if (orderDetails === null) {
+    let orderDetails = [];
+    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+}
+
+
 function login() {
     let username = $("#username").val();
     let password = $("#password").val();
@@ -15,10 +22,10 @@ function login() {
             } else if (data.role.name === "ROLE_USER") {
                 location.href = "/fontend/fontend/user/index.html"
             } else if (data.role.name === "ROLE_SHOP") {
-                location.href = "/fontend/fontend/shop/dashui.codescandy.com/dashuipro/pages/index.html"
+                location.href = "/fontend/shop/dashui.codescandy.com/dashuipro/pages/index.html"
             } else if (data.role.name === "ROLE_ADMIN") {
-                location.href = "admin.html"
-            } else location.href = "views/signin.html"
+                location.href = "/fontend/fontend/viewsAdmin/index.html"
+            } else location.href = "/views/signin.html"
         },
         error: function (err) {
             location.href = "register.html"
@@ -26,6 +33,4 @@ function login() {
         }
 
     })
-
-
 }

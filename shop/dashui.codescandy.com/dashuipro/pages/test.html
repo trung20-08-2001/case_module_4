@@ -5,22 +5,46 @@
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: red;
+            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+
+        .image-container:hover .delete-btn {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-<input type="file" id="img"  >
-<button onclick="upload()">Upload</button>
-<div id="test"></div>
+<!--<input type="file" id="img"  >-->
+<!--<button onclick="upp2()">Upload</button>-->
+<!--<div id="test"></div>-->
 
-<input type="file" id="imageInput" accept="image/*">
-<div id="imagePreview"></div>
+<!--<input type="file" id="imageInput" accept="image/*">-->
+<!--<div id="imagePreview"></div>-->
 
-<input type="file" id="file-input" multiple>
+<input type="file" id="file-input" >
+
+
 <script>
-    const fileInput = document.getElementById('file-input');
     const files = [];
-
-    fileInput.addEventListener('change', (event) => {
-        const fileList = event.target.files;
+    $('#file-input').on('change', function() {
+        const fileList = $(this).prop('files');
         for (let i = 0; i < fileList.length; i++) {
             files.push(fileList[i]);
         }
@@ -52,26 +76,53 @@
 
   let b;
   function upload() {
-      return new Promise((resolve, reject) => {
-          const ref = firebase.storage().ref();
-          const file = document.getElementById("img").files[0];
-          const name = file.name;
-          const metadata = {
-              contentType: file.type
-          }
-          const task = ref.child(name).put(file, metadata);
-          task.then(snapshot => {
-              snapshot.ref.getDownloadURL()
-                  .then(url => {
-                      resolve(url);
-                      // thay đổi img của sản phẩm
-                  }).catch(error => {
+      for (let i = 0; i < files.length; i++) {
+          return new Promise((resolve, reject) => {
+              const ref = firebase.storage().ref();
+              const file = files[i];
+              const name = file.name;
+              const metadata = {
+                  contentType: file.type
+              }
+              const task = ref.child(name).put(file, metadata);
+              task.then(snapshot => {
+                  snapshot.ref.getDownloadURL()
+                      .then(url => {
+                          resolve(url);
+                          console.log(url)
+                          // thay đổi img của sản phẩm
+                      }).catch(error => {
+                      reject(error);
+                  });
+              }).catch(error => {
                   reject(error);
               });
-          }).catch(error => {
-              reject(error);
           });
-      });
+      }
+  }
+
+  function upp2(){
+      for (let i = 0; i < files.length; i++) {
+          const promise = new Promise((resolve, reject) => {
+              const ref = firebase.storage().ref();
+              const file = files[i];
+              const name = file.name;
+              const metadata = { contentType: file.type };
+              const task = ref.child(name).put(file, metadata);
+              task.then((snapshot) => {
+                  snapshot.ref.getDownloadURL().then((url) => {
+                      resolve(url);
+                      console.log(url);
+                      // thay đổi img của sản phẩm
+                  }).catch((error) => {
+                      reject(error);
+                  });
+              }).catch((error) => {
+                  reject(error);
+              });
+          });
+      }
+
   }
 
   $(document).ready(function() {
@@ -87,6 +138,22 @@
 
               reader.readAsDataURL(file);
           }
+      });
+  });
+
+  $(document).ready(function() {
+      $('.image-container').hover(
+          function() {
+              $(this).find('.delete-btn').fadeIn();
+          },
+          function() {
+              $(this).find('.delete-btn').fadeOut();
+          }
+      );
+
+      $('.delete-btn').click(function() {
+          $(this).closest('.image-container').remove();
+          // Thực hiện xóa ảnh tại đây
       });
   });
 </script>

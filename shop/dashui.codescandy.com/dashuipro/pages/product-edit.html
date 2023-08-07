@@ -12,10 +12,7 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8S4MT3EYG"></script>
 
-    <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/x-icon"
-          href="https://dashui.codescandy.com/dashuipro/assets/images/favicon/favicon.ico">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Libs CSS -->
     <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -151,8 +148,6 @@
                                                     diam.
                                                 </p>
                                             </a>
-
-
                                         </li>
                                     </ul>
                                 </div>
@@ -169,7 +164,7 @@
                         <a class="rounded-circle" href="#!" role="button" id="dropdownUser"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md avatar-indicators avatar-online">
-                                <img alt="avatar" src="../assets/images/avatar/avatar-11.jpg" class="rounded-circle">
+                                <img alt="avatar" class="rounded-circle" src="../assets/images/background/giftbox.png">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end"
@@ -235,7 +230,7 @@
             <ul class="navbar-nav flex-column" id="sideNavbar">
                 <li class="nav-item">
                     <a class="nav-link has-arrow "
-                       href="index.html">
+                       href="/fontend/fontend/user/index.html">
 
                         Home
                     </a>
@@ -345,32 +340,34 @@
                                     <div>
                                         <!-- input -->
                                         <div class="mb-3">
-                                            <label class="form-label">Product Title</label>
-                                            <input id="title" type="text" class="form-control" placeholder="Enter Product Title"
-                                                   required>
-                                        </div>
-                                        <!-- input -->
-                                        <div>
                                             <label class="form-label">Product Description</label>
-                                            <input class="pb-10" id="editor" style="width: 100%">
+                                            <textarea class="pb-10" id="editor" style="width: 100%" rows="5"></textarea>
                                         </div>
 
-                                        <div class="mb-4 fallback">
-                                            <h5 class="mb-1">Product Image</h5>
-                                            <input id="img" type="file" class="form-control">
-                                        </div>
-                                        <div id="img_edit">
-                                        </div>
-                                        <div>
-                                            <!-- heading -->
-                                            <h5 class="mb-1">Product Gallery</h5>
-                                            <p>Add Product Gallery Images.</p>
-                                            <!-- input -->
-                                            <form action="#" class="d-block dropzone border-dashed rounded-2">
-                                                <div class="fallback">
-                                                    <input name="file" type="file" multiple/>
+                                        <div class="mb-3">
+                                            <h5 class="mb-1">Product Image Main</h5>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="img_main" style="cursor: pointer; display: block;">
+                                                        <i class="fa fa-image" style="font-size: 100px"></i>
+                                                    </label>
+                                                    <input id="img_main" type="file" style="display: none;">
                                                 </div>
-                                            </form>
+                                                <div class="col-9" id="img_edit_main"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <h5 class="mb-1">Product Image Sub</h5>
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <label for="img_sub" style="cursor: pointer; display: block;">
+                                                        <i class="fa fa-image" style="font-size: 100px"></i>
+                                                    </label>
+                                                    <input id="img_sub" type="file" style="display: none;">
+                                                </div>
+                                                <div class="col-10" id="img_edit_sub"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -385,12 +382,15 @@
                                     <div>
                                         <div class="mb-3">
                                             <label class="form-label">Product Name</label>
-                                            <input id="name" type="text" class="form-control" placeholder="Enter Product Name">
+                                            <input class="form-control" id="name" placeholder="Enter Product Name"
+                                                   type="text">
                                         </div>
                                         <!-- input -->
                                         <div class="mb-3">
                                             <label class="form-label">Quantity</label>
-                                            <input id="quantity" type="text" class="form-control" placeholder="Enter Product Quantity">
+                                            <input class="form-control" id="quantity"
+                                                   placeholder="Enter Product Quantity"
+                                                   type="text">
                                         </div>
 
                                         <!-- input -->
@@ -399,21 +399,24 @@
                                                 <label class="form-label">Category</label>
                                             </div>
                                             <!-- select menu -->
-                                            <select class="form-select" aria-label="Default select example" id="category">
+                                            <select aria-label="Default select example" class="form-select"
+                                                    id="category">
                                             </select>
                                         </div>
                                         <!-- tag -->
                                         <div class="mb-3">
                                             <label class="form-label">Manufacture
                                             </label>
-                                            <input id="manufacture" PLACEHOLDER="Enter Product Manufacture " class="form-control w-100">
+                                            <input PLACEHOLDER="Enter Product Manufacture " class="form-control w-100"
+                                                   id="manufacture">
                                         </div>
 
-                                            <!-- input -->
-                                            <div class="mb-3">
-                                                <label class="form-label">Price</label>
-                                                <input id="price" type="text" class="form-control" placeholder="Enter Price">
-                                            </div>
+                                        <!-- input -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Price</label>
+                                            <input class="form-control" id="price" placeholder="Enter Price"
+                                                   type="text">
+                                        </div>
 
                                     </div>
                                 </div>
@@ -421,12 +424,28 @@
 
                             <!-- button -->
                             <div class="d-grid">
-                                <button href="#!" class="btn btn-primary" onclick="save()">
+                                <button href="#!" class="btn btn-primary" onclick="saveProduct()">
                                     Save
                                 </button>
-                            </div   >
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="notification">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body" id="content_notification">
+                    Hãy nhập đủ thông tin
                 </div>
             </div>
         </div>
@@ -459,5 +478,6 @@
 
 
 </body>
-<script src="js/shop.js"></script>
+<script src="js/create_edit_product.js"></script>
+
 </html>
