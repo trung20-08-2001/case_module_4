@@ -7,7 +7,6 @@ function register(username, password, fullName, avatar, phone, email, birthday, 
             url: "http://localhost:8080/register/client",
             data: JSON.stringify(account),
             success: function () {
-                alert("done")
                 location.href = "signin.html"
             },
             error: function (err) {
@@ -41,9 +40,7 @@ function register(username, password, fullName, avatar, phone, email, birthday, 
                     location.href = "signin.html"
                 },
                 error: function (err) {
-                    console.log(err)
-                    alert("done3")
-
+                    alert("tài khoản trùng id hoặc password")
                 }
             })
         }
