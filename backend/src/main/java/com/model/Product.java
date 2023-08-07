@@ -13,6 +13,7 @@ public class Product {
     private double price;
     private int quantity;
     private String manufacture;
+    @Column(columnDefinition = "TEXT")
     private String description;
     @ManyToOne
     private Category category;

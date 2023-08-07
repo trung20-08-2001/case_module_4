@@ -14,6 +14,7 @@ function findAll(page) {
             displayTable(data.content)
         },
         error: function (err) {
+            alert("err")
             console.log(err);
         }
     })
@@ -45,7 +46,7 @@ function displayTable(arr) {
                                                     <span class="badge badge-success-soft">${p.status.name}</span>
                                                 </td>
                                                <td>
-                                                    <a href="#!"
+                                                    <a onclick="detail(${p.id})"
                                                        class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
                                                        data-template="eyeOne">
                                                         <i data-feather="eye" class="fa fa-eye"></i>
@@ -99,6 +100,7 @@ function edit(id) {
             location.href= "product-edit.html";
         },
         error: function (err) {
+            alert(err)
             console.log(err)
         }
     })
@@ -117,10 +119,31 @@ function findProductDetail(id){
             localStorage.setItem("list_product_detail", JSON.stringify(data))
         },
         error: function (err) {
+            alert("err")
             console.log(err)
         }
     })
 }
+
+function detail(id) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/findProductById/" + id,
+        success: function (data) {
+            localStorage.setItem("product_detail", JSON.stringify(data))
+            location.href="/fontend/fontend/user/detail.html"        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
 
 function changeStatus(id){
     $.ajax({

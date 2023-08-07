@@ -25,13 +25,7 @@ function showProduct(arr) {
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" onclick="addProductToCart(${p.id})"><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" onclick="detail(${p.id})"><i class="fa fa-search"></i></a>
-                        </div>
+                        <img class="img-fluid" onclick="detail(${p.id})" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
                 </div>
                 <div class="text-center py-4">
                     <a class="h6 text-decoration-none text-truncate" href="detail.html">${p.name}</a>
@@ -95,23 +89,22 @@ function detail(id) {
         }
     })
 
-}
 
-function showCategory(Page) {
-    $.ajax({
-        type: "GET",
-        Accept: 'application/json',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-        url: "http://localhost:8080/user/category?page=" + Page,
-        success: function (data) {
-            getData(data)
-        },
-        error: function () {
-        }
-    })
-
+    function showCategory(Page) {
+        $.ajax({
+            type: "GET",
+            Accept: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            url: "http://localhost:8080/user/category?page=" + Page,
+            success: function (data) {
+                getData(data)
+            },
+            error: function () {
+            }
+        })
+    }
 
     function getData(data) {
         let str = "";
@@ -139,62 +132,81 @@ function showCategory(Page) {
         $("#category").html(str);
     }
 
-}
 
-showCategory(0);
+    showCategory(0);
 
-function categoryAtNavbar() {
-    $.ajax({
-        type: "GET",
-        Accept: 'application/json',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-        url: "http://localhost:8080/user/categories",
-        success: function (data) {
-            getData(data)
-        },
-        error: function () {
+    function categoryAtNavbar() {
+        $.ajax({
+            type: "GET",
+            Accept: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            url: "http://localhost:8080/user/categories",
+            success: function (data) {
+                getData(data)
+            },
+            error: function () {
+            }
+        })
+
+        function getData(data) {
+            let str = "";
+            for (const c of data) {
+                str += `<a class="nav-item nav-link" onclick="selectorCategory(${c.id})">${c.name}</a>`
+            }
+            $("#dropdown_category").html(str);
         }
-    })
+    }
 
+    categoryAtNavbar();
 
-    function getData(data) {
-        let str = "";
-        for (const c of data) {
-            str += `<a class="nav-item nav-link" onclick="selectorCategory(${c.id})">${c.name}</a>`
+    function selectorCategory(id) {
+        localStorage.setItem("category", id);
+        location.href = "/fontend/fontend/user/category.html"
+    }
+
+    function addProductToCart(idProduct) {
+        let cart = localStorage.getItem("cart");
+        let array = JSON.parse(cart);
+        if (array === null) {
+            array = [];
+            localStorage.setItem("cart", JSON.stringify(array))
         }
-        $("#dropdown_category").html(str);
+        $.ajax({
+            type: "GET",
+            Accept: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            url: "http://localhost:8080/user/detail?idProduct=" + idProduct,
+            success: function (data) {
+                array.push(data);
+                localStorage.setItem("cart", JSON.stringify(array));
+            },
+            error: function () {
+            }
+        })
+
+    }
+
+    function detail(id) {
+        $.ajax({
+            type: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            url: "http://localhost:8080/user/findProductById/" + id,
+            success: function (data) {
+                localStorage.setItem("product_detail", JSON.stringify(data))
+                location.href = "/fontend/fontend/user/detail.html"
+            },
+            error: function (err) {
+                console.log(err);
+                alert("Error")
+            }
+        })
     }
 }
-
-categoryAtNavbar();
-
-function selectorCategory(id) {
-    localStorage.setItem("category", id);
-    location.href = "/fontend/fontend/user/category.html"
-}
-
-function addProductToCart(idProduct) {
-    let cart = localStorage.getItem("cart");
-    let array = JSON.parse(cart);
-    if (array === null) {
-        array = [];
-        localStorage.setItem("cart", JSON.stringify(array))
-    }
-    $.ajax({
-        type: "GET",
-        Accept: 'application/json',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-        url: "http://localhost:8080/user/detail?idProduct=" + idProduct,
-        success: function (data) {
-            array.push(data);
-            localStorage.setItem("cart", JSON.stringify(array));
-        },
-        error: function () {
-        }
-    })
-}
-

@@ -1,7 +1,11 @@
 package com.controller;
 
+import com.model.Invoice;
+import com.model.InvoiceDetail;
 import com.model.Product;
 import com.model.ProductDetail;
+import com.service.IInvoiceDetailService;
+import com.service.IInvoiceService;
 import com.service.IProductDetailService;
 import com.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,10 @@ public class ShopController {
     IProductService iProductService;
     @Autowired
     IProductDetailService iProductDetailService;
+    @Autowired
+    IInvoiceService iInvoiceService;
+    @Autowired
+    IInvoiceDetailService iInvoiceDetailService;
 
     @GetMapping
     public ResponseEntity<Page<Product>> getAllPage(@RequestParam(defaultValue = "0") int page, @RequestParam Long id) {
@@ -59,5 +67,15 @@ public class ShopController {
     @GetMapping("/getListProductDetail/{id}")
     public List<ProductDetail> getListProductDetail(@PathVariable Long id) {
         return iProductDetailService.getListProductDetailByIdProduct(id);
+    }
+
+    @PostMapping("/saveInvoice")
+    public Invoice saveInvoice(@RequestBody Invoice invoice){
+        return iInvoiceService.save(invoice);
+    }
+
+    @PostMapping("/saveInvoiceDetail")
+    public void saveInvoiceDetail(@RequestBody List<InvoiceDetail> invoiceDetails){
+        iInvoiceDetailService.save(invoiceDetails);
     }
 }

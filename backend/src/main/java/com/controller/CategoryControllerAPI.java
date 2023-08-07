@@ -18,7 +18,6 @@ import java.util.List;
 public class CategoryControllerAPI {
     @Autowired
     ICategoryService iCategoryService;
-
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategory(){
         List<Category> categoryList= iCategoryService.getAll();

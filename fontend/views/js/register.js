@@ -1,36 +1,27 @@
 function register(username, password, fullName, avatar, phone, email, birthday, role) {
     if (role === 1) {
-        let account = {username, password, fullName, avatar, phone, email, birthday, status: {id: 1}};
+
+        let account = {username, password, fullName, avatar, phone, email, birthday,status: {id:1}};
         $.ajax({
             type: "Post",
             contentType: "application/json",
             url: "http://localhost:8080/register/client",
             data: JSON.stringify(account),
             success: function () {
+                alert("done")
                 location.href = "signin.html"
             },
             error: function (err) {
+                console.log(err);
                 alert("Done2")
             }
         })
     } else if (role === 2) {
         {
-            let nameShop = $("#nameshop").val();
-            let address = $("#address").val();
-            let avatarShop = $("#avatarShop").val();
-            let account = {
-                username,
-                password,
-                fullName,
-                avatar,
-                phone,
-                email,
-                birthday,
-                nameShop,
-                address,
-                avatarShop,
-                status: {id: 3}
-            };
+            let nameShop=$("#nameshop").val();
+            let address=$("#address").val();
+            let avatarShop=$("#avatarShop").val();
+            let account = {username, password, fullName, avatar, phone, email, birthday,nameShop,address,avatarShop,status: {id:3}};
             $.ajax({
                 type: "Post",
                 contentType: "application/json",
