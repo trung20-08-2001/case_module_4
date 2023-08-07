@@ -133,9 +133,10 @@ function listChat(id) {
 }
 
 function showListChat(list) {
+    console.log(list);
     let listChat = ``;
     for (const c of list) {
-        listChat +=`<li>
+        listChat += `<li>
                                         <a onclick="showChat(${c.id},ids)">
                                             <div class="message_pre_left">
                                                 <div class="message_preview_thumb">
@@ -144,7 +145,7 @@ function showListChat(list) {
                                                 </div>
                                                 <div class="messges_info">
                                                     <h4>${c.fullName}</h4>
-                                                    <p id="lastMess"></p>
+                                                    <p id="lastMess+${c.id}"></p>
                                                 </div>
                                             </div>
                                             <div class="messge_time">
@@ -152,13 +153,13 @@ function showListChat(list) {
                                             </div>
                                         </a>
                                     </li>`
-        findMessage(c.id,ids)
+        findMessage(c.id, ids)
     }
     $("#listShopChat").html(listChat);
 
 }
 
-function findMessage(idReceiving,idSending){
+function findMessage(idReceiving, idSending) {
     $.ajax({
         type: "post",
         Accept: 'application/json',
@@ -166,7 +167,7 @@ function findMessage(idReceiving,idSending){
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/chat/getAllMessageReceivingSending/" + idReceiving +"/"+ idSending,
+        url: "http://localhost:8080/chat/getAllMessageReceivingSending/" + idReceiving + "/" + idSending,
         success: function (listChat) {
             showMessageReceiving(listChat)
         },
@@ -176,16 +177,21 @@ function findMessage(idReceiving,idSending){
     })
 }
 
-function showMessageReceiving(listChat){
+function showMessageReceiving(listChat) {
     console.log(listChat);
-    let chat=listChat[listChat.length-1];
+    let chat = listChat[listChat.length - 1];
+    console.log()
     console.log(chat.message);
-    $("#lastMess").html(chat.message);
+    $("#lastMess+chat.sendingAccountId.id").html(chat.message);
     $("#lastTime").html(chat.timeSend);
+
 }
 
-function showChat(idReceiving,idSending){
-    console.log(idReceiving,idSending);
+let idRece;
+
+function showChat(idReceiving, idSending) {
+    console.log(idReceiving, idSending);
+    idRece = idReceiving;
     $.ajax({
         type: "post",
         Accept: 'application/json',
@@ -193,7 +199,7 @@ function showChat(idReceiving,idSending){
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/chat/getAllMessageReceivingSending/" + idReceiving +"/"+ idSending,
+        url: "http://localhost:8080/chat/getAllMessageReceivingSending/" + idReceiving + "/" + idSending,
         success: function (listMess) {
             messageChat(listMess)
         },
@@ -203,80 +209,180 @@ function showChat(idReceiving,idSending){
     })
 }
 
+console.log(idRece);
+//    bắt đàu tets
+//     for (const m of listMess) {
+//         let messageReceived = "";
+//         let messageSent = "";
+//
+//         if (m.receivingAccountId.id === idReceiving) {
+//             messageReceived = `
+//                     <div class="message_content_view red_border">
+//                         <p id="${idReceiving}">
+//                             ${m.message}
+//                         </p>
+//                     </div>
+//                     `;
+//
+//             messageSent = `
+//                     <div class="message_content_view">
+//                         <p id="${idSending}">
+//                             ${m.message}
+//                         </p>
+//                     </div>
+//                     `;
+//         } else {
+//             messageReceived = `
+//                     <div class="message_content_view">
+//                         <p id="${idReceiving}">
+//                             ${m.message}
+//                         </p>
+//                     </div>
+//                     `;
+//
+//             messageSent = `
+//                     <div class="message_content_view red_border">
+//                         <p id="${idSending}">
+//                             ${m.message}
+//                         </p>
+//                     </div>
+//                     `;
+//         }
+//
+//         mes += `
+//                     <div class="single_message_chat">
+//                         <div class="message_pre_left">
+//                             <div class="message_preview_thumb">
+//                                 <img src="${m.receivingAccountId.avatar}" alt="">
+//                             </div>
+//                             <div class="messges_info">
+//                                 <h4>${m.receivingAccountId.fullName}</h4>
+//                                 <p>Yesterday at 6.33 pm</p>
+//                             </div>
+//                         </div>
+//                         ${messageReceived}
+//                     </div>
+//
+//                     <div class="single_message_chat sender_message">
+//                         <div class="message_pre_left">
+//                             <div class="messges_info">
+//                                 <h4>${m.sendingAccountId.fullName}</h4>
+//                                 <p>${m.timeSend}</p>
+//                             </div>
+//                             <div class="message_preview_thumb">
+//                                 <img src="${m.sendingAccountId.avatar}" alt="${m.sendingAccountId.fullName}">
+//                             </div>
+//                         </div>
+//                         ${messageSent}
+//                     </div>
+//                     `;
+//     }
+//
+//     mes += `
+//                     <!-- Trường nhập tin nhắn -->
+//                     <div class="message_send_field">
+//                         <input type="text" id="messageInput" placeholder="Write your message" value="">
+//                         <button onclick="saveMessage(${idReceiving},${idSending})" class="btn_1" id="sendMessageBtn">Send</button>
+//                     </div>
+//                     `;
+//
+//     $("#messageChat").html(mes);
+
+// kêt thúc test
 function messageChat(listMess) {
-    let idReceiving = listMess[listMess.length-1].sendingAccountId.id;
-    let mes=``;
+    let idSending = listMess[listMess.length - 1].sendingAccountId.id;
+    let idReceiving = listMess[listMess.length - 1].receivingAccountId.id
+    console.log(idSending,idReceiving)
+    let mes = ``;
+
+
+
+
     for (const m of listMess) {
-         mes += `
-                    <!-- Hiển thị các tin nhắn đã có -->
-                  
-                            <!-- Thông tin người gửi -->
-                            <div class="message_pre_left">
-                                <div class="message_preview_thumb">
-                                    <img src="${m.receivingAccountId.avatar}" alt="" style="height: 25px; width: 25px">
+        // let messageReceived = "";
+        // let messageSent = "";
+        //
+        // if (m.receivingAccountId.id == idReceiving){
+        //     messageReceived = `${m.message}`;
+        // }else if (m.sendingAccountId.id == idSending) {
+        //     messageSent = `${m.message}`;
+        // }else {
+        //
+        // }
+
+        mes += `
+                     <div class="single_message_chat">
+                                    <div class="message_pre_left">
+                                        <div class="message_preview_thumb">
+                                            <img src="${m.receivingAccountId.avatar}" alt="${m.receivingAccountId.fullName}">
+                                        </div>
+                                        <div class="messges_info">
+                                            <h4>${m.receivingAccountId.fullName}</h4>
+                                            <p>${m.timeSend}</p>
+                                        </div>
+                                    </div>
+                                    <div class="message_content_view red_border">
+                                        <p id="${idReceiving}" style="font-weight: bold; font-size:17px ">
+                                            ${m.message}
+<!--nội dung tin nhắn bên trái-->
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="messges_info">
-                                    <h4>${m.receivingAccountId.fullName}</h4>
-                                    <p>Yesterday at 6.33 pm</p>
+
+
+                                <div class="single_message_chat sender_message">
+                                    <div class="message_pre_left">
+                                        <div class="messges_info">
+                                            <h4>${m.sendingAccountId.fullName}</h4>
+                                            <p>${m.timeSend}</p>
+                                        </div>
+                                        <div class="message_preview_thumb">
+                                            <img src="${m.sendingAccountId.avatar}" alt="${m.sendingAccountId.fullName}>
+                                        </div>
+                                    </div>
+                                    <div class="message_content_view">
+                                        <p id="${idSending}" style="font-weight: bold; font-size:17px ">
+                                           ${m.message}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-<!--                             Nội dung tin nhắn -->
-                            <div class="message_content_view red_border">
-                                <p id="messageReceiving">
-                                    
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Tin nhắn 2 -->
-                        <div class="single_message_chat sender_message">
-                            <!-- Thông tin người gửi -->
-                            <div class="message_pre_left">
-                                <div class="messges_info">
-                                    <h4>${m.sendingAccountId.fullName}</h4>
-                                    <p>${m.timeSend}</p>
-                                </div>
-                                <div class="message_preview_thumb">
-                                    <img src="m.sendingAccountId.avatar" alt="${m.sendingAccountId.fullName}">
-                                </div>
-                            </div>
-                            <!-- Nội dung tin nhắn -->
-                            <div class="message_content_view">
-                                <p>
-                                    ${m.message}
-                                </p>
-                            </div>`
+                                 </div>`
 
     }
-    mes +=` <!-- Trường nhập tin nhắn -->
+    mes += ` <!-- Trường nhập tin nhắn -->
                     <div class="message_send_field">
                         <input type="text" id="messageInput" placeholder="Write your message" value="">
-                        <button onclick="saveMessage(${idReceiving},ids)" class="btn_1" id="sendMessageBtn">Send</button>
+                        <button onclick="saveMessage(${idReceiving},${idSending})" class="btn_1" id="sendMessageBtn">Send</button>
                     </div>`;
     $("#messageChat").html(mes);
+
 }
 
+    function checkmes(listMess) {
 
+    }
 
-function saveMessage(idReceiving,idSending){
-    console.log(idReceiving,idSending);
+function saveMessage(idReceiving, idSending) {
+    console.log(idReceiving, idSending);
     let mess = $("#messageInput").val();
     let receivingAccountId = idReceiving;
     let sendingAccountId = idSending;
-    console.log("hee" +receivingAccountId);
-    let message={
+    console.log("hee" + receivingAccountId);
+    let message = {
         message: mess,
-        sendingAccountId:{
-            id: sendingAccountId
-        },
-        receivingAccountId:{
+        receivingAccountId: {
             id: receivingAccountId
+        },
+        sendingAccountId: {
+            id: sendingAccountId
         }
+
     }
     console.log(message);
     $.ajax({
         type: "post",
-        Accept: 'application/json',
-        Content: 'application/json',
+        dataType: "json",
+        contentType: "application/json",
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         },
@@ -291,7 +397,8 @@ function saveMessage(idReceiving,idSending){
     })
 
 }
-function getAllMessageReceiving(idReceiving,idSending) {
+
+function getAllMessageReceiving(idReceiving, idSending) {
     $.ajax({
         type: "post",
         Accept: 'application/json',
@@ -299,7 +406,7 @@ function getAllMessageReceiving(idReceiving,idSending) {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/chat/getAllMessage/" + idReceiving +"/"+ idSending,
+        url: "http://localhost:8080/chat/getAllMessage/" + idReceiving + "/" + idSending,
         success: function (listMess) {
             messageReceiving(listMess)
         },
@@ -308,6 +415,7 @@ function getAllMessageReceiving(idReceiving,idSending) {
         }
     })
 }
-function messageReceiving(listMess){
+
+function messageReceiving(listMess) {
 
 }
