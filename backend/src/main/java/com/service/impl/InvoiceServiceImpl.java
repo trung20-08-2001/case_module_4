@@ -26,7 +26,7 @@ public class InvoiceServiceImpl implements IInvoiceService {
 
     @Override
     public Page<Invoice> getAllInvoicesForShop(Long id, Pageable pageable) {
-        return iInvoiceRepository.getInvoiceByAccount_Id(id, pageable);
+        return iInvoiceRepository.getAllInvoicesForShop(id, pageable);
     }
 
     @Override

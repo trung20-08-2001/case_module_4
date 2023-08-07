@@ -51,7 +51,6 @@ public class ShopController {
         return new ResponseEntity<>(invoices, HttpStatus.OK);
     }
 
-
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Product product) {
         iProductService.save(product);

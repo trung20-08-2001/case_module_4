@@ -10,5 +10,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface IInvoiceRepository extends JpaRepository<Invoice,Long> {
 
-    Page<Invoice> getInvoiceByAccount_Id(Long id, Pageable pageable);
+    @Query("SELECT i FROM Invoice i " +
+            "JOIN i.account a " +
+            "JOIN InvoiceDetail ide on i.id=ide.invoice.id " +
+            "JOIN ide.product p " +
+            "WHERE p.account.id = :shopId")
+    Page<Invoice> getAllInvoicesForShop(@Param("shopId") Long shopId, Pageable pageable);
+
 }
