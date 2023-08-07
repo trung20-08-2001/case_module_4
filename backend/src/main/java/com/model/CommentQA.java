@@ -13,10 +13,8 @@ public class CommentQA {
     private Long id;
     private Date dateComment;
     private String comment;
-    @Column(columnDefinition = "int default 0")
-    private int parentId;
-    @Column(columnDefinition = "int default 0")
-    private int numberCommentAnswer;
+    @Column(columnDefinition = "bigint default 0")
+    private Long parentId;
     @ManyToOne
     private Product product;
     @ManyToOne

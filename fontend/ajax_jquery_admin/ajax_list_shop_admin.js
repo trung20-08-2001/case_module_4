@@ -5,13 +5,13 @@ getAllShopPending();
 //hiển thị tất cả các shop đang chạy
 function getAllShopActive(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/admin/findShopAccount",
+            url: "http://localhost:8080/admin/findShopAccount",
         success: function (shopList){
             console.log(shopList)
             showShop(shopList)
@@ -50,11 +50,11 @@ function showShop(shopList){
 // hiển thị các shop bị khóa
 function getAllShopBlock(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findShopBlock",
         success: function (shopBlock){
@@ -93,11 +93,11 @@ function showShopBlock(shopBlock){
 // hiển thị các shop chờ duyệt
 function getAllShopPending(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/shopPending",
         success: function (shopPending){
@@ -140,10 +140,11 @@ function blockShop(id){
     let ids = id;
     window.location.href="../viewsAdmin/admin_list.html";
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/block/" + ids,
         success: function (mess) {
@@ -163,10 +164,11 @@ function activeShop(id) {
     let ids = id;
     window.location.href="../viewsAdmin/admin_list.html";
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/activeShop/" + id,
         success: function (mess) {
@@ -178,3 +180,80 @@ function activeShop(id) {
     })
 }
 
+function shopActiveById(){
+    let shopId = $("#idShopActive").val();
+
+    $.ajax({
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/admin/findShopActive/" + shopId,
+        success: function (shopPending){
+            console.log(shopPending)
+            showShopActiveById(shopPending)
+
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+function showShopActiveById(s){
+   let str = `<tr>
+                   <td>${s.id}</td>
+                   <td><img src="${s.avatarShop}" alt="${s.nameShop}" style="width: 25px; height: 25px"></td>
+                   <td>${s.fullName}</td>
+                   <td>${s.nameShop}</td>
+                   <td>${s.phone}</td>
+                   <td>${s.address}</td>
+                   <td>${s.email}</td>
+                   <td>${s.status.name}</td>
+                   <td>               
+                       <button type="button" onclick="blockShop(${s.id})"  style="width: 50px">block</button>                  
+                     </td>
+                </tr>`
+
+    $("#showShop").html(str);
+}
+function shopBlockById(){
+    let shopId = $("#idShopBlock").val();
+
+    $.ajax({
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/admin/findShopBlock/" + shopId,
+        success: function (shopBlock){
+            console.log(shopBlock);
+            showShopBlockById(shopBlock);
+
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+
+function showShopBlockById(sp){
+   let str = `<tr>
+                   <td>${sp.id}</td>
+                   <td><img src="${sp.avatarShop}" alt="${sp.nameShop}" style="width: 25px; height: 25px"></td>
+                   <td>${sp.fullName}</td>
+                   <td>${sp.nameShop}</td>
+                   <td>${sp.phone}</td>
+                   <td>${sp.address}</td>
+                   <td>${sp.email}</td>
+                   <td>${sp.status.name}</td>
+                   <td>               
+                       <input type="button" onclick="activeShop(${sp.id})" class="action_btn mr_10" value="Active" style="width: 50px">                  
+                     </td>
+                </tr>`
+    $("#showShopBlock").html(str);
+
+}

@@ -1,6 +1,7 @@
 package com.model;
 import lombok.Data;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -12,6 +13,7 @@ public class Product {
     private double price;
     private int quantity;
     private String manufacture;
+    @Column(columnDefinition = "TEXT")
     private String description;
     @ManyToOne
     private Category category;
@@ -20,4 +22,5 @@ public class Product {
     @ManyToOne
     private Account account;
     private String img;
+
 }

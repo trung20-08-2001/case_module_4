@@ -110,7 +110,6 @@ function save() {
         });
     });
 }
-
 function create(data) {
     $.ajax({
         headers: {
@@ -129,36 +128,5 @@ function create(data) {
         }
     })
 }
-
-function setValueProduct() {
-    let productEdit = JSON.parse(localStorage.getItem("product"));
-    if (productEdit != null) {
-        $("#name").val(productEdit.name)
-        $("#price").val(productEdit.price)
-        $("#quantity").val(productEdit.quantity)
-        $("#manufacture").val(productEdit.manufacture)
-        $("#editor").val(productEdit.description)
-        $("#img_edit").html(`<img src="${productEdit.img}" width="100" height="100">`)
-    }
-    getFormData()
-}
-
-$(document).ready(function() {
-    $('#img').on('change', function() {
-        let file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                let image = new Image();
-                image.src = reader.result;
-                image.width=100;
-                image.height=100;
-                $('#img_edit').html(image);
-            };
-            reader.readAsDataURL(file);
-        }
-        changeImage=true;
-    });
-});
 
 

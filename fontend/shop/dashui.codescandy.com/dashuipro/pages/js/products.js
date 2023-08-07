@@ -1,24 +1,26 @@
 let account = JSON.parse(localStorage.getItem("account"))
 
-function findAll() {
-
+function findAll(page) {
     $.ajax({
         type: "GET",
         headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/shop?page=0&id=" + account.id,
+        url: "http://localhost:8080/shop?page="+page+"&id=" + account.id,
         success: function (data) {
+            console.log(data)
+            movePage(data)
             displayTable(data.content)
         },
         error: function (err) {
+            alert("err")
             console.log(err);
         }
     })
 }
 
-findAll();
+findAll(0);
 
 function displayTable(arr) {
     let str = ""
@@ -44,7 +46,7 @@ function displayTable(arr) {
                                                     <span class="badge badge-success-soft">${p.status.name}</span>
                                                 </td>
                                                <td>
-                                                    <a href="#!"
+                                                    <a onclick="detail(${p.id})"
                                                        class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
                                                        data-template="eyeOne">
                                                         <i data-feather="eye" class="fa fa-eye"></i>
@@ -94,14 +96,54 @@ function edit(id) {
         type: "GET",
         success: function (data) {
             localStorage.setItem("product", JSON.stringify(data))
+            findProductDetail(data.id)
             location.href= "product-edit.html";
-
         },
         error: function (err) {
+            alert(err)
             console.log(err)
         }
     })
 }
+
+function findProductDetail(id){
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: "http://localhost:8080/shop/getListProductDetail/" + id,
+        type: "GET",
+        success: function (data) {
+            localStorage.setItem("list_product_detail", JSON.stringify(data))
+        },
+        error: function (err) {
+            alert("err")
+            console.log(err)
+        }
+    })
+}
+
+function detail(id) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/findProductById/" + id,
+        success: function (data) {
+            localStorage.setItem("product_detail", JSON.stringify(data))
+            location.href="/fontend/fontend/user/detail.html"        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
 
 function changeStatus(id){
     $.ajax({
@@ -112,8 +154,7 @@ function changeStatus(id){
             'Content-Type': 'application/json'
         },
         url: "http://localhost:8080/shop/changeStatus/" + id,
-        success: function (data) {
-            console.log("complete")
+        success: function () {
             findAll();
         },
         error: function (err) {
@@ -121,3 +162,23 @@ function changeStatus(id){
         }
     })
 }
+
+function movePage(data){
+    let str="";
+    if(data.pageable.pageNumber===0){
+        str+=`
+        <button  class="btn btn-primary" onclick="findAll(${data.pageable.pageNumber+1})">Next</button>
+        `
+    }else if(data.pageable.pageNumber>0 && data.pageable.pageNumber<data.totalPages-1) {
+        str+=`
+        <button  class="btn btn-primary" onclick="findAll(${data.pageable.pageNumber-1})">Prev</button>
+        <button  class="btn btn-primary" onclick="findAll(${data.pageable.pageNumber+1})">Next</button>
+        `
+    }else if(data.pageable.pageNumber===data.totalPages-1){
+        str+=`
+        <button  class="btn btn-primary" onclick="findAll(${data.pageable.pageNumber-1})">Prev</button>
+        `
+    }
+    $("#page").html(str);
+}
+
