@@ -1,9 +1,6 @@
 package com.controller;
 
-import com.model.Category;
-import com.model.CommentQA;
-import com.model.Product;
-import com.model.ProductDetail;
+import com.model.*;
 import com.model.dto.CommentDTO;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -94,6 +90,21 @@ public class UserApi {
     public ResponseEntity<List<Product>> getProductByCategory(@RequestParam Long id) {
         List<Product> productList = iProductService.getAllProductByCategory(id);
         return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getFeedbackByProduct/{idProduct}")
+    public List<Feedback> getFeedbackByProduct(@PathVariable Long idProduct){
+        return iFeedbackService.getFeedBackBYIdProduct(idProduct);
+    }
+
+    @PostMapping("/saveFeedback")
+    public void saveFeedback(@RequestBody Feedback feedback){
+        iFeedbackService.save(feedback);
+    }
+
+    @GetMapping("/checkAccountFeedback/{idProduct}/{idAccount}")
+    public Feedback checkAccountFeedback(@PathVariable Long idProduct,@PathVariable Long idAccount ){
+        return iFeedbackService.checkAccountFeedback(idProduct,idAccount);
     }
 
 }

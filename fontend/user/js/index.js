@@ -28,16 +28,10 @@ function showProduct(arr) {
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" onclick="addProductToCart(${p.id})"><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" onclick="detail(${p.id})"><i class="fa fa-search"></i></a>
-                        </div>
+                        <img class="img-fluid" onclick="detail(${p.id})" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
                 </div>
                 <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href="detail.html">${p.name}</a>
+                    <a class="h6 text-decoration-none text-truncate" onclick="detail(${p.id})">${p.name}</a>
                     <div class="d-flex align-items-center justify-content-center mt-2">
                         <h5>${p.price}</h5><h6 class="text-muted ml-2"><del>${p.price}</del></h6>
                     </div>
@@ -72,25 +66,6 @@ function reviewStar(number) {
         }
     })
 }
-
-function detail(id) {
-    $.ajax({
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-        url: "http://localhost:8080/user/findProductById/" + id,
-        success: function (data) {
-            localStorage.setItem("product_detail",JSON.stringify(data))
-            location.href="detail.html"
-        },
-        error: function (err) {
-            console.log(err);
-            alert("Error")
-        }
-    })
 
 
 function showCategory(Page) {
@@ -138,38 +113,6 @@ function getData(data) {
 
 showCategory(0);
 
-function categoryAtNavbar() {
-    $.ajax({
-        type: "GET",
-        Accept: 'application/json',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("token")
-        },
-        url: "http://localhost:8080/categories",
-        success: function (data) {
-            getData(data)
-        },
-        error: function () {
-        }
-    })
-}
-
-    function getData(data) {
-        let str = "";
-        for (const c of data) {
-            str += `<a class="nav-item nav-link" onclick="selectorCategory(${c.id})">${c.name}</a>`
-        }
-        $("#dropdown_category").html(str);
-    }
-}
-
-categoryAtNavbar();
-
-function selectorCategory(id) {
-    localStorage.setItem("category", id);
-    location.href = "/fontend/fontend/user/category.html"
-}
-
 function addProductToCart(idProduct) {
     let arr = localStorage.getItem("cart");
     if (arr === null) {
@@ -190,6 +133,24 @@ function addProductToCart(idProduct) {
         error: function () {
         }
     })
-
 }
 
+function detail(id) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/findProductById/" + id,
+        success: function (data) {
+            localStorage.setItem("product_detail", JSON.stringify(data))
+            location.href = "/fontend/fontend/user/detail.html"
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}

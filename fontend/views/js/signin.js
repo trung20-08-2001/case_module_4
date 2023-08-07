@@ -1,3 +1,10 @@
+let orderDetails = localStorage.getItem("orderDetails");
+if (orderDetails === null) {
+    let orderDetails = [];
+    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+}
+
+
 function login() {
     let username = $("#username").val();
     let password = $("#password").val();

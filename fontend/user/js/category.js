@@ -21,15 +21,9 @@ function category() {
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" onclick="detail(${p.id})"><i class="fa fa-search"></i></a>
-                        </div>
                 </div>
                 <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href="detail.html">${p.name}</a>
+                    <a class="h6 text-decoration-none text-truncate" onclick="detail(${p.id})">${p.name}</a>
                     <div class="d-flex align-items-center justify-content-center mt-2">
                         <h5>${p.price}</h5><h6 class="text-muted ml-2"><del>${p.price}</del></h6>
                     </div>
@@ -39,7 +33,7 @@ function category() {
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
-                        <a onclick="reviewStar(${p.id})" id="pointReview+${p.id}">a</a>
+                        <a onclick="reviewStar(${p.id})" id="pointReview+${p.id}"></a>
                     </div>
                 </div>
             </div>
@@ -49,3 +43,23 @@ function category() {
   }
 }
 category()
+
+function detail(id) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/findProductById/" + id,
+        success: function (data) {
+            localStorage.setItem("product_detail", JSON.stringify(data))
+            location.href = "/fontend/fontend/user/detail.html"
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
