@@ -3,11 +3,11 @@ getAllShopActive();
 
 function getAllShopActive(){
     $.ajax({
-        type:"GET",
-        header:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findShopAccount",
         success: function (shopList){
@@ -31,10 +31,11 @@ function showShopSelect(shopActive){
 
 function getAllCategory(){
     $.ajax({
-        type: "GET",
+        type: "get",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/categories",
         success: function (categoryList) {
@@ -50,7 +51,7 @@ function showAllCategory(categories){
     for (const c of categories) {
         str +=`  <tr>
                    <td>${c.id}</td>
-                   <td>${c.image} </td>
+                   <td><img src="${c.image}" alt="${c.name}"></img> </td>
                    <td>${c.name}</td>
                  </tr>`
     }
@@ -59,10 +60,11 @@ function showAllCategory(categories){
 
 function showProductPending(id){
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/products/productPending/" +  id,
         success: function (productPendingByIdShop) {
@@ -86,26 +88,26 @@ function showProductPendingByShop(productPending){
                     <td>${p.id}</td>
                     <td>${p.category.name}</td>
                     <td>${p.name}</td>
-                    <td>${p.img}</td>
-                    <td>${p.account.nameShop}</td>
-                     <td>${p.price}</td>
+                    <td><img src="${p.img}" alt="${p.name}" ></img></td>
+                    <td>${p.price}</td>
                     <td>${p.quantity}</td>
                     <td>
                     <button type="button" onclick="refuseProduct(${p.id})"  class="status_btn" >Từ chối</button>
                     <button type="button" onclick="confirmProduct(${p.id})" class="status_btn" >xác nhận</button>
                     </td>
                </tr>`;
-        nameShop=`<h3>${p.account.nameShop}</h3>`;
+        nameShop=`<h3>Shop: ${p.account.nameShop}</h3>`;
     }
     $("#nameShop").html(nameShop);
     $("#productPendingByIdShop").html(str);
 }
 function refuseProduct(id){
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/products/refuseProduct/" +  id,
         success: function (mess) {
@@ -121,10 +123,11 @@ function refuseProduct(id){
 
 function confirmProduct(id){
     $.ajax({
-        type: "POST",
+        type: "post",
+        Accept: 'application/json',
+        Content: 'application/json',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/products/confirmProduct/" +  id,
         success: function (mess) {

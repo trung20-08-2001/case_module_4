@@ -15,7 +15,7 @@ function categoryAtNavbar() {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
-        url: "http://localhost:8080/categories",
+        url: "http://localhost:8080/user/categories",
         success: function (data) {
             getData(data)
         },

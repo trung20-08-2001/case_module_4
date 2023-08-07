@@ -106,5 +106,11 @@ public class UserApi {
     public Feedback checkAccountFeedback(@PathVariable Long idProduct,@PathVariable Long idAccount ){
         return iFeedbackService.checkAccountFeedback(idProduct,idAccount);
     }
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>> getAllCategory(){
+        List<Category> categoryList= iCategoryService.getAll();
+        return new ResponseEntity<>(categoryList, HttpStatus.OK);
+    }
+
 
 }

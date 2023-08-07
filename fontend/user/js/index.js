@@ -1,4 +1,3 @@
-
 let account = JSON.parse(localStorage.getItem("account"));
 
 function showAllProduct(page) {
@@ -68,6 +67,27 @@ function reviewStar(number) {
 }
 
 
+function detail(id) {
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/findProductById/" + id,
+        success: function (data) {
+            localStorage.setItem("product_detail", JSON.stringify(data))
+            location.href = "detail.html"
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+
+}
+
 function showCategory(Page) {
     $.ajax({
         type: "GET",
@@ -113,13 +133,45 @@ function getData(data) {
 
 showCategory(0);
 
-function addProductToCart(idProduct) {
-    let arr = localStorage.getItem("cart");
-    if (arr === null) {
-         arr = [];
-        localStorage.setItem("cart", arr)
+function categoryAtNavbar() {
+    $.ajax({
+        type: "GET",
+        Accept: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/categories",
+        success: function (data) {
+            getData(data)
+        },
+        error: function () {
+        }
+    })
+
+    function getData(data) {
+        let str = "";
+        for (const c of data) {
+            str += `<a class="nav-item nav-link" onclick="selectorCategory(${c.id})">${c.name}</a>`
+        }
+        $("#dropdown_category").html(str);
     }
-    alert(product.id);
+}
+
+categoryAtNavbar();
+
+function selectorCategory(id) {
+    localStorage.setItem("category", id);
+    location.href = "/fontend/fontend/user/category.html"
+}
+
+
+function addProductToCart(idProduct) {
+    let cart = localStorage.getItem("cart");
+    let array = JSON.parse(cart);
+    if (array === null) {
+        array = [];
+        localStorage.setItem("cart", JSON.stringify(array))
+    }
     $.ajax({
         type: "GET",
         Accept: 'application/json',
@@ -128,7 +180,8 @@ function addProductToCart(idProduct) {
         },
         url: "http://localhost:8080/user/detail?idProduct=" + idProduct,
         success: function (data) {
-            arr.push(data);
+            array.push(data);
+            localStorage.setItem("cart", JSON.stringify(array));
         },
         error: function () {
         }
