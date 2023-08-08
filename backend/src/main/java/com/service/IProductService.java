@@ -12,7 +12,9 @@ import java.util.List;
 public interface IProductService {
 
     List<Product> getAllProductPending(long id);
+
     void confirmProduct(long id);
+
     void refuseProduct(long id);
     Page<Product> getAllProduct(Pageable pageable);
     Product save(Product product);

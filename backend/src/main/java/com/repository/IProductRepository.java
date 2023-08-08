@@ -1,6 +1,7 @@
 package com.repository;
 
 import com.model.Category;
+import com.model.Invoice;
 import com.model.Product;
 import com.model.Status;
 import org.springframework.data.domain.Page;

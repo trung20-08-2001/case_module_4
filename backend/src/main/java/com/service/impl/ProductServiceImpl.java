@@ -51,12 +51,14 @@ public class ProductServiceImpl implements IProductService {
             iProductRepository.save(product);
         }
     }
+
     public void confirmProduct(long id) {
         Status status = iStatusRepository.findById(1).get();
         Product product = iProductRepository.findById(id).get();
         product.setStatus(status);
         iProductRepository.save(product);
     }
+
     @Override
     public Page<Product> getProductByShopAccount(Long id, Pageable pageable) {
         return iProductRepository.getProductByShopAccount(id, pageable);
