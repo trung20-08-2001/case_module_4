@@ -1,88 +1,108 @@
 let orderDetails = JSON.parse(localStorage.getItem("orderDetails"))
-let invoice = JSON.parse(localStorage.getItem("invoice"))
 if (orderDetails === null) {
     orderDetails = []
 }
-if (invoice === null) {
-    invoice = {total: 0}
-}
-let checkPay = true;
-displayCart()
-displayInvoice();
 
+let checkQuantityProduct = true;
 
-function displayCart() {
-    let str = ""
-    if (orderDetails.length > 0) {
-        for (let i = 0; i < orderDetails.length; i++) {
-            str += `
-        <tr>
-            <td class="text-left"><img src="${orderDetails[i].product.img}" alt="" style="width: 50px;"> ${orderDetails[i].product.name}</td>
-            <td class="align-middle">${orderDetails[i].product.price}</td>
+showCart()
+
+function showCart() {
+    let str = "";
+    let subtotal=0;
+    if(orderDetails.length>0) {
+        for (const o of orderDetails) {
+            str += `<tr>
+            <td class="text-left"><img src="${o.product.img}" alt="${o.product.img}" style="width: 50px;"> ${o.product.name}</td>
+            <td class="align-middle">${o.product.price}</td>
             <td class="align-middle">
-              <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus choose_quantity" >
-                                        <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center quantityProduct"  id="${'product' + i}" value="${orderDetails[i].quantity}">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus choose_quantity">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-              </div>
+                <div class="input-group quantity mx-auto" style="width: 100px;">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-primary btn-minus" onclick="minus(${o.product.id},${o.product.price})" >
+                            <i class="fa fa-minus" ></i>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="${o.quantity}" id="${o.product.id}">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-primary btn-plus" onclick="plus(${o.product.id},${o.product.price})">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                </div>
             </td>
-            <td class="align-middle" class="priceProduct">${orderDetails[i].quantity * orderDetails[i].product.price}</td>
-            <td class="align-middle"><button class="btn btn-sm btn-danger" onclick="deleteProduct(${i})"><i class="fa fa-times"></i></button></td>
-        </tr>
-        `
+            <td class="align-middle" id="${o.product.id}t" >${o.product.price}</td>
+            <td class="align-middle">
+                   <a onclick="buttonRemove(${orderDetails.indexOf(o.product)})"> <button class="btn btn-sm btn-danger" ><i class="fa fa-times"></i></button><a>
+            </td>
+        </tr>`
+            subtotal += o.product.price;
         }
-    } else {
+        let shipping = subtotal / 10;
+        let total = subtotal + shipping;
+        $("#total").html(total);
+        $("#subtotal").html(subtotal);
+        $("#shipping").html(shipping);
+    }else{
         str += `<h3 class="text-center">Chưa có sản phẩm nào trong giỏ hàng</h3>`
     }
     $("#cart").html(str);
 }
 
-function deleteProduct(index) {
-    let totalOrderOld = invoice.total;
-    let totalOrderNew = totalOrderOld - orderDetails[index].quantity * orderDetails[index].product.price
-    invoice.total = totalOrderNew;
-    orderDetails.splice(index, 1)
-    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
-    localStorage.setItem("invoice", JSON.stringify(invoice))
-    displayCart();
-    displayQuantityProductCart();
-    displayInvoice()
+function buttonRemove(id) {
+    orderDetails.splice(id, 1);
+    localStorage.setItem("orderDetails",JSON.stringify(orderDetails));
+    showCart()
 }
 
-function displayInvoice() {
-    let str = "";
-    console.log(orderDetails)
-    for (let i = 0; i < orderDetails.length; i++) {
-        str += `
-        <div class="border-bottom pb-2">
-                    <div class="d-flex justify-content-between mb-3">
-                        <h6>${orderDetails[i].product.name}</h6>
-                        <h6>${orderDetails[i].quantity * orderDetails[i].product.price}</h6>
-                    </div>
-        `
+function plus(id, price) {
+    let tag = document.getElementById(id);
+    let number = +document.getElementById(id).value;
+    tag.value = number + 1;
+    let total = (number + 1) * price;
+    document.getElementById(id + "t").innerHTML = total;
+    calculation(price);
+    let quantity=parseInt(tag.value)
+    editQuantityProduct(id,quantity)
+}
+
+function minus(id,price) {
+    let tag = document.getElementById(id);
+    let number = +document.getElementById(id).value;
+    if (number > 1) {
+        tag.value = number - 1;
+        let total = (number -1) * price;
+        document.getElementById(id + "t").innerHTML = total
     }
-    str += `
-     <div class="pt-2">
-        <div class="d-flex justify-content-between mt-2">
-            <h5>Total</h5>
-            <h5>${invoice.total}</h5>
-        </div>
-        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="checkAccount()">Proceed To Checkout</button>
-     </div>
-    `
-    $("#invoice").html(str);
+    calculation(-price)
+    let quantity=parseInt(tag.value)
+    editQuantityProduct(id,quantity)
 }
 
 
-function checkProduct() {
+function editQuantityProduct(idProduct,quantity){
+    for(let i=0;i<orderDetails.length;i++){
+        if(orderDetails[i].product.id===idProduct){
+            orderDetails[i].quantity=quantity;
+            break;
+        }
+    }
+    localStorage.setItem("orderDetails",JSON.stringify(orderDetails))
+}
+function calculation(magicNumber) {
+    let subtotal=+document.getElementById("subtotal").textContent;
+    let total=+document.getElementById("total").textContent;
+    let shipping=+document.getElementById("shipping").textContent;
+    subtotal+=magicNumber;
+    shipping+=(magicNumber)/10;
+    total+=magicNumber+(magicNumber)/10;
+    if(subtotal>0) {
+        $("#total").html(total);
+        $("#subtotal").html(subtotal);
+        $("#shipping").html(shipping);
+    }
+}
+
+function checkPay() {
     for (let i = 0; i < orderDetails.length; i++) {
         if (parseInt(orderDetails[i].quantity) > orderDetails[i].product.quantity) {
             let str = `
@@ -90,19 +110,17 @@ function checkProduct() {
             <p> không có đủ số lượng để đặt hàng</p>            `
             $("#notification").modal("show")
             $("#content_notification").html(str)
-            checkPay = false;
+            checkQuantityProduct = false;
             break;
+        }else {
+            checkQuantityProduct=true;
         }
     }
-}
-
-function checkAccount() {
-    checkProduct();
-    if (checkPay === true) {
+    if (checkQuantityProduct === true) {
         let account = JSON.parse(localStorage.getItem("account"));
         if (account === null) {
             let str = `
-            <h4 >Bạn chưa đăng nhập</h4>
+            <h4>Bạn chưa đăng nhập</h4>
             <a  class="btn btn-primary" href="/fontend/fontend/views/signin.html">Đăng nhập</a>
             `
             $("#notification").modal("show")
@@ -115,11 +133,9 @@ function checkAccount() {
             `
             $("#notification").modal("show")
             $("#content_notification").html(str)
-
         }
     }
 }
-
 
 function pay() {
     let address = $("#address").val();
@@ -136,15 +152,15 @@ function pay() {
     }
 }
 
-
 function saveInvoice() {
     let receivingAddress = $("#address").val();
+    let total=$("#total").text()
     let newInvoice = {
         dateCreate: new Date,
         account: {
             id: JSON.parse(localStorage.getItem("account")).id
         },
-        total: invoice.total,
+        total:total,
         receivingAddress: receivingAddress,
         status: {
             id: 3
@@ -186,113 +202,14 @@ function saveInvoiceDetail(data) {
             $("#content_notification").html("Đơn hàng của đang chờ xác nhận")
             $("#notification").modal("show")
             localStorage.removeItem("orderDetails")
-            localStorage.removeItem("invoice")
-            displayCart()
-            displayInvoice()
+            orderDetails = []
+            showCart();
         },
         error: function (err) {
             console.log(err);
             alert("Error")
         }
     })
-
 }
 
-
-$('.choose_quantity').on('click', function () {
-    let button = $(this);
-    let oldValue = button.parent().parent().find('input').val();
-    if (button.hasClass('btn-plus')) {
-        var newVal = parseFloat(oldValue) + 1;
-    } else {
-        if (oldValue > 0) {
-            var newVal = parseFloat(oldValue) - 1;
-        } else {
-            newVal = 0;
-        }
-    }
-    button.parent().parent().find('input').val(newVal);
-});
-
-function showcart() {
-    let cart = localStorage.getItem("cart");
-    let array = JSON.parse(cart);
-    let str = "";
-    let subtotal=0;
-    for (const p of array) {
-        str += `<tr>
-            <td class="align-middle"><img src="${p.img}" alt="${p.img}" style="width: 50px;"> ${p.name}</td>
-            <td class="align-middle">${p.price}</td>
-            <td class="align-middle">
-                <div class="input-group quantity mx-auto" style="width: 100px;">
-                    <div class="input-group-btn">
-                        <button class="btn btn-sm btn-primary btn-minus" onclick="minus(${p.id},${p.price})" >
-                            <i class="fa fa-minus" ></i>
-                        </button>
-                    </div>
-                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1" id="${p.id}">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-primary btn-plus" onclick="plus(${p.id},${p.price})">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                </div>
-            </td>
-            <td class="align-middle" id="${p.id}t" >${p.price}</td>
-            <td class="align-middle">
-                   <a onclick="buttonRemove(${array.indexOf(p)})"> <button class="btn btn-sm btn-danger" ><i class="fa fa-times"></i></button><a>
-            </td>
-        </tr>`
-        subtotal+=p.price;
-    }
-    let shipping=subtotal/10;
-    let total=subtotal+shipping;
-    $("#Cart").html(str);
-    $("#total").html(total);
-    $("#subtotal").html(subtotal);
-    $("#shipping").html(shipping);
-}
-
-showcart();
-
-function buttonRemove(id) {
-    let cart = localStorage.getItem("cart");
-    let array = JSON.parse(cart);
-    array.splice(id, 1);
-    localStorage.setItem("cart", JSON.stringify(array));
-    showcart();
-}
-
-function plus(id, price) {
-    let tag = document.getElementById(id);
-    let number = +document.getElementById(id).value;
-    tag.value = number + 1;
-    let total = (number + 1) * price;
-    document.getElementById(id + "t").innerHTML = total;
-    calculation(price);
-}
-
-function minus(id,price) {
-    let tag = document.getElementById(id);
-    let number = +document.getElementById(id).value;
-    if (number > 1) {
-        tag.value = number - 1;
-        let total = (number -1) * price;
-        document.getElementById(id + "t").innerHTML = total
-    }
-
-  calculation(-price)
-}
-
-function calculation(magicNumber) {
-    let subtotal=+document.getElementById("subtotal").textContent;
-    let total=+document.getElementById("total").textContent;
-    let shipping=+document.getElementById("shipping").textContent;
-    subtotal+=magicNumber;
-    shipping+=(magicNumber)/10;
-    total+=magicNumber+(magicNumber)/10;
-    $("#total").html(total);
-    $("#subtotal").html(subtotal);
-    $("#shipping").html(shipping);
-}
 

@@ -155,7 +155,7 @@ function changeStatus(id){
         },
         url: "http://localhost:8080/shop/changeStatus/" + id,
         success: function () {
-            findAll();
+            findAll(0);
         },
         error: function (err) {
             console.log(err)

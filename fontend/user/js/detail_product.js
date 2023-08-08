@@ -3,20 +3,15 @@ let account = JSON.parse(localStorage.getItem("account"));
 let isAnswer = false;
 let isEdit = false;
 let lengthTagName = 0;
-
-displayDetail();
-getFeedback(product_detail.id)
 let orderDetails = localStorage.getItem("orderDetails");
 if (orderDetails === null) {
     let orderDetails = [];
     localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
 }
 
-let invoice = localStorage.getItem("invoice");
-if (invoice === null) {
-    let invoice={dateCreate:new Date,total:0}
-    localStorage.setItem("invoice", JSON.stringify(invoice));
-}
+
+displayDetail();
+getFeedback(product_detail.id)
 function displayDetail() {
     let str = `
     <!-- Shop Detail Start -->
@@ -247,7 +242,7 @@ function displayDetail() {
                                         </div>
                                         <div class="form-group mb-0">
                                             <input type="button" value="Leave Your Review"
-                                                   class="btn btn-primary px-3" onclick="checkAccountFeedback()">
+                                                   class="btn btn-primary px-3" onclick="checkAccount()">
                                         </div>
                                     </div>
                                 </div>
@@ -602,7 +597,6 @@ function getFeedback(idProduct) {
     })
 }
 
-
 function displayFeedback(data) {
     let str = "";
     $("#countFeedback").text(`${'Reviews (' + data.length})`)
@@ -672,9 +666,11 @@ function checkAccountFeedback(){
         url: "http://localhost:8080/user/checkAccountFeedback/"+product_detail.id+"/"+account.id,
         success: function (data) {
             if(data===""){
-                alert("Bạn chưa mua sản phẩm này")
-            }else{
                 saveFeedback();
+                getInvoiceDetail();
+            }else{
+                alert("Bạn chưa mua sản phẩm này")
+
             }
         },
         error: function (err) {
@@ -684,11 +680,81 @@ function checkAccountFeedback(){
     })
 }
 
+function getInvoiceDetail(){
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/getInvoiceDetail/"+product_detail.id+"/"+account.id,
+        success: function (data) {
+            let invoiceDetail
+            for(let i=0;i<data.length;i++){
+                if(data[i].product.id===product_detail.id){
+                    data[i].hasFeedback=true;
+                    invoiceDetail=data[i];
+                    break;
+                }
+            }
+            updateStatusFeedback(invoiceDetail)
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
+function updateStatusFeedback(data) {
+    console.log(data)
+    $.ajax({
+        type: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/updateStatusFeedback",
+        data: JSON.stringify(data),
+        success: function () {
+
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
+function checkAccount(){
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        url: "http://localhost:8080/user/checkAccount/"+product_detail.id+"/"+account.id,
+        success: function (data) {
+            if(data===""){
+                alert("Bạn chưa mua sản phẩm này")
+            }else{
+                checkAccountFeedback()
+            }
+        },
+        error: function (err) {
+            console.log(err);
+            alert("Error")
+        }
+    })
+}
+
+
 function addToCart() {
     let check=false;
     let orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
-    let invoice=JSON.parse(localStorage.getItem("invoice"))
-    let total=invoice.total;
     let quantity = $("#quantityProductOrder").val();
     let orderDetail = {quantity, product: product_detail}
     for(let i=0;i<orderDetails.length;i++){
@@ -704,9 +770,6 @@ function addToCart() {
     if(check===false) {
         orderDetails.push(orderDetail);
     }
-    total+=product_detail.price*quantity;
-    invoice={dateCreate:new Date,total};
     localStorage.setItem("orderDetails",JSON.stringify(orderDetails));
-    localStorage.setItem("invoice",JSON.stringify(invoice));
     location.href = "/fontend/fontend/user/cart.html"
 }

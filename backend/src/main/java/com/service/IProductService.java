@@ -23,4 +23,7 @@ public interface IProductService {
     void updateStatusProduct(Long id);
 
     List<Product> getAllProductByCategory(Long id);
+
+    List<Product> findByName(String name);
+    Page<Product> getAllProductActive(Pageable pageable);
 }

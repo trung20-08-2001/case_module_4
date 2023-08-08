@@ -22,8 +22,6 @@ function categoryAtNavbar() {
         error: function () {
         }
     })
-
-
     function getData(data) {
         let str = "";
         for (const c of data) {

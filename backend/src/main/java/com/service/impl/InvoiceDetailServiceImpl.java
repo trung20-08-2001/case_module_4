@@ -20,4 +20,14 @@ public class InvoiceDetailServiceImpl implements IInvoiceDetailService {
     public void save(List<InvoiceDetail> invoiceDetails) {
         iInvoiceDetailRepository.saveAll(invoiceDetails);
     }
+
+    @Override
+    public List<InvoiceDetail> findByIdProductAndIdAccount(Long idProduct, Long idAccount) {
+        return iInvoiceDetailRepository.getInvoiceDetailByIdProductAndIdAccount(idProduct,idAccount);
+    }
+
+    @Override
+    public void update(InvoiceDetail invoiceDetail) {
+        iInvoiceDetailRepository.save(invoiceDetail);
+    }
 }
