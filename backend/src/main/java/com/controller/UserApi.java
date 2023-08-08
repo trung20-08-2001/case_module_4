@@ -27,6 +27,8 @@ public class UserApi {
     IProductDetailService productDetailService;
     @Autowired
     ICategoryService iCategoryService;
+    @Autowired
+    IInvoiceDetailService iInvoiceDetailService;
 
     @GetMapping("/show")
     public ResponseEntity<Page<Product>> showAllProduct(@RequestParam(defaultValue = "0") int page) {
@@ -113,6 +115,28 @@ public class UserApi {
         return iFeedbackService.checkAccountFeedback(idProduct,idAccount);
     }
 
+    @GetMapping("/checkAccount/{idProduct}/{idAccount}")
+    public Account checkAccount(@PathVariable Long idProduct,@PathVariable Long idAccount ){
+        return iFeedbackService.checkAccount(idProduct,idAccount);
+    }
 
+    @GetMapping("/findByName/{name}")
+    public List<Product> findByName(@PathVariable String name){
+        return iProductService.findByName(name);
+    }
 
+    @GetMapping("/getProductActive")
+    public Page<Product> getProductActive(){
+        return iProductService.getAllProductActive(PageRequest.of(0,10));
+    }
+
+    @GetMapping("/getInvoiceDetail/{idProduct}/{idAccount}")
+    public List<InvoiceDetail> getInvoiceDetailByIdProductAndIdAccount(@PathVariable Long idProduct,@PathVariable Long idAccount ){
+        return iInvoiceDetailService.findByIdProductAndIdAccount(idProduct,idAccount);
+    }
+
+    @PostMapping("/updateStatusFeedback")
+    public void updateStatusFeedback(@RequestBody InvoiceDetail invoiceDetail){
+        iInvoiceDetailService.update(invoiceDetail);
+    }
 }

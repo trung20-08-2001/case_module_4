@@ -20,8 +20,8 @@ public interface IProductRepository extends JpaRepository<Product,Long> {
     List<Product> getAllProductPending(@Param("id") long id);
 
 
-    @Query(value = "select p from Product p ")
-    Optional<Product> getAll();
+    @Query(value = "select p from Product p where p.status.id=1")
+    Page<Product> getAllProductActive(Pageable pageable);
 
     @Query(value = "select p from Product p ")
     Page<Product> getAllProduct(Pageable pageable);
@@ -30,5 +30,10 @@ public interface IProductRepository extends JpaRepository<Product,Long> {
     Page<Product> getProductByShopAccount(@Param("id") Long id, Pageable pageable);
 
     List<Product> getProductsByCategory(Category category);
+
+    @Query(value = "select p from Product p where  p.name like :name ")
+    List<Product> findByName(@Param("name") String name);
+
+
 }
 

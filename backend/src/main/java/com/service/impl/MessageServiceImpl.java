@@ -10,18 +10,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MessageService implements IMessageService {
+public class MessageServiceImpl implements IMessageService {
     @Autowired
     IMessageRepository iMessageRepository;
-
     @Override
     public List<Account> getAllAccountRendingMessage(long id) {
-        return null;
+        return iMessageRepository.getAllAccountRending(id);
     }
 
     @Override
     public void saveMessage(Message message) {
-
+        iMessageRepository.save(message);
     }
 
     @Override
@@ -36,16 +35,11 @@ public class MessageService implements IMessageService {
 
     @Override
     public List<Message> getAllMessage(long idReceiving, long idSending) {
-        return null;
+        return iMessageRepository.getAllMessage(idReceiving,idSending);
     }
 
     @Override
     public List<Message> getAllMessageReceivingSending(long idReceiving, long idSending) {
-        return null;
-    }
-
-    @Override
-    public List<Message> getContentRoomChat(long idSend, long idReceive) {
-        return iMessageRepository.getContentRoomChat(idSend, idReceive);
+        return iMessageRepository.getAllMessageReceivingSending(idReceiving,idSending);
     }
 }

@@ -1,6 +1,7 @@
 package com.service.impl;
 
 
+import com.model.Account;
 import com.model.Feedback;
 import com.repository.IFeedbackRepository;
 import com.service.IFeedbackService;
@@ -35,6 +36,14 @@ public class FeedbackServiceImpl implements IFeedbackService {
         Optional<Feedback> feedbackOptional=iFeedbackRepository.checkAccountFeedback(idProduct,idAccount);
         if(feedbackOptional.isPresent())
             return feedbackOptional.get();
+        else return null;
+    }
+
+    @Override
+    public Account checkAccount(Long idProduct, Long idAccount) {
+        Optional<Account> optionalFeedback= iFeedbackRepository.checkAccountOrder(idProduct,idAccount);
+        if(optionalFeedback.isPresent())
+            return optionalFeedback.get();
         else return null;
     }
 }

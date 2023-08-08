@@ -4,4 +4,4 @@ function showInformation() {
     let cart = JSON.parse(localStorage.getItem("cart"));
     $("#odderInCart").html(cart.length);
 }
-showInformation();
+// showInformation();

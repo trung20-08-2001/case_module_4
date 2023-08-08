@@ -17,4 +17,12 @@ public interface IMessageRepository extends JpaRepository<Message,Long> {
 
 @Query(value = "SELECT m from Message m where m.sendingAccountId.id=:idS and m.receivingAccountId.id=:idR")
     List<Message> getContentRoomChat(@Param("idS") long idSender,@Param("idR")long idReceiver);
+    @Query(value = "SELECT DISTINCT a FROM Account a JOIN Message m ON a.id = m.receivingAccountId.id WHERE m.sendingAccountId.id = :id")
+    List<Account> getAllAccountRending(@Param("id") long id);
+
+    @Query(value = "SELECT m FROM Message m WHERE m.receivingAccountId.id= :idReceiving and m.sendingAccountId.id= :idSending")
+    List<Message> getAllMessage(@Param("idReceiving") long idReceiving, @Param("idSending") long idSending);
+
+    @Query(value = "SELECT m FROM Message m WHERE (m.receivingAccountId.id = :idReceiving AND m.sendingAccountId.id = :idSending) OR (m.receivingAccountId.id = :idSending AND m.sendingAccountId.id = :idReceiving)")
+    List<Message> getAllMessageReceivingSending(@Param("idReceiving") long idReceiving, @Param("idSending") long idSending);
 }

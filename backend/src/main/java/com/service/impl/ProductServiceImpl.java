@@ -68,6 +68,16 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public List<Product> findByName(String name) {
+        return iProductRepository.findByName("%"+name+"%");
+    }
+
+    @Override
+    public Page<Product> getAllProductActive(Pageable pageable) {
+        return iProductRepository.getAllProductActive(pageable);
+    }
+
+    @Override
     public Product save(Product product) {
         return iProductRepository.save(product);
     }

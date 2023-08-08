@@ -1,6 +1,5 @@
 function register(username, password, fullName, avatar, phone, email, birthday, role) {
     if (role === 1) {
-
         let account = {username, password, fullName, avatar, phone, email, birthday,status: {id:1}};
         $.ajax({
             type: "Post",

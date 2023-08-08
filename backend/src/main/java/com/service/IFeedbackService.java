@@ -1,5 +1,6 @@
 package com.service;
 
+import com.model.Account;
 import com.model.Feedback;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,4 +14,6 @@ public interface IFeedbackService {
     void save(Feedback feedback);
 
     Feedback checkAccountFeedback(Long idProduct,Long idAccount);
+
+    Account checkAccount(Long idProduct, Long idAccount);
 }

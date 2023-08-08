@@ -18,5 +18,4 @@ public class Feedback {
     private Product product;
     @ManyToOne
     private Account account;
-    private boolean responded;
 }

@@ -15,5 +15,7 @@ public class InvoiceDetail {
     private Product product;
     @ManyToOne
     private Invoice invoice;
+    @Column(columnDefinition = "boolean default false")
+    private boolean hasFeedback;
 
 }

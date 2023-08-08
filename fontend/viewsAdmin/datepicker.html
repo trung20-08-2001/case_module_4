@@ -161,7 +161,7 @@
         </div>
     </div>
 
-    <div class="main_content_iner ">
+    <div style="min-height:0vh" class="main_content_iner ">
         <div class="container-fluid p-0">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -169,111 +169,31 @@
                         <div class="white_card_header">
                             <div class="box_header m-0">
                                 <div class="main-title">
-                                    <h3 class="m-0 ">DatePicker</h3>
+                                    <h3 class="m-0 ">Voucher</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="white_card_body">
                             <div class="date-picker">
                                 <form class="theme-form">
+
                                     <div class="row mb-3">
-                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">Default</label>
-                                        <div class="col-xl-5 col-sm-9">
-                                            <div class="input-group common_date_picker">
-                                                <input class="datepicker-here  digits" type="text" data-language="en">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">Selecting
-                                            multiple dates</label>
+                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15"> Tên Voucher
+                                        </label>
                                         <div class="col-xl-5 col-sm-9 common_date_picker">
-                                            <input class="datepicker-here  digits " type="text" data-multiple-dates="3"
-                                                   data-multiple-dates-separator=", " data-language="en">
+                                            <input id="nameVoucher" placeholder="tên voucher">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">Month
-                                            selection</label>
+                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">
+                                            Giảm giá
+                                        </label>
                                         <div class="col-xl-5 col-sm-9 common_date_picker">
-                                            <input class="datepicker-here  digits" type="text" data-language="en"
-                                                   data-min-view="months" data-view="months" data-date-format="MM yyyy">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">Minimum
-                                            and maximum dates</label>
-                                        <div class="col-xl-5 col-sm-9 common_date_picker">
-                                            <input class=" digits" id="minMaxExample" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">Range
-                                            of dates</label>
-                                        <div class="col-xl-5 col-sm-9 common_date_picker">
-                                            <input class="datepicker-here  digits" type="text" data-range="true"
-                                                   data-multiple-dates-separator=" - " data-language="en">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">Disable
-                                            days of week</label>
-                                        <div class="col-xl-5 col-sm-9 common_date_picker">
-                                            <input class=" digits" id="disabled-days" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">Orientation</label>
-                                        <div class="col-xl-5 col-sm-9">
-                                            <div class="row">
-                                                <div class="col-md-12 mb-2 common_date_picker">
-                                                    <input class="datepicker-here  digits" type="text"
-                                                           data-language="en" data-multiple-dates-separator=", "
-                                                           data-position="top left" placeholder="top left">
-                                                </div>
-                                                <div class="col-md-12 mb-2 common_date_picker ">
-                                                    <input class="datepicker-here  digits" type="text"
-                                                           data-language="en" data-multiple-dates-separator=", "
-                                                           data-position="top right" placeholder="top right">
-                                                </div>
-                                                <div class="col-md-12 mb-2 common_date_picker ">
-                                                    <input class="datepicker-here  digits" type="text"
-                                                           data-language="en" data-multiple-dates-separator=", "
-                                                           data-position="bottom left" placeholder="bottom left">
-                                                </div>
-                                                <div class="col-md-12 common_date_picker ">
-                                                    <input class="datepicker-here   digits" type="text"
-                                                           data-language="en" data-multiple-dates-separator=", "
-                                                           data-position="bottom right" placeholder="bottom right">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-0">
-                                        <label class="form-label col-sm-3 col-form-label text-end f_w_500 f_s_15">Permanently
-                                            visible Datepicker</label>
-                                        <div class="col-sm-3">
-                                            <div class="datepicker-here" data-language="en"></div>
+                                            <input id="rate" placeholder="nhập giá giảm">
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="white_card card_height_100 mb_30">
-                        <div class="white_card_header">
-                            <div class="box_header m-0">
-                                <div class="main-title">
-                                    <h3 class="m-0 ">gijgo DatePicker</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="white_card_body typography">
-                            <div class="input_wrap common_date_picker mb_20">
-                                <label class="form-label" for="#">Start date</label>
-                                <input class="input_form" id="start_datepicker" placeholder="Pick a start date">
+                                <button style="margin-left: 945px" onclick="addVoucher()"  class="btn btn-primary">Thêm </button>
                             </div>
                         </div>
                     </div>
@@ -281,7 +201,29 @@
             </div>
         </div>
     </div>
+    <div class="QA_table mb_30">
 
+        <table class="table lms_table_active ">
+            <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">name voucher</th>
+                <th scope="col">rate</th>
+                <th>action</th>
+            </tr>
+            </thead>
+            <tbody id="showVoucher">
+            <tr>
+                <td>id</td>
+                <td>tên voucher</td>
+                <td>giá giảm</td>
+                <td><button type="button" class="btn btn-primary" >xóa</button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
     <div class="footer_part">
         <div class="container">
             <div class="row">
@@ -310,6 +252,8 @@
 <script src="../ajax_jquery_admin/layout.js"></script>
 
 <script src="../ajax_jquery_admin/ajax_chat.js"></script>
+<script src="../ajax_jquery_admin/ajax_voucher.js"></script>
+
 
 <script src="../css_html_admin/js/popper1.min.js"></script>
 
