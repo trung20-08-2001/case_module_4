@@ -16,8 +16,9 @@ function category() {
     })
   function showListProductCategory(arr) {
       let str = "";
-      for (const p of arr) {
-          str+=`  <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+      if(arr.length>0) {
+          for (const p of arr) {
+              str += `  <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid" style="width: 100%;height: 300px" src="${p.img}" alt="${p.name}">
@@ -38,7 +39,11 @@ function category() {
                 </div>
             </div>
         </div>`
+          }
+      }else{
+          str+=`<h1>Danh mục này tạm thời hết hàng</h1>`
       }
+
       $("#productByCategory").html(str);
   }
 }

@@ -88,7 +88,7 @@ function displayTable(arr) {
 function edit(id) {
     $.ajax({
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -97,7 +97,6 @@ function edit(id) {
         success: function (data) {
             localStorage.setItem("product", JSON.stringify(data))
             findProductDetail(data.id)
-            location.href= "product-edit.html";
         },
         error: function (err) {
             alert(err)
@@ -109,7 +108,7 @@ function edit(id) {
 function findProductDetail(id){
     $.ajax({
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
@@ -117,6 +116,7 @@ function findProductDetail(id){
         type: "GET",
         success: function (data) {
             localStorage.setItem("list_product_detail", JSON.stringify(data))
+            location.href= "product-edit.html";
         },
         error: function (err) {
             alert("err")
@@ -149,7 +149,7 @@ function changeStatus(id){
     $.ajax({
         type: "POST",
         headers: {
-            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Accept': 'text/plain',
             'Content-Type': 'application/json'
         },

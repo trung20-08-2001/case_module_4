@@ -175,16 +175,6 @@ function getFormData() {
     }
 }
 
-// function reset(){
-//     $("#name").val("")
-//     $("#price").val("")
-//     $("#quantity").val("")
-//     $("#manufacture").val("")
-//     $("#editor").val("")
-//     $("#category").val(1)
-//     $("#img_edit_main").text("")
-//     $("#img_edit_sub").text("")
-// }
 function saveProduct() {
     getFormData()
     if (validate === true) {
@@ -201,7 +191,6 @@ function saveProduct() {
                 saveProductDetail(data)
                 localStorage.removeItem("product");
                 localStorage.removeItem("list_product_detail")
-
             },
             error: function (err) {
                 alert("err")
@@ -237,8 +226,9 @@ function saveProductDetail(product) {
             if (isCreate === true) {
                 $("#content_notification").text("Sản phẩm của bạn đang chờ được duyệt")
             } else {
-                $("#content_notification").text("Thay đổi thông tin thành công, sản phẩm của bạn đang chờ được duyệt")
+                // $("#content_notification").text("Thay đổi thông tin thành công, sản phẩm của bạn đang chờ được duyệt")
                 isCreate = false;
+                location.href="products.html";
             }
 
         },
