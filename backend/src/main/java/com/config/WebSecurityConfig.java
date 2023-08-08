@@ -32,16 +32,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login", "/register","/user**").permitAll()
-//                .and().authorizeRequests().antMatchers("/admin","/admin/findShopAccount","admin/findUserAccount"
-//                        ,"/admin/findShopBlock","/admin/block/{id}","/admin/shopPending","/admin/activeShop/{id}"
-//                        ,"/products","/products/productPending/{id}","/products/confirmProduct/{id}","/products/refuseProduct/{id}"
-//                        ,"/categories","/categories/","/admin/revenues","/admin/revenues/revenueByMonthYear/{month}/{year}"
-//                        ,"/admin/revenues/revenueByYear/{year}","/admin/revenues/revenueMonthMax/{year}","/admin/accountByUser"
-//                        ,"/admin/shopActive","/admin/allUserBlock","/admin/findUserActive/{id}","/admin/findUserBlock/{id}"
-//                        ,"/admin/findShopActive/{id}","/admin/findShopBlock/{id}","/admin/getNewUser").hasRole("ADMIN")
-//                .and().authorizeRequests().antMatchers("/shop**").hasRole("SHOP")
-//                .anyRequest().authenticated()
+        http.authorizeRequests().antMatchers("/login", "/register","/user**","/chat","/chat/getAllAccountByRending/{id}","/chat/getAllMessage/{idReceiving}/{idSending}").permitAll()
+                .and().authorizeRequests().antMatchers("/admin","/admin/findShopAccount","admin/findUserAccount"
+                        ,"/admin/findShopBlock","/admin/block/{id}","/admin/shopPending","/admin/activeShop/{id}"
+                        ,"/products","/products/productPending/{id}","/products/confirmProduct/{id}","/products/refuseProduct/{id}"
+                        ,"/categories","/categories/","/categories/addCategory","/admin/revenues","/admin/revenues/revenueByMonthYear/{month}/{year}"
+                        ,"/admin/revenues/revenueByYear/{year}","/admin/revenues/revenueMonthMax/{year}","/admin/accountByUser"
+                        ,"/admin/shopActive","/admin/allUserBlock","/admin/findUserActive/{id}","/admin/findUserBlock/{id}"
+                        ,"/admin/findShopActive/{id}","/admin/findShopBlock/{id}","/admin/getNewUser","/vouchers","/vouchers/getAllVoucher"
+                        ,"/vouchers/addVoucher","/vouchers/deleteVoucher/{id}").hasRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/shop**").hasRole("SHOP")
+                .anyRequest().authenticated()
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling();

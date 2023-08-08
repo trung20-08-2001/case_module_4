@@ -148,12 +148,12 @@ function showUserActiveById(u){
 
 }
 function findUserBlockById(){
-    let userId = $("#idShopBlock").val();
+    let userId = $("#idUserBlock").val();
     $.ajax({
         type: "post",
-        Accept: 'application/json',
-        Content: 'application/json',
         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
             Authorization: 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/admin/findUserBlock/" + userId,

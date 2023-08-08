@@ -112,6 +112,11 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
+    public Account findAccountById(long id) {
+        return iAccountRepository.findAccountById(id);
+    }
+
+    @Override
     public void activeShop(long id) {
         Status status = iStatusRepository.findById(1).get();
         Account account = iAccountRepository.findById( id).get();

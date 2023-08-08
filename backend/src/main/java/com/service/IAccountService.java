@@ -24,4 +24,5 @@ public interface IAccountService extends UserDetailsService {
     Account findShopActiveById(long id);
     Account findShopBlockById(long id);
     List<Account> getNewUser();
+    Account findAccountById(long id);
 }

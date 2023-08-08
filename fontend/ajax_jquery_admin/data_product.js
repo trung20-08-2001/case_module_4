@@ -51,7 +51,7 @@ function showAllCategory(categories){
     for (const c of categories) {
         str +=`  <tr>
                    <td>${c.id}</td>
-                   <td><img src="${c.image}" alt="${c.name}"></img> </td>
+                   <td><img src="${c.image}" alt="${c.name}"style="height: 25px;width: 25px"></td>
                    <td>${c.name}</td>
                  </tr>`
     }
@@ -88,7 +88,7 @@ function showProductPendingByShop(productPending){
                     <td>${p.id}</td>
                     <td>${p.category.name}</td>
                     <td>${p.name}</td>
-                    <td><img src="${p.img}" alt="${p.name}" ></img></td>
+                    <td><img src="${p.img}" alt="${p.name}" style="width: 25px;height: 25px"></td>
                     <td>${p.price}</td>
                     <td>${p.quantity}</td>
                     <td>
@@ -139,4 +139,35 @@ function confirmProduct(id){
             console.log(err)
         }
     })
+}
+function addCategory(){
+    let name =$("#nameCategory").val();
+    let img =$("#imgCategory").val();
+    let category={
+        name: name,
+        image: img
+    }
+    $.ajax({
+        type: "post",
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        url: "http://localhost:8080/categories/addCategory",
+        data: JSON.stringify(category),
+        success: function (mes) {
+            alert("thêm thành công");
+          getAllCategory();
+        },
+        error: function (err) {
+            console.log(err)
+        }
+
+    })
+resetModal();
+}
+function resetModal(){
+    $("#nameCategory").val("");
+    $("#imgCategory").val("");
 }
