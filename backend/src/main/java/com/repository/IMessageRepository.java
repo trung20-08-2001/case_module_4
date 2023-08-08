@@ -14,4 +14,7 @@ public interface IMessageRepository extends JpaRepository<Message,Long> {
             "WHERE m.receivingAccountId.id = :id AND m.sendingAccountId.status.id = 1")
     List<Message> getAllMessagesReceivingAccount(@Param("id") long id);
 
+
+@Query(value = "SELECT m from Message m where m.sendingAccountId.id=:idS and m.receivingAccountId.id=:idR")
+    List<Message> getContentRoomChat(@Param("idS") long idSender,@Param("idR")long idReceiver);
 }
