@@ -18,11 +18,10 @@ function login() {
                 location.href = "/fontend/shop/dashui.codescandy.com/dashuipro/pages/products.html"
             } else if (data.role.name === "ROLE_ADMIN") {
                 location.href = "/fontend/fontend/viewsAdmin/index.html"
-            } else location.href = "/views/signin.html"
+            } else  $("#showError").html(" Tài khoản bị khóa ")
         },
         error: function (err) {
-            location.href = "register.html"
-            console.log(err);
+            $("#showError").html(" Nhập sai Id,PassWord ");
         }
 
     })
@@ -36,8 +35,8 @@ function regex() {
     if (usernameRegex.test(username) && passwordRegex.test(password)) {
         login(username,password)
     } else if (usernameRegex.test(username)) {
-        $("#regexPass").html(" Phải có 1 chữ và 1 số   độ dài 8 ký tự ");
+        $("#showError").html("Pass Phải có 1 chữ và 1 số   độ dài 8 ký tự ");
     } else {
-        $("#regexId").html(" Độ dài từ 3-16 ");
+        $("#showError").html("Id Độ dài từ 3-16 ");
     }
 }

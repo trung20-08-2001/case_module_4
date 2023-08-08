@@ -13,4 +13,6 @@ public interface IMessageService {
 
     List<Message> getAllMessage(long idReceiving ,long idSending);
     List<Message> getAllMessageReceivingSending(long idReceiving ,long idSending);
+    List<Message> getContentRoomChat(long idSend,long idReceive);
+
 }
